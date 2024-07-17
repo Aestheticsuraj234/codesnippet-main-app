@@ -1,0 +1,207 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  PREMIUM_USER
+  // Add more roles as needed
+}
+
+model User {
+  id                    String                 @id @default(cuid()) @map("_id")
+  name                  String?
+  email                 String                 @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  isAdmin               Boolean                @default(false)
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
+  subscribedTo          Subscription? // Optional: Reference to subscription details
+  contents              Content[]             
+  problemMarked         Problem[]              @relation("markedBy" )
+  problemSolved         Problem[]              @relation("solvedBy")
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid()) @map("_id")
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(cuid()) @map("_id")
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid()) @map("_id")
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(cuid()) @map("_id")
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id     String @id @default(cuid()) @map("_id")
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+model Subscription {
+  id        String    @id @default(cuid()) @map("_id")
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan      PLAN // Example: "BASIC", "PREMIUM", etc.
+  status    SubscriptionStatus @default(ACTIVE)
+  startDate DateTime  @default(now())
+  endDate   DateTime? // Optional: Subscription expiration date
+
+  @@unique([userId])
+}
+
+enum PLAN {
+  BASIC
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+// CONTENT MANAGEMENT SYSTEM MODELS START
+
+enum ContentType {
+  DSA
+  BLOGS
+  SYSTEM_DESIGN
+  CS_SUBJECT
+  WORKSHOPS
+  NOTES
+  EBOOKS
+}
+
+enum ContentStatus {
+  UNPUBLISHED
+  PUBLISHED
+  ARCHIVED
+}
+
+model Content {
+  id          String        @id @default(cuid()) @map("_id")
+  title       String
+  description String
+  image       String
+  type        ContentType
+  status      ContentStatus @default(UNPUBLISHED)
+  dsa         Dsa[]
+  author      User          @relation(fields: [authorId], references: [id] , onDelete: Cascade)
+  authorId    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Problem {
+  id              String          @id @default(cuid()) @map("_id")
+  dsaChapter      DsaChapter      @relation(fields: [dsaChapterId], references: [id] , onDelete: Cascade)
+  dsaChapterId    String
+  isSolved        Boolean?        @default(false)
+  solvedBy        User?           @relation(fields: [solvedById], references: [id], name: "solvedBy" , onDelete: SetNull)
+  solvedById      String?
+  markedForRevise Boolean         @default(false)
+  markedBy        User?           @relation(fields: [markedById], references: [id], name: "markedBy" , onDelete: SetNull)
+  markedById      String?
+  problemTitle    String
+  articleLink     String
+  youtubeLink     String
+  problemLink     String
+  difficultyLevel DifficultyLevel
+  status          ContentStatus?  @default(UNPUBLISHED)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Dsa {
+  id        String         @id @default(cuid()) @map("_id")
+  content   Content        @relation(fields: [contentId], references: [id] , onDelete: Cascade)
+  contentId String
+  dsaTitle  String
+  dsaSteps  DsaStep[]
+  status    ContentStatus? @default(UNPUBLISHED)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model DsaStep {
+  id          String         @id @default(cuid()) @map("_id")
+  dsa         Dsa            @relation(fields: [dsaId], references: [id])
+  dsaId       String
+  stepNumber  Int
+  stepTitle   String
+  dsaChapters DsaChapter[]
+  status      ContentStatus? @default(UNPUBLISHED)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model DsaChapter {
+  id                 String         @id @default(cuid()) @map("_id")
+  dsaStep            DsaStep        @relation(fields: [dsaStepId], references: [id] , onDelete: Cascade)
+  dsaStepId          String
+  chapterNumber      Int
+  chapterTitle       String
+  chapterDescription String
+  status             ContentStatus? @default(UNPUBLISHED)
+  problems           Problem[]
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+}
+
+enum DifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// CONTENT MANAGEMENT SYSTEM MODELS END
