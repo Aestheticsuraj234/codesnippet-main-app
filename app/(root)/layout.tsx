@@ -1,21 +1,21 @@
-import { Navbar } from "@/components/Global/Navbar";
-import { Footer } from "@/components/Global/Footer";
-import React from "react";
 import Script from "next/script";
+import { Navbar } from "./_components/navbar";
 
-const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+
+const HomePageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <Navbar />
-      {children}
+    <div className="h-full">
+      <div className="h-[80px]  fixed inset-y-0 w-full z-50">
+        <Navbar />
+      </div>
+     
+      <main className="md:pl-56 pt-[80px] h-full relative">{children}</main>
       <Script
         id="razorpay-checkout-js"
         src="https://checkout.razorpay.com/v1/checkout.js"
       />
-
-      <Footer />
-    </>
+    </div>
   );
 };
 
-export default HomeLayout;
+export default HomePageLayout;
