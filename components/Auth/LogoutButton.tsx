@@ -1,25 +1,26 @@
 "use client";
 
+import { signOut } from "next-auth/react";
+import React from "react";
+import { useRouter } from "next/navigation";
 
-
-import { logout } from '@/action/auth/logout';
-import React from 'react'
-
-interface LogoutButtonProps{
-    children?: React.ReactNode
+interface LogoutButtonProps {
+  children?: React.ReactNode;
 }
 
+const LogoutButton = ({ children }: LogoutButtonProps) => {
+  const router = useRouter();
 
-const LogoutButton = ({children}:LogoutButtonProps) => {
-
-    const onClick = ()=>{
-        logout()
-    }
-
+  const onClick = async () => {
+    await signOut({ callbackUrl: '/' }); // Redirect to homepage or a specific URL after sign out
+    router.refresh();
+  };
 
   return (
-    <span className='cursor-pointer' onClick={onClick}>{children}</span>
-  )
-}
+    <span className="cursor-pointer" onClick={onClick}>
+      {children}
+    </span>
+  );
+};
 
-export default LogoutButton
+export default LogoutButton;

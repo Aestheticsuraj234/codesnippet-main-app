@@ -2,55 +2,39 @@
 
 export const FrequentlyAskedQuestions = [
   {
-    question: "What do I get exactly?",
-    answer: `1/ The NextJS starter with all the boilerplate code you need to run an online business: a payment system, a database, login, a blog, UI components, and much more.
-    The repo is available in:
-    - Javascript and Typescript
-    - /app router and /pages router.
-    
-    2/ The documentation helps you set up your app from scratch, write copy that sells, and ship fast.
-    
-    3/ Access to our Discord with makers who build fast to stay accountable!`,
-  },
-  {
-    question: "Javascript or Typescript?",
-    answer: `For Now we have only Typescript version but we are working on Javascript version and it will be available soon.`,
-  },
-  {
-    question: "My Tech Stack is different, can I still use it?",
-    answer: `Yes, as long as you're comfortable with React & NextJS. The starter is built with flexibility in mind.
-    Libraries are independent. You can use SendGrid instead of Mailgun, LemonSqueezy instead of Stripe, or Postgres instead of MongoDB, for instance.`,
-  },
-  {
-    question: "/app router or /pages router?",
-    answer:
-      " You can use only app for now. We are working on /pages router and it will be available soon.",
-  },
-  {
-    question: "Is it a website template?",
-    answer: `No, it's a full-stack starter. It's a complete app that you can deploy and start using right away.
-    It's more than just a template. You can copy/paste sections to build your site quickly, like a pricing section, an FAQ, and even an entire blog. You also get a bunch of UI components like buttons, modals, popovers, etc.
+    question: "What do I get with Sigma-Coders?",
+    answer: `1/ Access to a comprehensive platform designed for freshers, working professionals, and students to learn and practice DSA, coding skills, and project management.
 
-    The NextJS starter also comes with handy tools you need to run an online business—payment processing, emails, SEO, etc.`,
+    2/ Resources including workshops, project source codes, and structured learning paths across various computer science topics.
+
+    3/ Support from an active community, mentorship opportunities, and access to experienced instructors.`,
   },
   {
-    question: "How is LaunchFast better than other boilerplates?",
-    answer: `1/ It's built for speed. You can deploy your app in minutes.
-    2/ It's built for makers. You can ship fast and iterate quickly.
-    3/ It's built for flexibility. You can customize it to your heart's content.
-    4/ It's built for learning. You can learn how to build a full-stack app from scratch.
-    5/ It's built for community. You can join our Discord and get help from other makers.`,
+    question: "Are the workshops live or recorded?",
+    answer: `Our workshops include both live sessions for real-time interaction and recorded sessions for flexible learning at your own pace.`,
   },
   {
-    question: "Can I use it for my client's project?",
-    answer: `Yes, you can. You can use it for personal projects, client projects, or even commercial projects.`,
+    question: "What is the focus of the platform?",
+    answer: `Sigma-Coders focuses on practical skills in software development, including Data Structures and Algorithms (DSA), system design, and project-based learning to ensure you gain hands-on experience.`,
   },
   {
-    question: "Can I get a refund?",
-    answer: `No, we don't offer refunds.`,
+    question: "Is there a subscription fee?",
+    answer: `Yes, Sigma-Coders operates on a subscription model. This fee grants you full access to all resources, workshops, and community support available on the platform.`,
   },
   {
-    question: "How do I get support?",
-    answer: `You can get support by joining our WhatsApp community.`,
+    question: "Can I access the content anytime?",
+    answer: `Yes! All content is available on-demand, allowing you to learn at your own pace and revisit materials whenever you need to.`,
+  },
+  {
+    question: "Is it For  team or organization's training?",
+    answer: `Yes! Sigma-Coders can be utilized for team training and development, providing valuable resources for organizations looking to enhance their team's technical skills.`,
+  },
+  {
+    question: "What if I have more questions?",
+    answer: `You can reach out for support through our dedicated community channels, including our Discord server and WhatsApp group, where you can connect with instructors and fellow learners.`,
+  },
+  {
+    question: "Is there a refund policy?",
+    answer: `Unfortunately, we do not offer refunds once the subscription has been processed. However, we encourage you to try our platform and reach out if you have any concerns.`,
   },
 ];
