@@ -6,15 +6,15 @@ import { FeatureDataPopular, FeatureData } from "@/constants/FeatureData";
 const Pricing = () => {
   return (
     <section id="pricing" className="flex px-2  bg-zinc-900  flex-col justify-center items-center gap-11 mt-10  rounded-md  pb-10 ">
-      <h4 className="items-center pt-10 justify-center uppercase flex text-center font-semibold text-md  text-[#03DC7A] ">
-        Pricing that makes LaunchFast affordable
+      <h4 className="items-center pt-10 justify-center uppercase flex text-center font-semibold text-md  text-yellow-500 ">
+        Pricing that makes 🌟Sigma-Coders🌟 affordable
       </h4>
 
       <h1 className="font-extrabold text-[#E5ECEA] text-2xl lg:text-5xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center lg:items-start">
         Save hours of repetitive code, ship fast, get profitable!
       </h1>
       <div className="text-white flex ">
-        <span className="text-yellow-500 flex flex-row justify-center gap-1 items-center px-2">
+        <span className="text-green-500 flex flex-row justify-center gap-1 items-center px-2">
           {" "}
           <Gift /> ₹1999 off
         </span>{" "}

@@ -16,9 +16,11 @@ export const NavbarRoutes = () => {
   const { status } = useSession();
   const pathname = usePathname();
 
+
+
   return (
     <div className="flex justify-between items-center w-full">
-      {pathname === "/dashboard" ? null : (
+      {pathname.includes("/dashboard") ? null : (
         <div className="flex justify-center items-center gap-3 hover:cursor-pointer">
           <Image
             src={"/logo-new.svg"}

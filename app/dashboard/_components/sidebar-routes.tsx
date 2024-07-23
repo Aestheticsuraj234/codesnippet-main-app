@@ -42,7 +42,7 @@ const Routes = [
   {
     icon:Sheet,
     label: "DSA",
-    href: "/dsa",
+    href: "/dashboard/dsa",
   },
   {
     icon:FigmaIcon,

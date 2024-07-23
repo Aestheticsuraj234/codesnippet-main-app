@@ -6,7 +6,7 @@ import { Footer } from "@/components/Global/Footer";
 const HomePageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full">
-      <div className="h-[64px]  fixed inset-y-0 w-full z-50">
+      <div className="h-[80px]  fixed inset-y-0 w-full z-50">
         <Navbar />
       </div>
      
