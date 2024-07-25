@@ -18,6 +18,13 @@ const badgeVariants = cva(
         brand:"bg-[#eed43c] text-[#1e201f]  border-[#eed43c]",
         ACTIVE: "bg-[#05ab37] text-white border-[#05ab37]",
         INACTIVE: "bg-red-500 text-white border-red-500",
+        PUBLISHED:"bg-[#03DC7A] text-[#fff]",
+        ARCHIVED:"bg-[#FF6347] text-[#fff]",
+        UNPUBLISHED:"bg-[#FF0000] text-[#fff]",
+        EASY:"bg-[#03DC7A] text-[#fff]",
+        MEDIUM:"bg-[#FFC000] text-[#fff]",
+        HARD:"bg-[#FF0000] text-[#fff]",
+
       },
     },
     defaultVariants: {

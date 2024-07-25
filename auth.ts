@@ -74,7 +74,7 @@ export const {
      * @returns {Promise<Object>} - Returns the session object.
      */
     async session({ token, session }: { token: any; session: any; }): Promise<any> {
-      console.log({ sessionToken: token });
+   
       
       if (token.sub && session.user) {
         session.user.id = token.sub;
@@ -105,7 +105,7 @@ export const {
      * @returns {Promise<Object>} - Returns the token object.
      */
     async jwt({ token }) {
-      console.log("JWT callback called");
+ 
 
       if (!token.sub) return token;
       const existingUser = await getUserById(token.sub);
