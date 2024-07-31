@@ -45,7 +45,7 @@ export const DsaStepCard = ({
         </Hint>
 
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-xl font-bold text-zinc-600 mb-3">
+          <CardTitle className="text-xl font-bold text-zinc-600 dark:text-zinc-400 mb-3">
             Step {stepNumber}
           </CardTitle>
         </CardHeader>

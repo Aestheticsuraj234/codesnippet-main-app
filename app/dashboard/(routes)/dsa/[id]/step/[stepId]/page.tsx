@@ -9,8 +9,17 @@ import React from "react";
 import { DsaProblemClient } from "./_components/client";
 import Link from "next/link";
 
-const StepPageId = async ({ params }: { params: { stepId: string; id: string } }) => {
+const StepPageId = async ({
+  params,
+}: {
+  params: { stepId: string; id: string };
+}) => {
   const user = await currentUser();
+
+  console.log({
+    StepId: params.stepId,
+    SheetId: params.id,
+  });
 
   if (!user) {
     return <div>User not found</div>;
@@ -42,11 +51,17 @@ const StepPageId = async ({ params }: { params: { stepId: string; id: string } }
               articleLink: true,
               youtubeLink: true,
               markedBy: {
+                where: {
+                  userId: user.id,
+                },
                 select: {
                   id: true,
                 },
               },
               solvedBy: {
+                where: {
+                  userId: user.id,
+                },
                 select: {
                   id: true,
                 },
@@ -62,36 +77,41 @@ const StepPageId = async ({ params }: { params: { stepId: string; id: string } }
     return <div>Sheet or Step Not Found</div>;
   }
 
-  const totalProblems = step.dsaChapters.flatMap(chapter => chapter.problems).length;
+  const totalProblems = await db.problem.count({
+    where: {
+      dsaChapter: {
+        dsaStepId: params.stepId,
+      },
+    },
+  });
 
-  const problemsSolvedByCurrentUser = step.dsaChapters
-    .flatMap(chapter => chapter.problems)
-    .filter(problem => problem.solvedBy && problem.solvedBy.id === user.id).length;
+  console.log("TotalProblems", totalProblems);
 
+  const problemsSolvedByCurrentUser = await db.problemSolved.count({
+    where: {
+      problem: {
+        dsaChapter: {
+          dsaStepId: params.stepId,
+        },
+      },
+      userId: user.id,
+    },
+  });
 
-  const progressPercentage = totalProblems > 0 ? (problemsSolvedByCurrentUser / totalProblems) * 100 : 0;
+  console.log("ProblemsSolvedByCurrentUser", problemsSolvedByCurrentUser);
 
-  const dsaStepProblemData = step.dsaChapters.flatMap(chapter =>
-    chapter.problems.map(problem => ({
-      id: problem.id,
-      problemTitle: problem.problemTitle,
-      difficultyLevel: problem.difficultyLevel,
-      problemLink: problem.problemLink,
-      articleLink: problem.articleLink,
-      youtubeLink: problem.youtubeLink,
-      markedForRevision:  problem.markedBy?.id === user.id,
-      isSolved: problem.solvedBy?.id === user.id,
-    }))
-  );
+  const progressPercentage =
+    totalProblems > 0 ? (problemsSolvedByCurrentUser / totalProblems) * 100 : 0;
+
+  console.log("ProgressPercentage", progressPercentage);
 
   return (
     <main className="px-10 flex flex-col items-start justify-start w-full h-screen overflow-auto py-10">
-
-<Link href={`/dashboard/dsa/${params.id}`} className="mb-5">
-<Button  variant={"outline"}  size={"icon"}>
-    <ArrowLeftIcon size={24} className="text-yellow-500" />
-</Button>
-</Link>
+      <Link href={`/dashboard/dsa/${params.id}`} className="mb-5">
+        <Button variant={"outline"} size={"icon"}>
+          <ArrowLeftIcon size={24} className="text-yellow-500" />
+        </Button>
+      </Link>
 
       <Header
         title={sheet?.dsaTitle}
@@ -140,15 +160,26 @@ const StepPageId = async ({ params }: { params: { stepId: string; id: string } }
           <h1 className="text-2xl font-extrabold text-zinc-700 leading-3 dark:text-zinc-300 ">
             {step.stepTitle}
           </h1>
-          {step.dsaChapters.map(chapter => {
-            const chapterProblems = chapter.problems;
+          {step.dsaChapters.map((chapter) => {
+            const chapterProblems = chapter.problems.map((problem) => ({
+              id: problem.id,
+              problemTitle: problem.problemTitle,
+              difficultyLevel: problem.difficultyLevel,
+              problemLink: problem.problemLink,
+              articleLink: problem.articleLink,
+              youtubeLink: problem.youtubeLink,
+              markedForRevision: problem.markedBy.length > 0,
+              isSolved: problem.solvedBy.length > 0,
+            }));
+            
             const totalProblemsInChapter = chapterProblems.length;
-            const problemsSolvedByUserInChapter = chapterProblems.filter(problem =>
-              problem.solvedBy?.id === user.id
+            const problemsSolvedByUserInChapter = chapterProblems.filter(
+              (problem) => problem.isSolved
             ).length;
-            const chapterProgress = totalProblemsInChapter > 0
-              ? (problemsSolvedByUserInChapter / totalProblemsInChapter) * 100
-              : 0;
+            const chapterProgress =
+              totalProblemsInChapter > 0
+                ? (problemsSolvedByUserInChapter / totalProblemsInChapter) * 100
+                : 0;
 
             return (
               <StepsAccordian
@@ -160,13 +191,7 @@ const StepPageId = async ({ params }: { params: { stepId: string; id: string } }
                 totalNumberOfProblem={totalProblemsInChapter}
                 totalNumberOfProblemSolvedByUser={problemsSolvedByUserInChapter}
               >
-                {chapter.problems.map(problem => (
-                  <div key={problem.id} className="flex-col">
-                    <div className="flex-1 space-y-4 p-2 pt-4">
-                      <DsaProblemClient data={dsaStepProblemData} />
-                    </div>
-                  </div>
-                ))}
+                <DsaProblemClient data={chapterProblems} />
               </StepsAccordian>
             );
           })}

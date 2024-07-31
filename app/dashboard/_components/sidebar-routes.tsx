@@ -47,7 +47,7 @@ const Routes = [
   {
     icon:FigmaIcon,
     label:"System Design",
-    href:"/system-design"
+    href:"/dashboard/system-design"
   },
   {
     icon:NotebookPen,

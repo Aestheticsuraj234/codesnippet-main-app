@@ -2,27 +2,16 @@
 
 import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  Edit3,
-  Trash2,
-  CalendarIcon,
-  Brain,
-  NotebookPen,
-  Youtube,
-  StarIcon,
-} from "lucide-react";
-import { ContentStatus, DifficultyLevel } from "@prisma/client";
+import { NotebookPen, Youtube } from "lucide-react";
 import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import ProblemCheckbox from "./problem-solving-checkbox";
+import { DifficultyLevel } from "@prisma/client";
 import { MarkedToggleButton } from "./markedToggle-btn";
+import ProblemCheckbox from "./problem-solving-checkbox";
 
 export interface ProblemColumn {
   id: string;
   problemTitle: string;
   difficultyLevel: DifficultyLevel;
-  problemLink?: string;
   articleLink?: string;
   youtubeLink?: string;
   markedForRevision: boolean;
@@ -30,21 +19,18 @@ export interface ProblemColumn {
 }
 
 export const columns: ColumnDef<ProblemColumn>[] = [
-  {
-    accessorKey: "isSolved",
-    header: ({ column }) => (
-      <h2 className="font-normal text-zinc-500 dark:text-zinc-100 inline-flex truncate">
-        Status
-      </h2>
-    ),
-    cell: ({ row }) => (
-      // TODO: MAKE IT A CHECK OR UNCHECK COMPONENT TO SAVE INTO DB
-      <ProblemCheckbox
-        checked={row.original.isSolved}
-        Probid={row.original.id}
-      />
-    ),
-  },
+    {
+        accessorKey: "isSolved",
+        header: ({ column }) => (
+          <h2 className="font-normal text-zinc-500 dark:text-zinc-100 inline-flex truncate">
+            Status
+          </h2>
+        ),
+        cell: ({ row }) => (
+            // TODO: MAKE IT A CHECK OR UNCHECK COMPONENT TO SAVE INTO DB
+            <ProblemCheckbox checked={row.original.isSolved}  Probid={row.original.id}  />
+        ),
+      },
   {
     accessorKey: "problemTitle",
     header: ({ column }) => (
@@ -58,32 +44,7 @@ export const columns: ColumnDef<ProblemColumn>[] = [
       </h2>
     ),
   },
-  {
-    accessorKey: "difficultyLevel",
-    header: ({ column }) => (
-      <h2 className="font-normal text-zinc-500 dark:text-zinc-100 inline-flex truncate">
-        Difficulty
-      </h2>
-    ),
-    cell: ({ row }) => (
-      <Badge variant={row.original.difficultyLevel}>
-        {row.original.difficultyLevel}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: "problemLink",
-    header: ({ column }) => (
-      <h2 className="font-normal text-zinc-500 dark:text-zinc-100 inline-flex truncate">
-        Problem Link
-      </h2>
-    ),
-    cell: ({ row }) => (
-      <Link href={row.original.problemLink!} passHref>
-        <Brain size={28} className="text-indigo-400 hover:underline" />
-      </Link>
-    ),
-  },
+
   {
     accessorKey: "articleLink",
     header: ({ column }) => (
@@ -118,11 +79,8 @@ export const columns: ColumnDef<ProblemColumn>[] = [
       </h2>
     ),
     cell: ({ row }) => (
-      //   TODO: ADD TOGGLE BUTTON TO MARK FOR REVISION
-      <MarkedToggleButton
-        markedForRevision={row.original.markedForRevision}
-        id={row.original.id}
-      />
+    //   TODO: ADD TOGGLE BUTTON TO MARK FOR REVISION
+      <MarkedToggleButton markedForRevision={row.original.markedForRevision} id={row.original.id} />
     ),
   },
 ];

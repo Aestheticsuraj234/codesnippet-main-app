@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useCurrentUser } from "@/hooks/auth/use-current-user";
-import { toggleSolver } from "@/action/content/dsa";
+import { toggleSolver } from "@/action/content/system-design";
 
 interface ProblemCheckboxProps {
   checked: boolean;
@@ -9,31 +9,27 @@ interface ProblemCheckboxProps {
 }
 
 const ProblemCheckbox: React.FC<ProblemCheckboxProps> = ({ checked, Probid }) => {
-
-
-  console.log({
-    checked,
-    Probid
-  })
   const [isChecked, setIsChecked] = useState(checked);
   const user = useCurrentUser();
 
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked]);
 
-  useEffect(()=>{
-    setIsChecked(checked)
-  },[isChecked , checked])
+  if (!user) {
+    console.warn("User is not available.");
+    return null;
+  }
 
   const handleCheckboxChange = async () => {
-    try {
-      const response = await toggleSolver(Probid, user?.id, !isChecked);
+    const newCheckedState = !isChecked;
+    setIsChecked(newCheckedState);
 
-      if (response.success) {
-        setIsChecked(!isChecked);
-      } else {
-        console.error('Failed to update problem status:', response.error);
-      }
+    try {
+      await toggleSolver(Probid, user?.id, newCheckedState);
     } catch (error) {
-      console.error('Error updating problem status:', error);
+      console.error("Failed to toggle solver:", error);
+      setIsChecked(!newCheckedState); // Revert state if the update fails
     }
   };
 
