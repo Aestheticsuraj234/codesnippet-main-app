@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useSidebarToggle } from "@/zustand/use-sidebarToggle";
 import { useStore } from "@/zustand/use-store";
 import { Sidebar } from "./sidebar";
+import { Navbar } from "@/app/dashboard/_components/navbar";
 // import { Footer } from "@/components/admin-panel/footer";
 // import { Sidebar } from "@/components/admin-panel/sidebar";
 // import { useSidebarToggle } from "@/hooks/use-sidebar-toggle";
