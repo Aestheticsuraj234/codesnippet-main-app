@@ -8,34 +8,82 @@ import { revalidatePath } from "next/cache";
 
 export const toggleSolver = async (Probid: string, userId: string | undefined, isChecked: boolean) => {
    
-    const data = await db.systemDesignProblem.update({
-      where: { id: Probid },
-      data: {
-        solvedBy: isChecked
-          ? { connect: { id: userId } }
-          : { disconnect: true },
-      },
-    });
-   
+   if(!userId){
+    throw new Error("User Id is Required");
+   }
+
+   try {
+
+    if(isChecked){
+      await db.systemDesignSolved.create({
+        data: {
+          userId,
+          problemId: Probid,
+        },
+      });
+    }
+    else{
+      await db.systemDesignSolved.delete({
+        where: {
+          userId_problemId: {
+            userId,
+            problemId: Probid,
+          },
+        },
+      });
+
+    }
+
     revalidatePath(`/system-design` , "page");
-    return { success: true, data, isSolved: isChecked };
+
+    return { success: true, isSolved: isChecked };
+
+
+
+   } catch (error) {
+      console.error("Error updating problem:", error);
+      return { success: false, error: "Failed to update problem" };
+   }
   
 };
 
 
 
 export const toggleMarked = async (Probid: string, userId: string | undefined, isChecked: boolean) => {
-         
-    const data = await db.systemDesignProblem.update({
-      where: { id: Probid },
-      data: {
-        markedBy: isChecked
-          ? { connect: { id: userId } }
-          : { disconnect: true },
-      },
-    });
-    
-   
+
+  if(!userId){
+    throw new Error("User Id is Required");
+  }
+
+  try {
+
+    if(isChecked){
+      await db.systemDesignMarked.create({
+        data: {
+          userId,
+          problemId: Probid,
+        },
+      });
+    }
+    else{
+      await db.systemDesignMarked.delete({
+        where: {
+          userId_problemId: {
+            userId,
+            problemId: Probid,
+          },
+        },
+      });
+
+    }
+
     revalidatePath(`/system-design` , "page");
-    return { success: true, data, isMarked: isChecked };
+
+    return { success: true, isSolved: isChecked };
+
+  } catch (error) {
+    console.error("Error updating problem:", error);
+    return { success: false, error: "Failed to update problem" };
+  }
+  
 }

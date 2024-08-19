@@ -21,31 +21,33 @@ const SystemDesignPage = async () => {
     return <div>User not found</div>;
   }
 
-  const problemsSolvedByCurrentUser = await db.systemDesignProblem.count({
+  const problemsSolvedByCurrentUser = await db.systemDesignSolved.count({
     where: {
-      solvedBy: {
-        id: user.id,
-      },
+      userId: user.id,
     },
   });
 
   const progressPercentage = totalProblems > 0 ? (problemsSolvedByCurrentUser / totalProblems) * 100 : 0;
 
-  const SystemDesignChapterWithProblem = await db.systemDesignChapter.findMany({
+  const systemDesignChapters = await db.systemDesignChapter.findMany({
     include: {
-      problems: true,
+      problems: {
+        include: {
+          markedBy: true,
+          solvedBy: true,
+        },
+      },
     },
   });
 
-  const FormattedData = SystemDesignChapterWithProblem.flatMap((chapter) =>
+  const formattedData = systemDesignChapters.flatMap((chapter) =>
     chapter.problems.map((problem) => ({
       id: problem.id,
       problemTitle: problem.problemTitle,
-      difficultyLevel: problem.difficultyLevel,
       articleLink: problem.articleLink,
       youtubeLink: problem.youtubeLink,
-      markedForRevision: problem.markedBy?.id === user.id,
-      isSolved: problem.solvedBy?.id === user.id,
+      markedForRevision: problem?.markedBy?.length > 0,
+      isSolved: problem?.solvedBy?.length > 0,
     }))
   );
 
@@ -67,8 +69,8 @@ const SystemDesignPage = async () => {
         />
       </div>
 
-      <section className="mt-6 flex flex-col items-start justify-start w-full gap-y-7">
-        <div className="flex w-full justify-between items-center">
+      <section className="container mt-10 flex flex-col items-start justify-start w-full gap-y-7">
+        <div className="flex w-full justify-between items-center mt-10">
           <div className="flex flex-col items-start justify-center px-3 py-1.5 border rounded-lg">
             <div className="flex justify-between items-center w-full gap-10">
               <h1 className="text-md font-extrabold text-zinc-700 dark:text-zinc-200 flex flex-row justify-center items-center">
@@ -106,29 +108,32 @@ const SystemDesignPage = async () => {
           </div>
         </div>
         <div className="flex flex-col justify-start items-start gap-y-5 mt-6 w-full border rounded-lg px-4 py-4 shadow-md">
-          {SystemDesignChapterWithProblem.map((chapter) => {
-            const TotalNumberOfProblem = chapter.problems.length;
-            const TotalNumberOfProblemSolvedByUser = chapter.problems.filter(
-              (problem) => problem.solvedBy?.id === user.id
+          {systemDesignChapters.map((chapter) => {
+            const totalNumberOfProblemsInChapter = chapter.problems.length;
+            const totalProblemsSolvedByUserInChapter = chapter.problems.filter(
+              (problem) => problem.solvedBy?.some((solver) => solver.userId === user.id)
             ).length;
 
-            const ProgressValue = TotalNumberOfProblem > 0 ? (TotalNumberOfProblemSolvedByUser / TotalNumberOfProblem) * 100 : 0;
-            const ProgressLabel = `${ProgressValue.toFixed(2)}%`;
+            // console.log(totalProblemsSolvedByUserInChapter, totalNumberOfProblemsInChapter);
+
+            const chapterProgress = totalNumberOfProblemsInChapter > 0
+              ? (totalProblemsSolvedByUserInChapter / totalNumberOfProblemsInChapter) * 100
+              : 0;
 
             return (
               <StepsAccordian
                 key={chapter.id}
                 title={`Ch-${chapter.chapterNumber}: ${chapter.title}`}
                 showProgressButton
-                totalNumberOfProblem={TotalNumberOfProblem}
-                progressLabel={ProgressLabel}
-                progressValue={ProgressValue}
-                totalNumberOfProblemSolvedByUser={TotalNumberOfProblemSolvedByUser}
+                totalNumberOfProblem={totalNumberOfProblemsInChapter}
+                progressLabel={`${chapterProgress.toFixed(2)}%`}
+                progressValue={chapterProgress}
+                totalNumberOfProblemSolvedByUser={totalProblemsSolvedByUserInChapter}
               >
                 {chapter.problems.map((problem) => (
                   <div key={problem.id} className="flex-col">
                     <div className="flex-1 space-y-4 p-2 pt-4">
-                      <SystemDesignProblemClient data={FormattedData} />
+                      <SystemDesignProblemClient data={formattedData.filter((p) => p.id === problem.id)} />
                     </div>
                   </div>
                 ))}

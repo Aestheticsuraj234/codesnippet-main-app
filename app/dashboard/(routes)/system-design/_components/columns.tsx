@@ -11,7 +11,6 @@ import ProblemCheckbox from "./problem-solving-checkbox";
 export interface ProblemColumn {
   id: string;
   problemTitle: string;
-  difficultyLevel: DifficultyLevel;
   articleLink?: string;
   youtubeLink?: string;
   markedForRevision: boolean;

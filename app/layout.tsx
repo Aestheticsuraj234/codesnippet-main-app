@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
     <html lang="en">
-      <body className={cn(inter.className, " min-h-screen")}>
+      <body className={cn(inter.className, "min-h-screen")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

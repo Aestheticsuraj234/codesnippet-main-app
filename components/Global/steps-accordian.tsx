@@ -28,7 +28,7 @@ export function StepsAccordian({
   progressLabel = "0%"
 }: StepsAccordianProps) {
   return (
-    <div className="px-4 py-2 flex flex-col w-full items-center justify-center bg-white dark:bg-zinc-800 shadow-lg rounded-md border overflow-auto">
+    <div className="px-4 py-2 flex flex-col w-full items-center justify-center bg-white dark:bg-zinc-900 shadow-lg rounded-md border overflow-auto">
       <Hint
         label={progressLabel}
         align="start"
