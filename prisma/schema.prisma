@@ -31,8 +31,21 @@ model User {
   problemSolved         ProblemSolved[]
   systemDesignMarked    SystemDesignMarked[]
   systemDesignSolved    SystemDesignSolved[]
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @updatedAt
+  notes                 Note[]
+
+  blogLikedBy   BlogLikedBy[]
+  blogSavedBy   BlogSavedBy[]
+  blogVisitedBy BlogVisitedBy[]
+  blogComments  BlogComment[]
+
+  subTopicLikedBy   SubTopicLikedBy[]
+  subTopicSavedBy   SubTopicSavedBy[]
+  subTopicUnlikedBy SubTopicUnlikedBy[]
+  markAsDone MarkAsDone[]
+  subTopicAssignment UserSubTopicAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Account {
@@ -90,12 +103,12 @@ model TwoFactorConfirmation {
 }
 
 model Subscription {
-  id        String    @id @default(cuid()) @map("_id")
+  id        String             @id @default(cuid()) @map("_id")
   userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   plan      PLAN // Example: "BASIC", "PREMIUM", etc.
   status    SubscriptionStatus @default(ACTIVE)
-  startDate DateTime  @default(now())
+  startDate DateTime           @default(now())
   endDate   DateTime? // Optional: Subscription expiration date
 
   @@unique([userId])
@@ -126,32 +139,117 @@ enum ContentStatus {
   ARCHIVED
 }
 
+enum BlogType {
+  EXISTING
+  NEW
+}
+
 model Content {
-  id          String        @id @default(cuid()) @map("_id")
-  title       String
-  description String
-  image       String
-  type        ContentType
-  status      ContentStatus @default(UNPUBLISHED)
-  dsa         Dsa[]
+  id           String                @id @default(cuid()) @map("_id")
+  title        String
+  description  String
+  image        String
+  type         ContentType
+  status       ContentStatus         @default(UNPUBLISHED)
+  dsa          Dsa[]
   systemDesign SystemDesignChapter[]
-  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  workshop     workshop[]
+  blog         blog[]
+  author       User                  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId     String
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model blog {
+  id          String          @id @default(cuid()) @map("_id")
+  content     Content         @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentId   String
+  title       String
+  slug        String?         @unique
+  description String
+  readTime    String?
+  thumbnail   String
+  blogContent String?
+  blogType    BlogType
+  blogUrl     String?
+  likedBy     BlogLikedBy[]
+  savedBy     BlogSavedBy[]
+  visitedBy   BlogVisitedBy[]
+  commentedBy BlogComment[]
+  status      ContentStatus   @default(UNPUBLISHED)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model BlogComment {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  blogId    String
+  comment   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog      blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlogLikedBy {
+  id     String @id @default(cuid()) @map("_id")
+  userId String
+  blogId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog   blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, blogId])
+}
+
+model BlogSavedBy {
+  id     String @id @default(cuid()) @map("_id")
+  userId String
+  blogId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog   blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, blogId])
+}
+
+model BlogVisitedBy {
+  id     String @id @default(cuid()) @map("_id")
+  userId String
+  blogId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog   blog   @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, blogId])
+}
+
+model workshop {
+  id             String        @id @default(cuid()) @map("_id")
+  content        Content       @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentId      String
+  title          String
+  description    String
+  image          String
+  startDate      DateTime
+  endDate        DateTime
+  techStack      String[]
+  sourceCodeLink String?
+  status         ContentStatus @default(UNPUBLISHED)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 }
 
 model SystemDesignChapter {
-  id            String               @id @default(cuid()) @map("_id")
-  content       Content              @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  id            String                @id @default(cuid()) @map("_id")
+  content       Content               @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId     String
   chapterNumber Int
   title         String
   description   String
   problems      SystemDesignProblem[]
-  status        ContentStatus        @default(UNPUBLISHED)
-  createdAt     DateTime             @default(now())
-  updatedAt     DateTime             @updatedAt
+  status        ContentStatus         @default(UNPUBLISHED)
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
 }
 
 model SystemDesignProblem {
@@ -169,25 +267,25 @@ model SystemDesignProblem {
 }
 
 model Problem {
-  id              String            @id @default(cuid()) @map("_id")
-  dsaChapter      DsaChapter        @relation(fields: [dsaChapterId], references: [id], onDelete: Cascade)
+  id              String          @id @default(cuid()) @map("_id")
+  dsaChapter      DsaChapter      @relation(fields: [dsaChapterId], references: [id], onDelete: Cascade)
   dsaChapterId    String
-  isSolved        Boolean?          @default(false)
+  isSolved        Boolean?        @default(false)
   solvedBy        ProblemSolved[]
-  markedForRevise Boolean           @default(false)
+  markedForRevise Boolean         @default(false)
   markedBy        ProblemMarked[]
   problemTitle    String
   articleLink     String
   youtubeLink     String
   problemLink     String
   difficultyLevel DifficultyLevel
-  status          ContentStatus     @default(UNPUBLISHED)
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  status          ContentStatus   @default(UNPUBLISHED)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 }
 
 model ProblemMarked {
-  id        String @id @default(cuid()) @map("_id")
+  id        String  @id @default(cuid()) @map("_id")
   userId    String
   problemId String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -197,7 +295,7 @@ model ProblemMarked {
 }
 
 model ProblemSolved {
-  id        String @id @default(cuid()) @map("_id")
+  id        String  @id @default(cuid()) @map("_id")
   userId    String
   problemId String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -207,7 +305,7 @@ model ProblemSolved {
 }
 
 model SystemDesignMarked {
-  id        String @id @default(cuid()) @map("_id")
+  id        String              @id @default(cuid()) @map("_id")
   userId    String
   problemId String
   user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -217,7 +315,7 @@ model SystemDesignMarked {
 }
 
 model SystemDesignSolved {
-  id        String @id @default(cuid()) @map("_id")
+  id        String              @id @default(cuid()) @map("_id")
   userId    String
   problemId String
   user      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -227,43 +325,168 @@ model SystemDesignSolved {
 }
 
 model Dsa {
-  id        String         @id @default(cuid()) @map("_id")
-  content   Content        @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  id        String        @id @default(cuid()) @map("_id")
+  content   Content       @relation(fields: [contentId], references: [id], onDelete: Cascade)
   contentId String
   dsaTitle  String
   dsaSteps  DsaStep[]
-  status    ContentStatus  @default(UNPUBLISHED)
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  status    ContentStatus @default(UNPUBLISHED)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
 
 model DsaStep {
-  id          String         @id @default(cuid()) @map("_id")
-  dsa         Dsa            @relation(fields: [dsaId], references: [id])
+  id          String        @id @default(cuid()) @map("_id")
+  dsa         Dsa           @relation(fields: [dsaId], references: [id])
   dsaId       String
   stepNumber  Int
   stepTitle   String
   dsaChapters DsaChapter[]
-  status      ContentStatus  @default(UNPUBLISHED)
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  status      ContentStatus @default(UNPUBLISHED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
 model DsaChapter {
-  id                 String         @id @default(cuid()) @map("_id")
-  dsaStep            DsaStep        @relation(fields: [dsaStepId], references: [id], onDelete: Cascade)
+  id                 String        @id @default(cuid()) @map("_id")
+  dsaStep            DsaStep       @relation(fields: [dsaStepId], references: [id], onDelete: Cascade)
   dsaStepId          String
   chapterNumber      Int
   chapterTitle       String
   chapterDescription String
-  status             ContentStatus  @default(UNPUBLISHED)
+  status             ContentStatus @default(UNPUBLISHED)
   problems           Problem[]
-  createdAt          DateTime       @default(now())
-  updatedAt          DateTime       @updatedAt
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 }
 
 enum DifficultyLevel {
   EASY
   MEDIUM
   HARD
+}
+
+// Tutorial: https://www.youtube.com/watch?v=0bOJ9YUe9Jg
+
+enum TechnologyStatus {
+  UNPUBLISHED
+  PUBLISHED
+  ARCHIVED
+}
+
+model Technology {
+  id          String           @id @default(cuid()) @map("_id")
+  name        String
+  description String
+  image       String
+  status      TechnologyStatus @default(UNPUBLISHED)
+  topics      Topic[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+enum CompletionStatus {
+  DONE
+  MISSED
+  PENDING
+}
+
+
+model Topic {
+  id           String           @id @default(cuid()) @map("_id")
+  title        String
+  dayAssigned  Int?
+  technology   Technology       @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+  technologyId String
+  completionStatus CompletionStatus @default(PENDING)
+  status       TechnologyStatus @default(UNPUBLISHED)
+  subTopics    SubTopic[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+
+
+
+model SubTopic {
+  id               String              @id @default(cuid()) @map("_id")
+  title            String
+  videoLink        String?
+  videoDescription String?
+  content          String?
+  notes           Note[]  
+  markAsDone       MarkAsDone[]
+  likedBy          SubTopicLikedBy[]
+  savedBy          SubTopicSavedBy[]
+  unlikeBy         SubTopicUnlikedBy[]
+  dayAssigned      UserSubTopicAssignment[]
+  topic            Topic               @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId          String
+  status           TechnologyStatus    @default(UNPUBLISHED)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+}
+
+model Note {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  subTopicId String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  note      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MarkAsDone {
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  subTopicId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subTopicId])
+}
+
+model SubTopicLikedBy {
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  subTopicId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subTopicId])
+}
+
+model SubTopicSavedBy {
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  subTopicId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subTopicId])
+}
+
+model SubTopicUnlikedBy {
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  subTopicId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subTopicId])
+}
+
+
+model UserSubTopicAssignment {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  subTopicId String
+  dayAssigned Int?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic  SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, subTopicId])
 }

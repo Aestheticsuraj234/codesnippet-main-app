@@ -8,6 +8,7 @@ import {
   Computer,
   FigmaIcon,
   FolderGit2,
+  GraduationCap,
   Home,
   LineChart,
   Notebook,
@@ -28,6 +29,11 @@ const Routes = [
     icon: Home,
     label: "Home",
     href: "/",
+  },
+  {
+    icon:GraduationCap ,
+    label: "Tutorials",
+    href: "/dashboard/tutorials",
   },
   {
     icon:Rss,
@@ -63,11 +69,6 @@ const Routes = [
     icon:Code2Icon,
     label: "Projects",
     href: "/projects",
-  },
-  {
-    icon: Settings,
-    label: "Settings",
-    href: "/settings",
   },
 ];
 
