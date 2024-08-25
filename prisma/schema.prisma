@@ -41,8 +41,10 @@ model User {
   subTopicLikedBy   SubTopicLikedBy[]
   subTopicSavedBy   SubTopicSavedBy[]
   subTopicUnlikedBy SubTopicUnlikedBy[]
-  markAsDone MarkAsDone[]
-  subTopicAssignment UserSubTopicAssignment[]
+  markAsDone        MarkAsDone[]
+  TopicAssignMent   UserTopicAssignment[]
+
+  isdayAssigned isdayAssignedByCurrentUser[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -379,11 +381,26 @@ model Technology {
   name        String
   description String
   image       String
+  isDayAssigned isdayAssignedByCurrentUser[]
   status      TechnologyStatus @default(UNPUBLISHED)
   topics      Topic[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
 }
+
+
+model isdayAssignedByCurrentUser {
+  id          String @id @default(cuid()) @map("_id")
+  userId      String
+  isDayAssigned Boolean
+  startDate   DateTime
+  technologyId String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  technology  Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, technologyId])
+}
+
 
 enum CompletionStatus {
   DONE
@@ -391,22 +408,17 @@ enum CompletionStatus {
   PENDING
 }
 
-
 model Topic {
-  id           String           @id @default(cuid()) @map("_id")
-  title        String
-  dayAssigned  Int?
-  technology   Technology       @relation(fields: [technologyId], references: [id], onDelete: Cascade)
-  technologyId String
-  completionStatus CompletionStatus @default(PENDING)
-  status       TechnologyStatus @default(UNPUBLISHED)
-  subTopics    SubTopic[]
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  id          String                @id @default(cuid()) @map("_id")
+  title       String
+  dayAssigned UserTopicAssignment[]
+  technology       Technology       @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+  technologyId     String
+  status           TechnologyStatus @default(UNPUBLISHED)
+  subTopics        SubTopic[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 }
-
-
-
 
 model SubTopic {
   id               String              @id @default(cuid()) @map("_id")
@@ -414,29 +426,28 @@ model SubTopic {
   videoLink        String?
   videoDescription String?
   content          String?
-  notes           Note[]  
+  notes            Note[]
   markAsDone       MarkAsDone[]
   likedBy          SubTopicLikedBy[]
   savedBy          SubTopicSavedBy[]
   unlikeBy         SubTopicUnlikedBy[]
-  dayAssigned      UserSubTopicAssignment[]
-  topic            Topic               @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  topicId          String
-  status           TechnologyStatus    @default(UNPUBLISHED)
-  createdAt        DateTime            @default(now())
-  updatedAt        DateTime            @updatedAt
 
+  topic     Topic            @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId   String
+  status    TechnologyStatus @default(UNPUBLISHED)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 }
 
 model Note {
-  id        String   @id @default(cuid()) @map("_id")
-  userId    String
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
   subTopicId String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
-  note      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  note       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model MarkAsDone {
@@ -479,14 +490,14 @@ model SubTopicUnlikedBy {
   @@unique([userId, subTopicId])
 }
 
-
-model UserSubTopicAssignment {
-  id        String   @id @default(cuid()) @map("_id")
-  userId    String
-  subTopicId String
+model UserTopicAssignment {
+  id          String @id @default(cuid()) @map("_id")
+  userId      String
+  TopicId     String
   dayAssigned Int?
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subTopic  SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  complettionStatus      CompletionStatus @default(PENDING)
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic       Topic  @relation(fields: [TopicId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, subTopicId])
+  @@unique([userId, TopicId])
 }

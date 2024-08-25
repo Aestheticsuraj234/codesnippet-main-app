@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ToastProvider } from "@/providers/toast-provider";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <ToastProvider />
+          <ModalProvider />
           {children}
         </ThemeProvider>
       </body>

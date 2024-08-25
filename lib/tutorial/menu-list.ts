@@ -1,28 +1,25 @@
 import { GetAllTopicsByTechnologyId } from "@/action/tutorial";
 import {
-  Tag,
   Users,
   Settings,
-  Bookmark,
-  SquarePen,
   LayoutGrid,
   LucideIcon,
   Folder,
-  FolderArchive,
-  FolderCheck,
 } from "lucide-react";
+
 
 type Submenu = {
   href: string;
   label: string;
   active: boolean;
+  done: boolean; // Already included from server-side
 };
 
 type Menu = {
   href: string;
   label: string;
   active: boolean;
-  icon?: LucideIcon;
+  icon: LucideIcon;
   submenus: Submenu[];
 };
 
@@ -31,7 +28,12 @@ export type Group = {
   menus: Menu[];
 };
 
-export async function getMenuList(pathname: string, technologyId: any): Promise<Group[]> {
+export async function getMenuList(
+  pathname: string,
+  technologyId: any
+): Promise<Group[]> {
+
+  
   // Fetch topics by technology ID
   const topics = await GetAllTopicsByTechnologyId(technologyId);
 
@@ -40,11 +42,12 @@ export async function getMenuList(pathname: string, technologyId: any): Promise<
     href: `/topics/${topic.id}`, // Adjust the path according to your routing
     label: topic.title,
     active: pathname.includes(`/topics/${topic.id}`),
-    icon: FolderCheck,
+    icon: Folder,
     submenus: topic.subTopics.map((subTopic) => ({
-      href: `/topics/${topic.id}/subtopics/${subTopic.id}`, // Adjust the path according to your routing
+      href: `tutorial/${technologyId}/topics/${topic.id}/subtopics/${subTopic.id}`, // Adjust the path according to your routing
       label: subTopic.title,
       active: pathname === `/topics/${topic.id}/subtopics/${subTopic.id}`,
+      done: subTopic.done, // Directly use the 'done' status from the server
     })),
   }));
 
