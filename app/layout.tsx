@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Sigma Coders",
   description: "Sigma Coders is a community of developers",
   
+  
 };
 
 export default async function RootLayout({

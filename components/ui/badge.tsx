@@ -24,6 +24,9 @@ const badgeVariants = cva(
         EASY:"bg-[#03DC7A] text-[#fff]",
         MEDIUM:"bg-[#FFC000] text-[#fff]",
         HARD:"bg-[#FF0000] text-[#fff]",
+        PENDING:"bg-[#FFC000] text-[#fff]",
+        DONE:"bg-[#03DC7A] text-[#fff]",
+        MISSED:"bg-[#FF0000] text-[#fff]",
 
       },
     },

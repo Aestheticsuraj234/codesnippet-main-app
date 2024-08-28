@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Ellipsis } from "lucide-react";
 import { useParams, usePathname } from "next/navigation";
+import { useMemo ,  useEffect , useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -14,9 +15,9 @@ import {
   TooltipProvider,
 } from "@/components/ui/tooltip";
 import { CollapseMenuButton } from "./collapse-menu-button";
-import { useEffect, useState } from "react";
-import { getMenuList, Group } from "@/lib/tutorial/menu-list";
 import { Loader } from "../Global/loader";
+import { useMenuStore } from "@/zustand/use-menu";
+import { getMenuList, Group } from "@/lib/tutorial/menu-list";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -25,9 +26,10 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
   const params = useParams();
-  const [menuList, setMenuList] = useState<Group[]>([]);
+ const [menuList, setMenuList] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch and cache menu data
   useEffect(() => {
     async function fetchMenu() {
       setIsLoading(true);
@@ -35,8 +37,13 @@ export function Menu({ isOpen }: MenuProps) {
       setMenuList(menu);
       setIsLoading(false);
     }
-    fetchMenu();
+
+    if (params.technologyId) {
+      fetchMenu();
+    }
   }, [pathname, params.technologyId]);
+
+  const memoizedMenuList = useMemo(() => menuList, [menuList]);
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -47,7 +54,7 @@ export function Menu({ isOpen }: MenuProps) {
           </div>
         ) : (
           <ul className="flex flex-col min-h-[calc(100vh-48px-36px-16px-32px)] lg:min-h-[calc(100vh-32px-40px-32px)] items-start space-y-1 px-2">
-            {menuList.map(({ groupLabel, menus }, index) => (
+            {memoizedMenuList.map(({ groupLabel, menus }, index) => (
               <li className={cn("w-full", groupLabel ? "pt-5" : "")} key={index}>
                 {(isOpen && groupLabel) || isOpen === undefined ? (
                   <p className="text-sm font-medium text-muted-foreground px-4 pb-2 max-w-[248px] truncate">
@@ -71,7 +78,7 @@ export function Menu({ isOpen }: MenuProps) {
                 )}
                 {menus.map(
                   ({ href, label, icon: Icon, active, submenus }, index) =>
-                    submenus.length >0 ? (
+                    submenus.length > 0 ? (
                       <CollapseMenuButton
                         key={index}
                         icon={Icon}

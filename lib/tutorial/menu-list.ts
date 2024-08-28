@@ -44,9 +44,9 @@ export async function getMenuList(
     active: pathname.includes(`/topics/${topic.id}`),
     icon: Folder,
     submenus: topic.subTopics.map((subTopic) => ({
-      href: `tutorial/${technologyId}/topics/${topic.id}/subtopics/${subTopic.id}`, // Adjust the path according to your routing
+      href: `/tutorial/${technologyId}/learn/${subTopic.id}`, // Adjust the path according to your routing
       label: subTopic.title,
-      active: pathname === `/topics/${topic.id}/subtopics/${subTopic.id}`,
+      active: pathname === `/tutorial/${technologyId}/learn/${subTopic.id}`,
       done: subTopic.done, // Directly use the 'done' status from the server
     })),
   }));

@@ -40,6 +40,7 @@ const SystemDesignPage = async () => {
     },
   });
 
+  // Flatten and format the data into a single array
   const formattedData = systemDesignChapters.flatMap((chapter) =>
     chapter.problems.map((problem) => ({
       id: problem.id,
@@ -48,6 +49,9 @@ const SystemDesignPage = async () => {
       youtubeLink: problem.youtubeLink,
       markedForRevision: problem?.markedBy?.length > 0,
       isSolved: problem?.solvedBy?.length > 0,
+      chapterTitle: `Ch-${chapter.chapterNumber}: ${chapter.title}`, // Added chapter title for better context
+      chapterNumber: chapter.chapterNumber,
+      totalProblemsInChapter: chapter.problems.length,
     }))
   );
 
@@ -114,11 +118,14 @@ const SystemDesignPage = async () => {
               (problem) => problem.solvedBy?.some((solver) => solver.userId === user.id)
             ).length;
 
-            // console.log(totalProblemsSolvedByUserInChapter, totalNumberOfProblemsInChapter);
-
             const chapterProgress = totalNumberOfProblemsInChapter > 0
               ? (totalProblemsSolvedByUserInChapter / totalNumberOfProblemsInChapter) * 100
               : 0;
+
+            // Filter problems related to the current chapter
+            const chapterProblems = formattedData.filter(
+              (problem) => problem.chapterNumber === chapter.chapterNumber
+            );
 
             return (
               <StepsAccordian
@@ -130,13 +137,8 @@ const SystemDesignPage = async () => {
                 progressValue={chapterProgress}
                 totalNumberOfProblemSolvedByUser={totalProblemsSolvedByUserInChapter}
               >
-                {chapter.problems.map((problem) => (
-                  <div key={problem.id} className="flex-col">
-                    <div className="flex-1 space-y-4 p-2 pt-4">
-                      <SystemDesignProblemClient data={formattedData.filter((p) => p.id === problem.id)} />
-                    </div>
-                  </div>
-                ))}
+                {/* Pass the filtered data for this chapter directly to the client component */}
+                <SystemDesignProblemClient data={chapterProblems} />
               </StepsAccordian>
             );
           })}

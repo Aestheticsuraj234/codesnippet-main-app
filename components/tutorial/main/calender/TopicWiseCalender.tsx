@@ -1,10 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Calendar,
+  CalendarIcon,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { addDays, format, isToday } from "date-fns";
+import { Badge } from "@/components/ui/badge";
 
 type EventStatus = "PENDING" | "DONE" | "MISSED";
 
@@ -13,6 +19,7 @@ type Event = {
   title: string;
   date: Date;
   status: EventStatus;
+  dayNumber?: number;
 };
 
 interface TopicDayWiseCalendarProps {
@@ -54,15 +61,10 @@ export default function TopicDayWiseCalendar({
     );
   };
 
-  const getDayEvents = (day: number): Event[] => {
-    const date = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      day
-    );
+  const generateEvents = () => {
     const events: Event[] = [];
-
-    let currentStartDate = new Date(technology.isDayAssigned[0].startDate + "");
+    let currentStartDate = new Date(technology.isDayAssigned[0].startDate);
+    let globalDayCounter = 1;
 
     technology.topics.forEach((topic) => {
       const dayAssigned = topic.dayAssigned[0].dayAssigned;
@@ -75,13 +77,28 @@ export default function TopicDayWiseCalendar({
           title: topic.title,
           date: eventDate,
           status: status,
+          dayNumber: globalDayCounter,
         });
+        globalDayCounter++;
       }
 
       currentStartDate = addDays(currentStartDate, dayAssigned);
     });
 
-    return events.filter((event) => {
+    console.log(events);
+    return events;
+  };
+
+  const getDayEvents = (day: number): Event[] => {
+    const date = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      day
+    );
+
+    const allEvents = generateEvents();
+
+    return allEvents.filter((event) => {
       return (
         event.date.getFullYear() === date.getFullYear() &&
         event.date.getMonth() === date.getMonth() &&
@@ -129,6 +146,10 @@ export default function TopicDayWiseCalendar({
             const isCurrentMonth = day > 0 && day <= daysInMonth;
             const dayEvents = isCurrentMonth ? getDayEvents(day) : [];
 
+            const isTodayDate = isToday(
+              new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+            );
+
             return (
               <div
                 key={index}
@@ -136,32 +157,56 @@ export default function TopicDayWiseCalendar({
                   "border rounded-lg p-2 aspect-square",
                   "flex flex-col",
                   isCurrentMonth ? "bg-background" : "bg-muted",
-                  isToday(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))
-                    ? "border-blue-500 border-2"
-                    : ""
+                  isTodayDate ? "border-indigo-400 border-2" : ""
                 )}
               >
                 {isCurrentMonth && (
                   <>
-                    <div className="font-semibold mb-1">{day}</div>
+                    <div className="w-full flex justify-between items-center gap-2 ">
+                      <div
+                        className={cn(
+                          "font-semibold mb-1 flex items-center justify-center text-sm",
+                          {
+                            "font-bold border rounded-full bg-indigo-400 text-white h-8 w-8 ":
+                              isTodayDate, // Apply bold font, rounded, and fixed size if today
+                          }
+                        )}
+                      >
+                        {day}
+                      </div>
+
+                      {isTodayDate && (
+                        <div className="flex flex-row mb-2 justify-center items-center gap-1 bg-indigo-400 px-1 py-1 rounded-md">
+                          <CalendarIcon className="h-3 w-3 text-white" />
+                          <p className="text-sm truncate font-normal text-white">
+                            Ongoing
+                          </p>
+                        </div>
+                      )}
+                    </div>
                     <div className="flex-grow overflow-y-auto flex flex-col items-start justify-start gap-y-2">
                       {dayEvents.map((event) => (
-                        <div
-                          key={event.id}
-                          onClick={() => handleEventClick(event)}
-                          className={cn(
-                            "text-xs p-1 mb-1 rounded cursor-pointer transition-all duration-200 ease-in-out",
-                            statusColors[event.status],
-                            "hover:bg-opacity-75 text-white w-full flex flex-col gap-y-1"
-                          )}
-                        >
-                          <span className="text-[10px] font-semibold">
-                            {event.status?.toUpperCase()}
-                          </span>
-                          <span className="text-sm truncate font-bold text-white">
-                            {event.title}
-                          </span>
-                        </div>
+                        <>
+                          <div
+                            key={event.id}
+                            onClick={() => handleEventClick(event)}
+                            className={cn(
+                              "text-xs p-1 mb-1 rounded cursor-pointer transition-all duration-200 ease-in-out",
+                              statusColors[event.status],
+                              "hover:bg-opacity-75 text-white w-full flex flex-col gap-y-1" , isTodayDate ? "bg-indigo-400" : ""
+                            )}
+                          >
+                            <span className="text-sm truncate font-normal ">
+                              {event.title}
+                            </span>
+                          </div>
+                          <Badge
+                            variant={event.status}
+                            className={cn(
+                              "cursor-pointer " , isTodayDate ? "bg-indigo-400" : ""
+                            )}
+                          >{`Day-${event.dayNumber}`}</Badge>
+                        </>
                       ))}
                     </div>
                   </>
@@ -175,12 +220,14 @@ export default function TopicDayWiseCalendar({
       {/* Event Details Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-            <h3 className="text-lg font-semibold mb-2">{selectedEvent.title}</h3>
-            <p className="text-sm text-gray-700">
+          <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-lg w-80">
+            <h3 className="text-lg font-semibold mb-2">
+              {selectedEvent.title}
+            </h3>
+            <p className="text-sm text-gray-700 dark:text-gray-100 font-bold ">
               Date: {format(selectedEvent.date, "PPP")}
             </p>
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-gray-700 dark:text-gray-100 font-bold">
               Status: {selectedEvent.status?.toUpperCase()}
             </p>
             <Button className="mt-4" onClick={() => setSelectedEvent(null)}>
