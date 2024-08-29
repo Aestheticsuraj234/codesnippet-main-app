@@ -22,6 +22,9 @@ const buttonVariants = cva(
         secondaryOutline:" border  border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-[#1e201f] ",
         brandOutline:" border  border-[#E1C01D] text-[#E1C01D] hover:bg-[#E1C01D] hover:text-[#fff] ",
         premium:"bg-[#4169e1] text-[#fff] hover:bg-[#4169e1]/80",
+        completed:" bg-emerald-500 text-[#fff] hover:bg-emerald-500/80",
+        liked:" bg-[#ff0000] text-[#fff] hover:bg-[#ff0000]/80",
+        
       },
       size: {
         default: "h-10 px-4 py-2",
