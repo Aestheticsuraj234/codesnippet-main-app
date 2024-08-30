@@ -30,8 +30,10 @@ interface VideoClientProps {
   };
 
   const videoId = extractVideoId(data.videoLink); // Extract video ID from the link
-  const videoDuration = videoId ? await getVideoDuration(videoId) : "Duration unavailable"; // Get the video duration
+  // const videoDuration = videoId ? await getVideoDuration(videoId) : "Duration unavailable";
+ // Get the video duration
 
+ const videoDuration = "Duration unavailable";
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid gap-8 md:grid-cols-1">

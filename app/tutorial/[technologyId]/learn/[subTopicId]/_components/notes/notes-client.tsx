@@ -19,11 +19,8 @@ interface NotesClientProps {
     videoDescription: string | null;
     createdAt: Date;
   };
-  notes: {
-    note: string;
-    id: string;
-    createdAt: Date;
-  };
+ 
+  notes:any
 }
 
 const NotesClient = ({ content, video, notes }: NotesClientProps) => {

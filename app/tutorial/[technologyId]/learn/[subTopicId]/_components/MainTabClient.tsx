@@ -20,8 +20,20 @@ interface MainTabClientProps {
     isUnliked: boolean;
     isSaved: boolean;
     count: number;
-    videoTopic: any;
-    notes: any;
+    videoTopic: {
+      title: string;
+      videoLink: string | null;
+      videoDescription: string | null;
+      createdAt: Date;
+    };
+    notes: {
+      id:string;
+      note: {
+        note: string;
+        id: string;
+        createdAt: Date;
+      }
+    };
     user: any;
 }
 
