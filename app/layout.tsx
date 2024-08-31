@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ToastProvider } from "@/providers/toast-provider";
 import { ModalProvider } from "@/providers/modal-provider";
+import ReactQueryProvider from "./ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
     <html lang="en">
       <body className={cn(inter.className, "min-h-screen")}>
+      
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -39,6 +41,7 @@ export default async function RootLayout({
           <ModalProvider />
           {children}
         </ThemeProvider>
+   
       </body>
     </html>
   </SessionProvider>

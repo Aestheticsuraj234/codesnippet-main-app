@@ -10,6 +10,7 @@ import ActionMenu from "./content/action-menu";
 import ContentClient from "./content/content-client";
 import VideoClient from "./video/video-client";
 import NotesClient from "./notes/notes-client";
+import MainDoubtSection from "./doubt/main-doubt-section";
 
 
 
@@ -35,11 +36,25 @@ interface MainTabClientProps {
       }
     };
     user: any;
+    doubt:{
+      id:string;
+      content: string;
+      likes:[],
+      _count:{likes:number},
+      isLikedByCurrentUser:boolean,
+      createdAt: Date;
+      user:{
+        id:string;
+        name:string;
+        image:string
+      }
+
+    }[];
+  
 }
 
 
 const MainTabClient = ({
-
     subTopic,
     isMarkAsDone,
     isLiked,
@@ -48,8 +63,8 @@ const MainTabClient = ({
     count,
     videoTopic,
     notes,
-    user
-
+    user,
+    doubt,
 }:MainTabClientProps) => {
 
     const [tab, setActiveTab] = useState("content");
@@ -154,19 +169,15 @@ const MainTabClient = ({
       </div>
     </TabsContent>
     <TabsContent value="doubt" className="mt-4" forceMount={true} hidden={"doubt" !== tab}>
-      <div className="rounded-lg border p-6 flex flex-col justify-start items-start ">
-        <h2 className="text-2xl font-bold mb-4">Notes</h2>
-        <p>
-          Here users could find a note-taking interface or a summary of
-          key points from the content.
-        </p>
+      <div className=" p-6 flex flex-col justify-start items-start ">
+        <MainDoubtSection 
+          doubt={doubt}
+          userId={user?.id}
+        />
       </div>
     </TabsContent>
     <TabsContent value="notes" className="mt-4" forceMount={true} hidden={"notes" !== tab}>
       <div className="rounded-lg border p-3 flex flex-col justify-start items-start">
-        <h2 className="text-2xl font-bold mb-2">Start Taking Your Notes</h2>
-      
-     
       {/*  @ts-ignore */}
       <NotesClient content={subTopic} video={videoTopic} notes={notes} />
       </div>

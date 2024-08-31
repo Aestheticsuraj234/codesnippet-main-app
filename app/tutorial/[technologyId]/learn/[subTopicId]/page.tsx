@@ -1,20 +1,13 @@
 import React from "react";
 import { Poppins } from "next/font/google";
 import { ContentLayout } from "@/components/tutorial/content-layout";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, HelpCircle, Notebook, Star, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
-import ContentClient from "./_components/content/content-client";
 import { getSubTopicById, likeCount } from "@/action/tutorial/learn/content";
-import ActionMenu from "./_components/content/action-menu";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { currentUser } from "@/lib/auth/data/auth";
-import VideoClient from "./_components/video/video-client";
 import { getVideoBySubTopicId } from "@/action/tutorial/learn/video";
 import { getNotesBySubTopicId } from "@/action/tutorial/learn/notes";
-import NotesClient from "./_components/notes/notes-client";
 import MainTabClient from "./_components/MainTabClient";
+import { GetDoubtsBySubTopicId, LikeCountOfDoubtByDoubtId } from "@/action/tutorial/learn/doubt";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -44,6 +37,11 @@ const videoTopic = await getVideoBySubTopicId(params.subTopicId);
 
 const notes = await getNotesBySubTopicId(params.subTopicId);
 
+const {doubts} = await GetDoubtsBySubTopicId(params.subTopicId);
+
+console.log(doubts);
+
+
   return (
     <ContentLayout>
       <section className={cn("w-auto", poppins.className)}>
@@ -57,6 +55,7 @@ const notes = await getNotesBySubTopicId(params.subTopicId);
         videoTopic={videoTopic}
         notes={notes}
         user={user}
+        doubt={doubts}
       />
       </section>
     </ContentLayout>

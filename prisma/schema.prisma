@@ -44,6 +44,12 @@ model User {
   markAsDone        MarkAsDone[]
   TopicAssignMent   UserTopicAssignment[]
 
+  doubts      Doubt[]
+  doubtReplies DoubtReply[]
+  doubtLikes   DoubtLike[]
+  doubtUnlikes DoubtUnlike[]
+    
+
   isdayAssigned isdayAssignedByCurrentUser[]
 
   createdAt DateTime @default(now())
@@ -431,7 +437,7 @@ model SubTopic {
   likedBy          SubTopicLikedBy[]
   savedBy          SubTopicSavedBy[]
   unlikeBy         SubTopicUnlikedBy[]
-
+  doubts           Doubt[]
   topic     Topic            @relation(fields: [topicId], references: [id], onDelete: Cascade)
   topicId   String
   status    TechnologyStatus @default(UNPUBLISHED)
@@ -439,7 +445,64 @@ model SubTopic {
   updatedAt DateTime         @updatedAt
 }
 
+
+model Doubt {
+  id          String      @id @default(cuid()) @map("_id")
+  userId      String
+  subTopicId  String
+  content     String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic    SubTopic    @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  replies     DoubtReply[]
+  likes       DoubtLike[]
+  unlikes     DoubtUnlike[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+
+  @@index([userId, subTopicId])
+}
+
+model DoubtReply{
+  id          String      @id @default(cuid()) @map("_id")
+  userId      String
+  doubtId     String
+  content     String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doubt       Doubt       @relation(fields: [doubtId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+ @@unique([userId, doubtId])
+}
+
+model DoubtLike{
+  id          String      @id @default(cuid()) @map("_id")
+  userId      String
+  doubtId     String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doubt       Doubt       @relation(fields: [doubtId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+
+  @@unique([userId, doubtId])
+}
+
+model DoubtUnlike{
+  id          String      @id @default(cuid()) @map("_id")
+  userId      String
+  doubtId     String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doubt       Doubt       @relation(fields: [doubtId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+
+@@unique([userId, doubtId])
+}
 model Note {
+
   id         String   @id @default(cuid()) @map("_id")
   userId     String
   subTopicId String

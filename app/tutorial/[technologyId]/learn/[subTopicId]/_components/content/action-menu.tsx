@@ -24,7 +24,9 @@ const ActionMenu = ({ isMarkAsDone, userId, subTopicId, isLiked, isUnliked, isSa
   
   useEffect(() => {
     setIsCompleted(isMarkAsDone);
-  }, [isMarkAsDone]);
+    setIsLiked(isLiked);
+    setIsSaved(isSaved);
+  }, [isMarkAsDone , isLiked ,  isSaved]);
 
   const onMarkAsDone = async () => {
     const newCompletedStatus = !isCompleted;
