@@ -1,15 +1,13 @@
 "use client";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import {
-  Calendar,
   CalendarIcon,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { addDays, format, isToday } from "date-fns";
+import { addDays, format, isToday, isBefore, startOfDay } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 
 type EventStatus = "PENDING" | "DONE" | "MISSED";
@@ -65,13 +63,22 @@ export default function TopicDayWiseCalendar({
     const events: Event[] = [];
     let currentStartDate = new Date(technology.isDayAssigned[0].startDate);
     let globalDayCounter = 1;
-
-    technology.topics.forEach((topic) => {
+    const today = startOfDay(new Date()); // Get today's date at the start of the day
+  
+    technology.topics.forEach((topic: any) => {
       const dayAssigned = topic.dayAssigned[0].dayAssigned;
-      const status = topic.dayAssigned[0].complettionStatus;
-
+      let status = topic.dayAssigned[0].complettionStatus;
+  
       for (let i = 0; i < dayAssigned; i++) {
         const eventDate = addDays(currentStartDate, i);
+  
+       
+        if (isBefore(eventDate, today)) {
+          status = "DONE";
+        } 
+
+        
+  
         events.push({
           id: topic.id,
           title: topic.title,
@@ -79,15 +86,16 @@ export default function TopicDayWiseCalendar({
           status: status,
           dayNumber: globalDayCounter,
         });
+  
         globalDayCounter++;
       }
-
+  
       currentStartDate = addDays(currentStartDate, dayAssigned);
     });
 
-    console.log(events);
     return events;
   };
+  
 
   const getDayEvents = (day: number): Event[] => {
     const date = new Date(
@@ -168,7 +176,7 @@ export default function TopicDayWiseCalendar({
                           "font-semibold mb-1 flex items-center justify-center text-sm",
                           {
                             "font-bold border rounded-full bg-indigo-400 text-white h-8 w-8 ":
-                              isTodayDate, // Apply bold font, rounded, and fixed size if today
+                              isTodayDate,
                           }
                         )}
                       >
@@ -193,7 +201,8 @@ export default function TopicDayWiseCalendar({
                             className={cn(
                               "text-xs p-1 mb-1 rounded cursor-pointer transition-all duration-200 ease-in-out",
                               statusColors[event.status],
-                              "hover:bg-opacity-75 text-white w-full flex flex-col gap-y-1" , isTodayDate ? "bg-indigo-400" : ""
+                              "hover:bg-opacity-75 text-white w-full flex flex-col gap-y-1",
+                              isTodayDate ? "bg-indigo-400" : ""
                             )}
                           >
                             <span className="text-sm truncate font-normal ">
@@ -203,7 +212,8 @@ export default function TopicDayWiseCalendar({
                           <Badge
                             variant={event.status}
                             className={cn(
-                              "cursor-pointer " , isTodayDate ? "bg-indigo-400" : ""
+                              "cursor-pointer",
+                              isTodayDate ? "bg-indigo-400" : ""
                             )}
                           >{`Day-${event.dayNumber}`}</Badge>
                         </>

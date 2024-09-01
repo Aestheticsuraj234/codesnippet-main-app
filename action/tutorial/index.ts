@@ -88,6 +88,10 @@ export const GetTechnologyById = async (technologyId: string) => {
     },
   });
 
+  if(!technology){
+    throw new Error("Technology not found")
+  }
+
   revalidatePath("/tutorial");
   return technology;
 };
@@ -128,9 +132,9 @@ export const AddDayAssingToTopic = async (
 
       // Create an entry in userTopicAssignment table
       await db.userTopicAssignment.create({
-        // @ts-ignore
+     
         data: {
-          userId: user.id,
+          userId: user.id!,
           TopicId: topic.id,
           dayAssigned: proportionalDays,
           complettionStatus: "PENDING",
@@ -139,12 +143,10 @@ export const AddDayAssingToTopic = async (
 
       // Create an entry in isdayAssignedByCurrentUser table
       await db.isdayAssignedByCurrentUser.create({
-        // @ts-ignore
         data: {
-          userId: user.id,
+          userId: user.id!,
           isDayAssigned: true,
           technologyId: technologyId,
-          // date when we are creating it
           startDate: new Date(),
         },
       });
@@ -378,3 +380,65 @@ export const getPointsOfUser = async (technologyId: string) => {
 };
 
 
+
+
+export const updateTopicCompletionStatus = async (technologyId: string) => {
+  const user = await currentUser();
+
+  if (!user || !user.id) {
+    throw new Error("User not found");
+  }
+
+  const technology = await db.technology.findUnique({
+    where: {
+      id: technologyId,
+    },
+    select: {
+      topics: {
+        select: {
+          id: true,
+          subTopics: {
+            select: {
+              id: true,
+              markAsDone: {
+                where: {
+                  userId: user.id,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!technology) {
+    throw new Error("Technology not found");
+  }
+
+  // Loop through each topic and check if all subtopics are marked as done
+  await Promise.all(
+    technology.topics.map(async (topic) => {
+      const allSubTopicsDone = topic.subTopics.every(
+        (subTopic) => subTopic.markAsDone.length > 0
+      );
+
+      if (allSubTopicsDone) {
+        // Update topic completion status to 'DONE'
+        await db.userTopicAssignment.update({
+          where: {
+            userId_TopicId: {
+              TopicId: topic.id,
+              userId: user.id!,
+            },
+          },
+          data: {
+            complettionStatus: "DONE",
+          },
+        });
+      }
+    })
+  );
+
+  revalidatePath("/tutorial");
+};
