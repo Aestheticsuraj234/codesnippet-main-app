@@ -43,6 +43,7 @@ model User {
   subTopicUnlikedBy SubTopicUnlikedBy[]
   markAsDone        MarkAsDone[]
   TopicAssignMent   UserTopicAssignment[]
+  point             Point[]
 
   doubts      Doubt[]
   doubtReplies DoubtReply[]
@@ -438,11 +439,26 @@ model SubTopic {
   savedBy          SubTopicSavedBy[]
   unlikeBy         SubTopicUnlikedBy[]
   doubts           Doubt[]
+  point         Point[]
   topic     Topic            @relation(fields: [topicId], references: [id], onDelete: Cascade)
   topicId   String
   status    TechnologyStatus @default(UNPUBLISHED)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
+}
+
+
+model Point {
+  id          String @id @default(cuid()) @map("_id")
+  subTopicId  String
+  userId     String
+  point       Int
+  subTopic    SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, subTopicId])
 }
 
 

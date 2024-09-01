@@ -90,7 +90,16 @@ export const toggleDone = async (
         subTopicId,
         userId,
       },
+   
     });
+
+    await db.point.create({
+      data: {
+        userId,
+        subTopicId,
+        point: 100,
+      },
+    })
   } else {
     await db.markAsDone.delete({
       where: {
@@ -99,6 +108,15 @@ export const toggleDone = async (
           subTopicId,
         },
       },
+    });
+
+    await db.point.delete({
+      where: {
+        userId_subTopicId: {
+          userId,
+          subTopicId,
+        },
+  }
     });
   }
 

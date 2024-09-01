@@ -3,8 +3,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TopicWiseAccordion from './TopicWiseAccordian';
 import TopicWiseSubTopicCard from './TopicWiseSubTopicCard';
 import { currentUser } from '@/lib/auth/data/auth';
-import TopicDayWiseCaLender from './calender/TopicWiseCalender';
 import TopicWiseCalenderClient from './calender/TopicWiseCalenderClient';
+import ProgressBarContainer from './progressBar/ProgressBarContainer';
 
 interface MainContentTabInterface {
   technologyId: string;
@@ -14,11 +14,18 @@ interface MainContentTabInterface {
 const MainContentTab = async({ technologyId, technology }: MainContentTabInterface) => {
   let currentStartDate = technology.isDayAssigned[0].startDate;
 
-  console.log(JSON.stringify(technology, null, 2));
   const user = await currentUser();
 
   return (
+    <>
+   
+     <ProgressBarContainer
+      technologyId={technologyId}
+      technology={technology}
+     /> 
+  
     <section className="w-auto mt-14">
+  
       <Tabs defaultValue="topicWise">
         <TabsList>
           <TabsTrigger value="topicWise">Topic Wise</TabsTrigger>
@@ -28,7 +35,7 @@ const MainContentTab = async({ technologyId, technology }: MainContentTabInterfa
         <TabsContent value="topicWise">
           <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
-              {technology.topics.map((topic) => {
+              {technology.topics.map((topic:any) => {
                 const dayAssigned = topic.dayAssigned[0].dayAssigned;
                 const endDate = new Date(currentStartDate);
                 endDate.setDate(currentStartDate.getDate() + dayAssigned - 1);
@@ -45,12 +52,13 @@ const MainContentTab = async({ technologyId, technology }: MainContentTabInterfa
                     startDate={startDate}
                     endDate={endDate}
                   >
-                    {topic.subTopics.map((subTopic) => (
+                    {topic.subTopics.map((subTopic:any) => (
                      <div key={subTopic.id} className="grid gap-5 md:grid-cols-1 lg:grid-cols-1 mx-x my-2 w-full">
                         <TopicWiseSubTopicCard
                         id={subTopic.id}
+                        technologyId={technologyId}
                         title={subTopic.title}
-                        isCompleted={subTopic.markAsDone.some((mark)=>mark.userId === user?.id)}
+                        isCompleted={subTopic.markAsDone.some((mark:any)=>mark.userId === user?.id)}
                         />
                       </div>
                     ))}
@@ -70,6 +78,8 @@ const MainContentTab = async({ technologyId, technology }: MainContentTabInterfa
         </TabsContent>
       </Tabs>
     </section>
+    </>
+
   );
 }
 

@@ -133,7 +133,7 @@ export const AddDayAssingToTopic = async (
           userId: user.id,
           TopicId: topic.id,
           dayAssigned: proportionalDays,
-          complettionStatus:"PENDING",
+          complettionStatus: "PENDING",
         },
       });
 
@@ -157,11 +157,13 @@ export const AddDayAssingToTopic = async (
   return updatedTopics;
 };
 
-
-export const ADDNumberOfDaysInTopic = async ( Topicid: string, numberOfDays: number) => {
+export const ADDNumberOfDaysInTopic = async (
+  Topicid: string,
+  numberOfDays: number
+) => {
   const user = await currentUser();
 
-  if(!user || !user.id) {
+  if (!user || !user.id) {
     throw new Error("User not found");
   }
 
@@ -172,15 +174,14 @@ export const ADDNumberOfDaysInTopic = async ( Topicid: string, numberOfDays: num
         userId: user.id,
       },
     },
-    select:{
+    select: {
       dayAssigned: true,
-    }
-  })
+    },
+  });
 
-  if(!userTopicAssignment || !userTopicAssignment.dayAssigned) {
+  if (!userTopicAssignment || !userTopicAssignment.dayAssigned) {
     throw new Error("User Topic Assignment not found");
   }
-
 
   // Here get the user day assigned and add the number of days to it
 
@@ -199,12 +200,12 @@ export const ADDNumberOfDaysInTopic = async ( Topicid: string, numberOfDays: num
   revalidatePath("/tutorial");
 
   return updatedUserTopicAssignment;
+};
 
-}
-
-
-
-export const RemoveNumberOfDaysInTopic = async (Topicid: string, numberOfDays: number) => {
+export const RemoveNumberOfDaysInTopic = async (
+  Topicid: string,
+  numberOfDays: number
+) => {
   const user = await currentUser();
 
   if (!user || !user.id) {
@@ -244,3 +245,136 @@ export const RemoveNumberOfDaysInTopic = async (Topicid: string, numberOfDays: n
 
   return updatedUserTopicAssignment;
 };
+
+export const getProgressOfsubTopic = async (technologyId: string) => {
+  const user = await currentUser();
+
+  if (!user || !user.id) {
+    throw new Error("User not found");
+  }
+
+  const technology = await db.technology.findUnique({
+    where: {
+      id: technologyId,
+    },
+    select: {
+      topics: {
+        select: {
+          subTopics: {
+            select: {
+              id: true,
+              markAsDone: {
+                where: {
+                  userId: user.id,
+                },
+                select: {
+                  userId: true,
+                  subTopicId: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // total number of subtopics
+  const totalNumberOfSubTopics = await db.subTopic.count({
+    where: {
+      topic: {
+        technologyId: technologyId,
+      },
+    },
+  });
+
+  // total number of subtopics done by the user
+  const totalNumberOfSubTopicsDone = technology?.topics.reduce(
+    (acc, topic) =>
+      acc +
+      topic.subTopics.filter((subTopic) => subTopic.markAsDone.length > 0)
+        .length,
+    0
+  );
+
+  revalidatePath("/tutorial" , "page");
+
+  return {
+    totalNumberOfSubTopics,
+    totalNumberOfSubTopicsDone,
+  };
+
+  
+};
+
+
+export const getPointsOfUser = async (technologyId: string) => {
+  const user = await currentUser();
+
+  if (!user || !user.id) {
+    throw new Error("User not found");
+  }
+
+  const technology = await db.technology.findUnique({
+    where: {
+      id: technologyId,
+    },
+    select: {
+      topics: {
+        select: {
+          subTopics: {
+            select: {
+              id: true,
+              point: {
+                select: {
+                  point: true, // Selecting the point value
+                },
+              },
+              markAsDone: {
+                where: {
+                  userId: user.id,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!technology) {
+    throw new Error("Technology not found");
+  }
+
+  // Calculate the total number of subtopics in this technology
+  const totalSubTopics = technology.topics.reduce(
+    (acc, topic) => acc + topic.subTopics.length,
+    0
+  );
+
+  // Calculate the maximum points (100 points per subtopic)
+  const maxPoints = totalSubTopics * 100;
+
+  // Calculate the total points earned by the user
+  const earnedPoints = technology.topics.reduce((acc, topic) => {
+    return (
+      acc +
+      topic.subTopics
+        .filter((subTopic) => subTopic.markAsDone.length > 0) // Only subtopics marked as done
+        .reduce((subAcc, subTopic) => {
+          // Sum up all points inside the subTopic.point array
+          const totalPointsInSubTopic = subTopic.point.reduce(
+            (pointsAcc, pointObj) => pointsAcc + pointObj.point,
+            0
+          );
+          return subAcc + totalPointsInSubTopic;
+        }, 0)
+    );
+  }, 0);
+
+  revalidatePath("/tutorial");
+
+  return { maxPoints, earnedPoints };
+};
+
+

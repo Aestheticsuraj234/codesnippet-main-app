@@ -9,9 +9,10 @@ interface TopicWiseSubTopicProps {
     title:string;
     id:string;
     isCompleted:boolean;
+    technologyId:string;
 }
 
-const TopicWiseSubTopicCard = ({title  , id , isCompleted=true}:TopicWiseSubTopicProps) => {
+const TopicWiseSubTopicCard = ({title  , id , isCompleted=true , technologyId}:TopicWiseSubTopicProps) => {
 
   return (
     <Card className="overflow-hidden px-4 py-4">
@@ -26,7 +27,7 @@ const TopicWiseSubTopicCard = ({title  , id , isCompleted=true}:TopicWiseSubTopi
 
             <Button variant={"outline"} size="lg">
                 {/* TODO: Need to change it later */}
-                <Link href={`/tutorial/learn/${id}`}>
+                <Link href={`/tutorial/${technologyId}/learn/${id}`}>
                     Start Learning
                 </Link>
             </Button>
