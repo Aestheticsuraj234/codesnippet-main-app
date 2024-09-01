@@ -39,7 +39,7 @@ const notes = await getNotesBySubTopicId(params.subTopicId);
 
 const {doubts} = await GetDoubtsBySubTopicId(params.subTopicId);
 
-console.log(doubts);
+console.log(JSON.stringify(doubts));
 
 
   return (

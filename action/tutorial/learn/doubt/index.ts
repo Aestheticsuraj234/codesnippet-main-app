@@ -20,6 +20,23 @@ export const PostDoubt = async (doubt: string, subTopicId: string) => {
     return doubtPost;
 }
 
+export const PostReply = async (reply: string, doubtId: string) => {
+    const user = await currentUser();
+    
+    const replyPost = await db.doubtReply.create({
+        // @ts-ignore
+     data:{
+        content: reply,
+        doubtId: doubtId,
+        userId: user?.id
+     }
+    })
+    
+    revalidatePath(`/tutorial`  , "page")
+    
+    return replyPost;
+}
+
 
 
 interface Doubt {
@@ -74,6 +91,20 @@ export const GetDoubtsBySubTopicId = async (subTopicId: string) => {
           image: true,
         },
       },
+      replies:{
+        select:{
+          id: true,
+          content: true,
+          createdAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+      }
+    }
     },
     orderBy:{
       createdAt: 'desc'

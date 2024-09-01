@@ -473,7 +473,7 @@ model DoubtReply{
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 
- @@unique([userId, doubtId])
+ @@index([userId, doubtId])
 }
 
 model DoubtLike{

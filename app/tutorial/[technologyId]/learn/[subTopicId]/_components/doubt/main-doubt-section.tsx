@@ -25,23 +25,7 @@ interface Props {
 const MainDoubtSection = ({ doubt , userId }: Props) => {
 
 
-  const sampleReplies = [
-    {
-      avatar: "/path-to-avatar1.jpg",
-      username: "JaneSmith",
-      content:
-        "<p>This is a great question! I think the key point to consider is...</p>",
-      likes: 3,
-      dislikes: 0,
-    },
-    {
-      avatar: "/path-to-avatar2.jpg",
-      username: "BobJohnson",
-      content: "<p>I'd like to add that another important factor is...</p>",
-      likes: 2,
-      dislikes: 1,
-    },
-  ];
+  
   return (
     <div className="flex flex-col justify-center items-center space-y-2 flex-1 w-full">
       <RichEditorFormContainer />
@@ -81,7 +65,7 @@ const MainDoubtSection = ({ doubt , userId }: Props) => {
             isDisLiked={doubt.isUnLikedByCurrentUser}
             userId={userId}
             doubtId={doubt.id}
-            replies={sampleReplies}
+            replies={doubt.replies}
           />
         </div>)
 })}

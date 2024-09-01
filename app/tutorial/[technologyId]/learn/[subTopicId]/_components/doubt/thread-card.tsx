@@ -7,36 +7,43 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ThumbsUp, ThumbsDown, MessageCircle, ChevronDown, ChevronUp } from 'lucide-react'
 import CustomRichTextEditor from '@/components/Global/custom-richtext-editor'
-import { toggleLike, toggleUnlike } from '@/action/tutorial/learn/doubt'
+import { PostReply, toggleLike, toggleUnlike } from '@/action/tutorial/learn/doubt'
+import toast from 'react-hot-toast'
 
 interface ReplyProps {
-  avatar: string
-  username: string
+  id: string
+  user:{
+    id: string
+    name: string
+    image: string
+  }
   content: string
-  likes: number
-  dislikes: number
+  createdAt: Date
+
 }
 
-const Reply: React.FC<ReplyProps> = ({ avatar, username, content, likes, dislikes }) => {
+const Reply: React.FC<ReplyProps> = ({id ,  user, content, createdAt }) => {
   return (
     <div className="flex items-start space-x-4 mt-4">
       <Avatar className="w-8 h-8">
-        <AvatarImage src={avatar} alt={username} />
-        <AvatarFallback>{username[0]}</AvatarFallback>
+        <AvatarImage src={user.image} alt={user.name} />
+        <AvatarFallback>{user.name[0]}</AvatarFallback>
       </Avatar>
       <div className="flex-1">
-        <h4 className="font-semibold text-sm">{username}</h4>
+        <h4 className="font-semibold text-sm">{user.name}</h4>
         <div className="mt-1 text-sm" dangerouslySetInnerHTML={{ __html: content }} />
-        <div className="flex space-x-2 mt-2">
-          <Button variant="ghost" size="sm">
-            <ThumbsUp className="mr-1 h-3 w-3" />
-            {likes}
-          </Button>
-          <Button variant="ghost" size="sm">
-            <ThumbsDown className="mr-1 h-3 w-3" />
-            {dislikes}
-          </Button>
-        </div>
+        <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+          {
+            new Date(createdAt).toLocaleString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: true
+            })
+          }
+         </div>   
       </div>
     </div>
   )
@@ -57,10 +64,10 @@ interface ThreadCardProps {
 const ThreadCard: React.FC<ThreadCardProps> = ({isDisLiked , avatar, username, question, likes,  replies, userId, doubtId, isLiked }) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isReplying, setIsReplying] = useState(false)
+  const [isPending , setIsPending] = useState(false)
   const [isLike, setIsLiked] = useState(isLiked)
   const [isDisLike, setIsDisLiked] = useState(isDisLiked)
   const [replyContent, setReplyContent] = useState('')
-  const [threadReplies, setThreadReplies] = useState(replies)
   const [isLikingInProgress, setIsLikingInProgress] = useState(false)
   const [isDisLikingInProgress, setIsDisLikingInProgress] = useState(false)
 
@@ -111,19 +118,20 @@ const ThreadCard: React.FC<ThreadCardProps> = ({isDisLiked , avatar, username, q
     setIsReplying(!isReplying)
   }
 
-  const handleSubmitReply = () => {
-    if (replyContent.trim()) {
-      const newReply: ReplyProps = {
-        avatar: '/path-to-default-avatar.jpg', // Replace with actual user avatar
-        username: 'Current User', // Replace with actual username
-        content: replyContent,
-        likes: 0,
-        dislikes: 0,
-      }
-      setThreadReplies([...threadReplies, newReply])
-      setIsReplying(false)
-      setReplyContent('')
+  const handleSubmitReply = async() => {
+    try {
+      setIsPending(true);
+      await PostReply(replyContent , doubtId);
+      setIsPending(false);
+      setReplyContent('');
+      setIsReplying(false);
+      toast.success('Reply submitted successfully');
+    } catch (error) {
+      setIsPending(false);
+      toast.error('Failed to submit reply');
     }
+
+
   }
 
   return (
@@ -185,15 +193,15 @@ const ThreadCard: React.FC<ThreadCardProps> = ({isDisLiked , avatar, username, q
           />
           <div className="mt-4 flex justify-end space-x-2">
             <Button variant="outline" onClick={() => setIsReplying(false)}>Cancel</Button>
-            <Button onClick={handleSubmitReply}>Submit Reply</Button>
+            <Button disabled={isPending} onClick={handleSubmitReply}>Submit Reply</Button>
           </div>
         </CardContent>
       )}
-      {threadReplies.length > 0 && (
+      {replies.length > 0 && (
         <CardContent className="pt-4">
           <Separator className="my-4" />
           <h4 className="font-semibold mb-2">Replies</h4>
-          {threadReplies.map((reply, index) => (
+          {replies.map((reply, index) => (
             <Reply key={index} {...reply} />
           ))}
         </CardContent>
