@@ -7,7 +7,11 @@ import { currentUser } from "@/lib/auth/data/auth";
 import { getVideoBySubTopicId } from "@/action/tutorial/learn/video";
 import { getNotesBySubTopicId } from "@/action/tutorial/learn/notes";
 import MainTabClient from "./_components/MainTabClient";
-import { GetDoubtsBySubTopicId, LikeCountOfDoubtByDoubtId } from "@/action/tutorial/learn/doubt";
+import Link from "next/link";
+import { GetDoubtsBySubTopicId } from "@/action/tutorial/learn/doubt";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { Hint } from "@/components/Global/hint";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -44,7 +48,21 @@ console.log(JSON.stringify(doubts));
 
   return (
     <ContentLayout>
-      <section className={cn("w-auto", poppins.className)}>
+      <section className={cn("w-auto flex flex-col flex-1 justify-start items-start", poppins.className)}>
+        <Link href={`/tutorial/${params.technologyId}`} className="mb-4">
+        <Hint
+        label="Back to topic"
+       align="center"
+       side="right"
+       alignOffset={10}
+       sideOffset={10}
+        >
+        <Button variant={"outline"} size={"icon"} className="text-sm text-gray-500">
+            <ArrowLeft size={16} />
+          </Button>
+        </Hint>
+         
+        </Link>
       <MainTabClient
         subTopic={subTopic}
         isMarkAsDone={isMarkAsDone}
