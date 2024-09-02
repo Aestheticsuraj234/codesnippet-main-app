@@ -4,20 +4,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   Avatar,
   AvatarImage,
-  AvatarFallback
+  AvatarFallback,
 } from "@/components/ui/avatar";
 import { useCurrentUser } from "@/hooks/auth/use-current-user";
 import LogoutButton from "./LogoutButton";
-import { useCurrentRole } from "@/hooks/auth/use-current-role";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-// import { User } from "next-auth";
+import { useEffect, useMemo, useState } from "react";
 import { getSubscription } from "@/action/subscription";
 
 export const UserButton = () => {
@@ -27,24 +24,36 @@ export const UserButton = () => {
   useEffect(() => {
     async function fetchSubscription() {
       if (user) {
-        let res = await getSubscription();
+        const res = await getSubscription();
         setSubscribedTo(res?.subscribedTo);
       }
     }
 
-    fetchSubscription();
-  }, [user, user?.role]);
+    if (user) {
+      fetchSubscription();
+    }
 
-  const isPremiumActiveUser =
-    subscribedTo?.status === "ACTIVE" &&
-    subscribedTo?.plan === "PREMIUM" &&
-    user?.role === "PREMIUM_USER";
+    
+  }, [user]); // Only run when `user` changes
 
+  // Memoize the check to avoid unnecessary re-calculations
+  const isPremiumActiveUser = useMemo(
+    () =>
+      subscribedTo?.status === "ACTIVE" &&
+      subscribedTo?.plan === "PREMIUM" &&
+      user?.role === "PREMIUM_USER",
+    [subscribedTo, user]
+  );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className={cn("relative rounded-full ml-3", isPremiumActiveUser ? "border-2 p-1 border-indigo-500 " : "")}>
+        <div
+          className={cn(
+            "relative rounded-full ml-3",
+            isPremiumActiveUser ? "border-2 p-1 border-indigo-500" : ""
+          )}
+        >
           <Avatar>
             <AvatarImage src={user?.image || ""} />
             <AvatarFallback className="bg-green-500">

@@ -30,7 +30,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
     <html lang="en">
       <body className={cn(inter.className, "min-h-screen")}>
-      
+      <ReactQueryProvider>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -41,7 +41,7 @@ export default async function RootLayout({
           <ModalProvider />
           {children}
         </ThemeProvider>
-   
+        </ReactQueryProvider>
       </body>
     </html>
   </SessionProvider>

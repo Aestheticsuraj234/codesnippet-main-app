@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronDown, CircleCheckBig, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
+import { useMenu } from "@/zustand/use-menu";
 
 type Submenu = {
   href: string;
@@ -42,6 +43,7 @@ interface CollapseMenuButtonProps {
   isOpen: boolean | undefined;
 }
 
+
 export function CollapseMenuButton({
   icon: Icon,
   label,
@@ -50,7 +52,12 @@ export function CollapseMenuButton({
   isOpen,
 }: CollapseMenuButtonProps) {
   const isSubmenuActive = submenus.some((submenu) => submenu.active);
+
   const [isCollapsed, setIsCollapsed] = useState<boolean>(isSubmenuActive);
+
+
+
+
 
   return isOpen ? (
     <Collapsible
@@ -108,7 +115,7 @@ export function CollapseMenuButton({
           >
             <Link href={href}>
               <span className="mr-4 ml-2">
-                {done ? (
+                { done ? (
                   <CircleCheckBig size={18} className="text-emerald-500" />
                 ) : (
                   <CircleCheckBig size={18} className="text-zinc-400" />
@@ -171,7 +178,7 @@ export function CollapseMenuButton({
           <DropdownMenuItem key={index} asChild>
             <Link className="cursor-pointer" href={href}>
               <span className="mr-4">
-                {done ? (
+                { done ? (
                   <CircleCheckBig size={18} className="text-emerald-500" />
                 ) : (
                   <CircleCheckBig size={18} className="text-zinc-400" />

@@ -1,10 +1,6 @@
 import React, { memo } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
-import { Badge } from "@/components/ui/badge";
-import { Clock } from "lucide-react";
-import { getVideoDuration } from '@/action/tutorial/learn/video';
-
 interface VideoClientProps {
   data: {
     title: string;
@@ -30,7 +26,7 @@ interface VideoClientProps {
   };
 
   const videoId = extractVideoId(data.videoLink); // Extract video ID from the link
-  const videoDuration = videoId ? await getVideoDuration(videoId) : "Duration unavailable";
+
 //  Get the video duration
 
   return (
@@ -49,13 +45,7 @@ interface VideoClientProps {
         <Card>
           <CardContent className="p-6">
             <h2 className="text-2xl font-bold mb-4">{data.title}</h2>
-            <div className="flex items-center space-x-4 mb-4">
-              <Badge variant="secondary" className="flex items-center space-x-1">
-                <Clock className="w-4 h-4" />
-                <span>{videoDuration}</span> {/* Display the video duration */}
-              </Badge>
-              
-            </div>
+           
             <p className={`text-muted-foreground truncate`}>
               {data.videoDescription}
             </p>

@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/auth/use-current-user";
 import { UserRole } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getSubscription } from "@/action/subscription";
 
 type SubscriptionData = {
@@ -14,30 +14,38 @@ type SubscriptionData = {
 };
 
 export const UpgradeButton = () => {
-  const [subscribedTo, setSubscribedTo] = useState();
+  const [subscribedTo, setSubscribedTo] = useState<SubscriptionData | null>(null);
   const currentUser = useCurrentUser();
 
   useEffect(() => {
     async function fetchSubscription() {
       if (currentUser) {
-        let res = await getSubscription();
+        const res = await getSubscription();
         setSubscribedTo(res?.subscribedTo);
       }
     }
 
-    fetchSubscription();
-  }, [currentUser , currentUser?.role]);
+    if (currentUser) {
+      fetchSubscription();
+    }
+  }, [currentUser]); // Only run when `currentUser` changes
 
-  const isPremiumActiveUser =
-    subscribedTo?.status === "ACTIVE" &&
-    subscribedTo?.plan === "PREMIUM" &&
-    currentUser?.role === "PREMIUM_USER";
+  const isPremiumActiveUser = useMemo(
+    () =>
+      subscribedTo?.status === "ACTIVE" &&
+      subscribedTo?.plan === "PREMIUM" &&
+      currentUser?.role === "PREMIUM_USER",
+    [subscribedTo, currentUser]
+  );
 
   const ButtonText = isPremiumActiveUser ? "Premium User" : "Upgrade to Pro";
   const ButtonIcon = isPremiumActiveUser ? <Crown size={20} /> : <LockKeyhole size={20} />;
   const ButtonVariant = isPremiumActiveUser ? "premium" : "outline";
 
-  if (currentUser?.role === UserRole.ADMIN) {
+  // Memoize the admin check to prevent unnecessary calculations
+  const isAdmin = useMemo(() => currentUser?.role === UserRole.ADMIN, [currentUser]);
+
+  if (isAdmin) {
     return (
       <Link href={"#"} passHref>
         <Button

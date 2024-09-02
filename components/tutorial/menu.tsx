@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Ellipsis } from "lucide-react";
 import { useParams, usePathname } from "next/navigation";
-import { useMemo ,  useEffect , useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -16,8 +16,8 @@ import {
 } from "@/components/ui/tooltip";
 import { CollapseMenuButton } from "./collapse-menu-button";
 import { Loader } from "../Global/loader";
-import { useMenuStore } from "@/zustand/use-menu";
-import { getMenuList, Group } from "@/lib/tutorial/menu-list";
+import { useMenu } from "@/zustand/use-menu";
+import { getMenuList } from "@/lib/tutorial/menu-list";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -26,10 +26,10 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
   const params = useParams();
- const [menuList, setMenuList] = useState<Group[]>([]);
+  const { menuList, setMenuList, isSubDone, setIsDone } = useMenu(); // Get Zustand state and actions
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch and cache menu data
+  // Fetch menu data initially
   useEffect(() => {
     async function fetchMenu() {
       setIsLoading(true);
@@ -41,13 +41,27 @@ export function Menu({ isOpen }: MenuProps) {
     if (params.technologyId) {
       fetchMenu();
     }
-  }, [pathname, params.technologyId]);
+  }, [params.technologyId]); // Added setMenuList to dependency array
 
-  const memoizedMenuList = useMemo(() => menuList, [menuList]);
+  // Memoize menuList and dynamically compute 'active' state based on 'pathname' and 'done' status
+  const memoizedMenuList = useMemo(() => {
+    return menuList.map((group) => ({
+      ...group,
+      menus: group.menus.map((menu) => ({
+        ...menu,
+        active: pathname.includes(menu.href), // Dynamically update active state
+        submenus: menu.submenus.map((submenu) => ({
+          ...submenu,
+          active: pathname === submenu.href, // Dynamically update active state
+          done: submenu.done, // Use the current submenu 'done' status
+        })),
+      })),
+    }));
+  }, [menuList, pathname]); // Include 'menuList' and 'pathname' as dependencies
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
-      <nav className="mt-8 h-full w-full ">
+      <nav className="mt-8 h-full w-full">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center">
             <Loader />

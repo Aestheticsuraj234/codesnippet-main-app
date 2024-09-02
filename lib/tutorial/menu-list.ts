@@ -1,4 +1,5 @@
 import { GetAllTopicsByTechnologyId } from "@/action/tutorial";
+import exp from "constants";
 import {
   Users,
   Settings,
@@ -36,6 +37,10 @@ export async function getMenuList(
   
   // Fetch topics by technology ID
   const topics = await GetAllTopicsByTechnologyId(technologyId);
+
+  // re-fetch the done status of the subtopics
+
+  const subTopics = topics.flatMap((topic) => topic.subTopics.map((subTopic) => subTopic.done));
 
   // Transform topics into menu structure
   const contentsMenu = topics.map((topic) => ({
@@ -89,3 +94,5 @@ export async function getMenuList(
     },
   ];
 }
+
+

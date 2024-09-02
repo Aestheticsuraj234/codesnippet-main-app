@@ -38,6 +38,7 @@ export const GetAllTopicsByTechnologyId = async (technologyId: string) => {
     })),
   }));
 
+  revalidatePath("/tutorial");
   return modifiedTopics;
 };
 
@@ -291,13 +292,16 @@ export const getProgressOfsubTopic = async (technologyId: string) => {
   });
 
   // total number of subtopics done by the user
-  const totalNumberOfSubTopicsDone = technology?.topics.reduce(
-    (acc, topic) =>
-      acc +
-      topic.subTopics.filter((subTopic) => subTopic.markAsDone.length > 0)
-        .length,
-    0
-  );
+  const totalNumberOfSubTopicsDone = await db.markAsDone.count({
+    where: {
+      userId: user.id,
+      subTopic: {
+        topic: {
+          technologyId: technologyId,
+        },
+      },
+    },
+  });
 
   revalidatePath("/tutorial" , "page");
 
@@ -349,30 +353,37 @@ export const getPointsOfUser = async (technologyId: string) => {
   }
 
   // Calculate the total number of subtopics in this technology
-  const totalSubTopics = technology.topics.reduce(
-    (acc, topic) => acc + topic.subTopics.length,
-    0
-  );
+  const totalSubTopics = await db.subTopic.count({
+    where: {
+      topic: {
+        technologyId: technologyId,
+      },
+    },
+  })
 
   // Calculate the maximum points (100 points per subtopic)
-  const maxPoints = totalSubTopics * 100;
+  const maxPoints = totalSubTopics * 150;
 
   // Calculate the total points earned by the user
-  const earnedPoints = technology.topics.reduce((acc, topic) => {
-    return (
-      acc +
-      topic.subTopics
-        .filter((subTopic) => subTopic.markAsDone.length > 0) // Only subtopics marked as done
-        .reduce((subAcc, subTopic) => {
-          // Sum up all points inside the subTopic.point array
-          const totalPointsInSubTopic = subTopic.point.reduce(
-            (pointsAcc, pointObj) => pointsAcc + pointObj.point,
-            0
-          );
-          return subAcc + totalPointsInSubTopic;
-        }, 0)
-    );
-  }, 0);
+  const earnedPoints = await db.markAsDone.count({
+    where: {
+      userId: user.id,
+      subTopic: {
+        topic: {
+          technologyId: technologyId,
+        },
+      },
+    },
+  }) * 150;
+  
+
+
+  console.log(
+    {
+      maxPoints,
+      earnedPoints,
+    }
+  )
 
   revalidatePath("/tutorial");
 

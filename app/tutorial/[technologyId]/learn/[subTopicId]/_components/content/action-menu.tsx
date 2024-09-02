@@ -2,6 +2,7 @@
 
 import { toggleDone, toggleLike, toggleUnLike, toggleSave } from "@/action/tutorial/learn/content";
 import { Button } from "@/components/ui/button";
+import { useMenu } from "@/zustand/use-menu";
 import { CheckCircle, Heart, ThumbsDown, BookmarkPlus, BookmarkCheck } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
@@ -21,12 +22,14 @@ const ActionMenu = ({ isMarkAsDone, userId, subTopicId, isLiked, isUnliked, isSa
   const [isLike, setIsLiked] = useState(isLiked);
   const [isUnlike, setIsUnliked] = useState(isUnliked);
   const [isSavedState, setIsSaved] = useState(isSaved);
+
+
   
   useEffect(() => {
     setIsCompleted(isMarkAsDone);
     setIsLiked(isLiked);
     setIsSaved(isSaved);
-  }, [isMarkAsDone , isLiked ,  isSaved]);
+  }, [isMarkAsDone , isLiked ,isSaved  ]);
 
   const onMarkAsDone = async () => {
     const newCompletedStatus = !isCompleted;
