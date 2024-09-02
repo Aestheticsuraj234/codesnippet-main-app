@@ -121,7 +121,7 @@ const MainTabClient = ({
             <h1 className="text-2xl font-bold mb-2">{subTopic?.title}</h1>
             <Badge variant="secondary" className="text-yellow-500 ">
               <Star className="h-4 w-4 fill-current mr-1" />
-              100 points
+              150 points
             </Badge>
           </div>
           <ActionMenu
@@ -148,7 +148,7 @@ const MainTabClient = ({
             <h1 className="text-2xl font-bold mb-2">{subTopic?.title}</h1>
             <Badge variant="secondary" className="text-yellow-500 ">
               <Star className="h-4 w-4 fill-current mr-1" />
-              100 points
+              150 points
             </Badge>
           </div>
           <ActionMenu

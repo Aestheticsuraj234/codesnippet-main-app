@@ -22,7 +22,7 @@ const ActionMenu = ({ isMarkAsDone, userId, subTopicId, isLiked, isUnliked, isSa
   const [isLike, setIsLiked] = useState(isLiked);
   const [isUnlike, setIsUnliked] = useState(isUnliked);
   const [isSavedState, setIsSaved] = useState(isSaved);
-
+  const {updateSubtopicStatus} = useMenu();
 
   
   useEffect(() => {
@@ -36,7 +36,9 @@ const ActionMenu = ({ isMarkAsDone, userId, subTopicId, isLiked, isUnliked, isSa
     setIsCompleted(newCompletedStatus);
 
     try {
+       updateSubtopicStatus(subTopicId, newCompletedStatus);
       await toggleDone(subTopicId, userId, newCompletedStatus);
+
     } catch (error) {
       console.error("Failed to mark as done:", error);
       setIsCompleted(!newCompletedStatus); // Revert state if error occurs

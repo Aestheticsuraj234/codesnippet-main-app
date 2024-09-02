@@ -10,6 +10,7 @@ import {
 
 
 type Submenu = {
+  id: string
   href: string;
   label: string;
   active: boolean;
@@ -49,6 +50,7 @@ export async function getMenuList(
     active: pathname.includes(`/topics/${topic.id}`),
     icon: Folder,
     submenus: topic.subTopics.map((subTopic) => ({
+      id: subTopic.id,
       href: `/tutorial/${technologyId}/learn/${subTopic.id}`, // Adjust the path according to your routing
       label: subTopic.title,
       active: pathname === `/tutorial/${technologyId}/learn/${subTopic.id}`,
