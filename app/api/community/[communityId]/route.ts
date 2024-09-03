@@ -31,3 +31,29 @@ export async function PATCH(
       return new NextResponse("Internal Error", { status: 500 });
     }
   }
+
+
+  export async function DELETE(
+    req: Request,
+    { params }: { params: { communityId: string } }
+  ) {
+    try {
+      const user = await currentUser();
+  
+      if (!user) {
+        return new NextResponse("Unauthorized", { status: 401 });
+      }
+  
+      const server = await db.community.delete({
+        where: {
+          id: params.communityId,
+          userId: user.id,
+        }
+      });
+  
+      return NextResponse.json(server);
+    } catch (error) {
+      console.log("[COMMUNITY_ID_DELETE]", error);
+      return new NextResponse("Internal Error", { status: 500 });
+    }
+  }

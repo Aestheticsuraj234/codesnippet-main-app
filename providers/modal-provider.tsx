@@ -1,9 +1,12 @@
 "use client";
 
 import { AddModal } from "@/components/modal/Add-Modal";
+import { CreateChannelModal } from "@/components/modal/create-channel-moda";
 import { CreateCommunityModal } from "@/components/modal/create-community-modal";
+import { DeleteCommunityModal } from "@/components/modal/delete-community-moda";
 import { EditCommunityModal } from "@/components/modal/edit-community-modal";
 import { InviteModal } from "@/components/modal/invite-community-modal";
+import { LeaveCommunityModal } from "@/components/modal/leave-community-modal";
 import { MembersModal } from "@/components/modal/members-modal";
 import { RemoveModal } from "@/components/modal/Remove-Modal";
 
@@ -28,6 +31,9 @@ export const ModalProvider = () => {
       <InviteModal />
       <EditCommunityModal />
       <MembersModal />
+      <CreateChannelModal />
+      <LeaveCommunityModal />
+      <DeleteCommunityModal />
     </>
   );
 };
