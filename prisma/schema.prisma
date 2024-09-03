@@ -581,7 +581,7 @@ model Community {
   id         String @id @default(cuid()) @map("_id")
   name       String
   imageUrl   String
-  inviteCode String
+  inviteCode String  @unique
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
