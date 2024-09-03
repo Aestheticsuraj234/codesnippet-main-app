@@ -1,28 +1,27 @@
 "use client";
 
 import { AddModal } from "@/components/modal/Add-Modal";
+import { CreateCommunityModal } from "@/components/modal/create-community-modal";
 import { RemoveModal } from "@/components/modal/Remove-Modal";
+
 import { useEffect, useState } from "react";
 
+export const ModalProvider = () => {
+  const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
+  if (!isMounted) {
+    return null;
+  }
 
-export const ModalProvider = ()=>{
-    const [isMounted, setIsMounted] = useState(false)
-
-useEffect(() => {
-    setIsMounted(true)
-},[])
-
-if(!isMounted){
-    return null
-}
-
-
-return (
+  return (
     <>
-        <AddModal />
-        <RemoveModal />
+      <AddModal />
+      <RemoveModal />
+      <CreateCommunityModal />
     </>
-)
-}
+  );
+};
