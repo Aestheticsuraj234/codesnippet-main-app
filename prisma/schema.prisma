@@ -45,13 +45,16 @@ model User {
   TopicAssignMent   UserTopicAssignment[]
   point             Point[]
 
-  doubts      Doubt[]
+  doubts       Doubt[]
   doubtReplies DoubtReply[]
   doubtLikes   DoubtLike[]
   doubtUnlikes DoubtUnlike[]
-    
 
   isdayAssigned isdayAssignedByCurrentUser[]
+
+  community Community[]
+  members   Member[]
+  channels  Channel[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -384,30 +387,28 @@ enum TechnologyStatus {
 }
 
 model Technology {
-  id          String           @id @default(cuid()) @map("_id")
-  name        String
-  description String
-  image       String
+  id            String                       @id @default(cuid()) @map("_id")
+  name          String
+  description   String
+  image         String
   isDayAssigned isdayAssignedByCurrentUser[]
-  status      TechnologyStatus @default(UNPUBLISHED)
-  topics      Topic[]
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  status        TechnologyStatus             @default(UNPUBLISHED)
+  topics        Topic[]
+  createdAt     DateTime                     @default(now())
+  updatedAt     DateTime                     @updatedAt
 }
 
-
 model isdayAssignedByCurrentUser {
-  id          String @id @default(cuid()) @map("_id")
-  userId      String
+  id            String     @id @default(cuid()) @map("_id")
+  userId        String
   isDayAssigned Boolean
-  startDate   DateTime
-  technologyId String
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  technology  Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+  startDate     DateTime
+  technologyId  String
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  technology    Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
 
   @@unique([userId, technologyId])
 }
-
 
 enum CompletionStatus {
   DONE
@@ -416,15 +417,15 @@ enum CompletionStatus {
 }
 
 model Topic {
-  id          String                @id @default(cuid()) @map("_id")
-  title       String
-  dayAssigned UserTopicAssignment[]
-  technology       Technology       @relation(fields: [technologyId], references: [id], onDelete: Cascade)
-  technologyId     String
-  status           TechnologyStatus @default(UNPUBLISHED)
-  subTopics        SubTopic[]
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id           String                @id @default(cuid()) @map("_id")
+  title        String
+  dayAssigned  UserTopicAssignment[]
+  technology   Technology            @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+  technologyId String
+  status       TechnologyStatus      @default(UNPUBLISHED)
+  subTopics    SubTopic[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
 }
 
 model SubTopic {
@@ -439,86 +440,81 @@ model SubTopic {
   savedBy          SubTopicSavedBy[]
   unlikeBy         SubTopicUnlikedBy[]
   doubts           Doubt[]
-  point         Point[]
-  topic     Topic            @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  topicId   String
-  status    TechnologyStatus @default(UNPUBLISHED)
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+  point            Point[]
+  topic            Topic               @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  topicId          String
+  status           TechnologyStatus    @default(UNPUBLISHED)
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
 }
 
-
 model Point {
-  id          String @id @default(cuid()) @map("_id")
-  subTopicId  String
+  id         String   @id @default(cuid()) @map("_id")
+  subTopicId String
   userId     String
-  point       Int
-  subTopic    SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  point      Int
+  subTopic   SubTopic @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([userId, subTopicId])
 }
 
-
 model Doubt {
-  id          String      @id @default(cuid()) @map("_id")
-  userId      String
-  subTopicId  String
-  content     String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subTopic    SubTopic    @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
-  replies     DoubtReply[]
-  likes       DoubtLike[]
-  unlikes     DoubtUnlike[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
+  id         String        @id @default(cuid()) @map("_id")
+  userId     String
+  subTopicId String
+  content    String
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subTopic   SubTopic      @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  replies    DoubtReply[]
+  likes      DoubtLike[]
+  unlikes    DoubtUnlike[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
 
   @@index([userId, subTopicId])
 }
 
-model DoubtReply{
-  id          String      @id @default(cuid()) @map("_id")
-  userId      String
-  doubtId     String
-  content     String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  doubt       Doubt       @relation(fields: [doubtId], references: [id], onDelete: Cascade)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+model DoubtReply {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  doubtId   String
+  content   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doubt     Doubt    @relation(fields: [doubtId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
- @@index([userId, doubtId])
+  @@index([userId, doubtId])
 }
 
-model DoubtLike{
-  id          String      @id @default(cuid()) @map("_id")
-  userId      String
-  doubtId     String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  doubt       Doubt       @relation(fields: [doubtId], references: [id], onDelete: Cascade)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
+model DoubtLike {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  doubtId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doubt     Doubt    @relation(fields: [doubtId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, doubtId])
 }
 
-model DoubtUnlike{
-  id          String      @id @default(cuid()) @map("_id")
-  userId      String
-  doubtId     String
-  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  doubt       Doubt       @relation(fields: [doubtId], references: [id], onDelete: Cascade)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+model DoubtUnlike {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  doubtId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  doubt     Doubt    @relation(fields: [doubtId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-
-@@unique([userId, doubtId])
+  @@unique([userId, doubtId])
 }
-model Note {
 
+model Note {
   id         String   @id @default(cuid()) @map("_id")
   userId     String
   subTopicId String
@@ -570,13 +566,71 @@ model SubTopicUnlikedBy {
 }
 
 model UserTopicAssignment {
-  id          String @id @default(cuid()) @map("_id")
-  userId      String
-  TopicId     String
-  dayAssigned Int?
-  complettionStatus      CompletionStatus @default(PENDING)
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  topic       Topic  @relation(fields: [TopicId], references: [id], onDelete: Cascade)
+  id                String           @id @default(cuid()) @map("_id")
+  userId            String
+  TopicId           String
+  dayAssigned       Int?
+  complettionStatus CompletionStatus @default(PENDING)
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic             Topic            @relation(fields: [TopicId], references: [id], onDelete: Cascade)
 
   @@unique([userId, TopicId])
+}
+
+model Community {
+  id         String @id @default(cuid()) @map("_id")
+  name       String
+  imageUrl   String
+  inviteCode String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  members  Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
+
+model Member {
+  id          String     @id @default(cuid()) @map("_id")
+  userId      String
+  communityId String
+  role        MemberRole @default(GUEST)
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  community   Community  @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([userId])
+  @@index([communityId])
+}
+
+enum ChannelType {
+  TEXT
+}
+
+model Channel {
+  id   String      @id @default(cuid()) @map("_id")
+  name String
+  type ChannelType @default(TEXT)
+
+  userId      String
+  communityId String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([communityId])
 }

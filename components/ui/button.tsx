@@ -24,6 +24,7 @@ const buttonVariants = cva(
         premium:"bg-[#4169e1] text-[#fff] hover:bg-[#4169e1]/80",
         completed:" bg-emerald-500 text-[#fff] hover:bg-emerald-500/80",
         liked:" bg-[#ff0000] text-[#fff] hover:bg-[#ff0000]/80",
+        primary:"bg-indigo-500 text-white hover:bg-indigo-500/90",
         
       },
       size: {

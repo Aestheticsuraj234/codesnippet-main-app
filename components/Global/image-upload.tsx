@@ -35,7 +35,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   }
 
   return ( 
-    <div>
+    <div className="z-99">
       <div className="mb-4 flex items-center gap-4">
         
           <div  className="relative w-[200px] h-[200px] rounded-md overflow-hidden">

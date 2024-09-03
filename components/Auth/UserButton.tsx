@@ -50,7 +50,7 @@ export const UserButton = () => {
       <DropdownMenuTrigger>
         <div
           className={cn(
-            "relative rounded-full ml-3",
+            "relative rounded-full ",
             isPremiumActiveUser ? "border-2 p-1 border-indigo-500" : ""
           )}
         >
