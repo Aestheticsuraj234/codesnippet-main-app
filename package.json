@@ -59,6 +59,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "convex": "^1.15.0",
     "date-fns": "^3.6.0",
     "editorjs-react-renderer": "^3.5.1",
     "emblor": "^1.4.4",

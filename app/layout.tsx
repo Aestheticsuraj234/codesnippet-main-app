@@ -3,20 +3,16 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
-import { Toaster } from "sonner";
+import { auth } from "@/auth";;
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ToastProvider } from "@/providers/toast-provider";
 import { ModalProvider } from "@/providers/modal-provider";
 import ReactQueryProvider from "./ReactQueryProvider";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Sigma Coders",
   description: "Sigma Coders is a community of developers",
-  
-  
 };
 
 export default async function RootLayout({
@@ -30,6 +26,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
     <html lang="en">
       <body className={cn(inter.className, "min-h-screen")}>
+   
       <ReactQueryProvider>
         <ThemeProvider
           attribute="class"
@@ -42,6 +39,7 @@ export default async function RootLayout({
           {children}
         </ThemeProvider>
         </ReactQueryProvider>
+     
       </body>
     </html>
   </SessionProvider>

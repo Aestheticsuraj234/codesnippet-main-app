@@ -6,6 +6,7 @@ import {
   LayoutGrid,
   LucideIcon,
   Folder,
+  Boxes,
 } from "lucide-react";
 
 
@@ -39,10 +40,6 @@ export async function getMenuList(
   // Fetch topics by technology ID
   const topics = await GetAllTopicsByTechnologyId(technologyId);
 
-  // re-fetch the done status of the subtopics
-
-  const subTopics = topics.flatMap((topic) => topic.subTopics.map((subTopic) => subTopic.done));
-
   // Transform topics into menu structure
   const contentsMenu = topics.map((topic) => ({
     href: `/topics/${topic.id}`, // Adjust the path according to your routing
@@ -63,12 +60,19 @@ export async function getMenuList(
       groupLabel: "",
       menus: [
         {
-          href: "/dashboard",
-          label: "Dashboard",
-          active: pathname.includes("/dashboard"),
+          href: "/dashboard/tutorials",
+          label: "Tutorials",
+          active: pathname.includes("/dashboard/tutorials"),
           icon: LayoutGrid,
           submenus: [],
         },
+        {
+          href: "/discussion",
+          label: "Discussion",
+          active: pathname.includes("/discussion"),
+          icon: Boxes,
+          submenus: [],
+        }
       ],
     },
     {
