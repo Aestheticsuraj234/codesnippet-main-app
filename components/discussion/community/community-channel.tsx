@@ -36,7 +36,7 @@ export const CommunityChannel = ({
   const Icon = iconMap[channel.type];
 
   const onClick = () => {
-    router.push(`/Communitys/${params?.CommunityId}/channels/${channel.id}`)
+    router.push(`/discussion/community/${params?.communityId}/channels/${channel.id}`)
   }
 
   const onAction = (e: React.MouseEvent, action: ModalType) => {
