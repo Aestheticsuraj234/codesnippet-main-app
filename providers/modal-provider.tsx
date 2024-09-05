@@ -3,7 +3,9 @@
 import { AddModal } from "@/components/modal/Add-Modal";
 import { CreateChannelModal } from "@/components/modal/create-channel-moda";
 import { CreateCommunityModal } from "@/components/modal/create-community-modal";
+import { DeleteChannelModal } from "@/components/modal/delete-channel-modal";
 import { DeleteCommunityModal } from "@/components/modal/delete-community-moda";
+import { EditChannelModal } from "@/components/modal/edit-channel-modal";
 import { EditCommunityModal } from "@/components/modal/edit-community-modal";
 import { InviteModal } from "@/components/modal/invite-community-modal";
 import { LeaveCommunityModal } from "@/components/modal/leave-community-modal";
@@ -34,6 +36,8 @@ export const ModalProvider = () => {
       <CreateChannelModal />
       <LeaveCommunityModal />
       <DeleteCommunityModal />
+      <DeleteChannelModal />
+      <EditChannelModal />
     </>
   );
 };
