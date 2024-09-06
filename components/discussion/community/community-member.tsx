@@ -29,7 +29,7 @@ export const CommunityMember = ({
   const icon = roleIconMap[member.role];
 
   const onClick = () => {
-    router.push(`/discussion/community/${params?.communityId}/conversations/${member.id}`)
+    router.push(`/profile/${member.user.id}`);
   }
 
   return (

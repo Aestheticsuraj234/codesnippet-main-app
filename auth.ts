@@ -9,6 +9,7 @@ import { getAccountByUserId } from "@/lib/auth/data/account";
 
 export const {
   handlers: { GET, POST },
+  
   auth,
   signIn,
   signOut,

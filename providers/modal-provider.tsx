@@ -5,11 +5,13 @@ import { CreateChannelModal } from "@/components/modal/create-channel-moda";
 import { CreateCommunityModal } from "@/components/modal/create-community-modal";
 import { DeleteChannelModal } from "@/components/modal/delete-channel-modal";
 import { DeleteCommunityModal } from "@/components/modal/delete-community-moda";
+import { DeleteMessageModal } from "@/components/modal/delete-message-modal";
 import { EditChannelModal } from "@/components/modal/edit-channel-modal";
 import { EditCommunityModal } from "@/components/modal/edit-community-modal";
 import { InviteModal } from "@/components/modal/invite-community-modal";
 import { LeaveCommunityModal } from "@/components/modal/leave-community-modal";
 import { MembersModal } from "@/components/modal/members-modal";
+import { MessageFileModal } from "@/components/modal/message-file";
 import { RemoveModal } from "@/components/modal/Remove-Modal";
 
 import { useEffect, useState } from "react";
@@ -38,6 +40,8 @@ export const ModalProvider = () => {
       <DeleteCommunityModal />
       <DeleteChannelModal />
       <EditChannelModal />
+      <MessageFileModal />
+      <DeleteMessageModal />
     </>
   );
 };

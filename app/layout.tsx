@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { ToastProvider } from "@/providers/toast-provider";
 import { ModalProvider } from "@/providers/modal-provider";
 import ReactQueryProvider from "./ReactQueryProvider";
+import { SocketProvider } from "@/providers/socket-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -34,9 +35,11 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SocketProvider>
           <ToastProvider />
           <ModalProvider />
           {children}
+          </SocketProvider>
         </ThemeProvider>
         </ReactQueryProvider>
      

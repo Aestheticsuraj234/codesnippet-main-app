@@ -1,4 +1,6 @@
 import ChatHeader from "@/components/discussion/chat/chat-header";
+import { ChatInput } from "@/components/discussion/chat/chat-input";
+import { ChatMessages } from "@/components/discussion/chat/chat-messages";
 import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
 import { getOrCreateConversation } from "@/lib/discussion/conversation";
@@ -58,6 +60,31 @@ const MemberIdPage = async ({ params }: MemberIdPageProps) => {
         communityId={params.communityId}
         type="conversation"
       />
+      <ChatMessages
+            member={currentMember}
+            name={otherMember.user.name!}
+            chatId={conversation.id}
+            type="conversation"
+            apiUrl="/api/direct-messages"
+            paramKey="conversationId"
+            paramValue={conversation.id}
+            socketUrl="/api/socket/direct-messages"
+            socketQuery={{
+              conversationId: conversation.id,
+            }}
+            
+          />
+     
+     <ChatInput
+            name={otherMember.user.name!}
+            type="conversation"
+            apiUrl="/api/socket/direct-messages"
+            query={{
+              conversationId: conversation.id,
+            }}
+            // @ts-ignore
+            user={user}
+          />
     </div>
   );
 };
