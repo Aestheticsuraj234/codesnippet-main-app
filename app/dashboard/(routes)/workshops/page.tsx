@@ -76,6 +76,7 @@ const WorkshopMainPage = async () => {
     workshops.map((workshop) => (
       <WorkshopCards
         key={workshop.id}
+        id={workshop.id}
         date={workshop.startDate}
         techStack={workshop.techStack}
         imageSrc={workshop.image}

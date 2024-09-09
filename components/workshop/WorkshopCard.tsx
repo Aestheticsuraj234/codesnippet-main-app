@@ -4,9 +4,11 @@ import { db } from "@/lib/db/db";
 import { Calendar, Play, Users } from "lucide-react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
+import Link from "next/link";
 
 export interface WorkshopCardProps {
   date: Date;
+  id:string
   imageSrc: string;
   Title: string;
   Description: string;
@@ -16,6 +18,7 @@ export interface WorkshopCardProps {
 
 export const WorkshopCards = async ({
   date,
+  id,
   imageSrc,
   Title,
   Description,
@@ -45,6 +48,7 @@ export const WorkshopCards = async ({
     user?.role === "ADMIN";
 
   return (
+    <Link href={`/dashboard/workshops/${id}`}>
     <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer">
       <div className="aspect-video relative">
         <img
@@ -91,5 +95,6 @@ export const WorkshopCards = async ({
         <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{Description}</p>
       </CardContent>
     </Card>
+    </Link>
   );
 };
