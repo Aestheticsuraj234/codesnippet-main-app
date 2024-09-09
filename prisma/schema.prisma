@@ -56,6 +56,8 @@ model User {
   members   Member[]
   channels  Channel[]
 
+  workShopDayProgress WorkshopDayProgress[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -245,11 +247,40 @@ model workshop {
   startDate      DateTime
   endDate        DateTime
   techStack      String[]
-  sourceCodeLink String?
+  days          WorkshopDay[]
+  isRecorded     Boolean     @default(false)
   status         ContentStatus @default(UNPUBLISHED)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 }
+
+
+model WorkshopDay{
+   id            String      @id @default(cuid()) @map("_id")
+  workshop      workshop    @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+  workshopId    String
+  title        String
+  dayNumber     Int       
+  sourceCodeLink String?    
+  videoLink     String?     
+  notes         String?     
+  userProgress  WorkshopDayProgress[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model WorkshopDayProgress {
+  id           String     @id @default(cuid()) @map("_id")
+  userId       String
+  dayId        String     @unique
+  markedAsDone Boolean    @default(false)
+  completedAt  DateTime?  // Date when the day was marked as done
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  day          WorkshopDay       @relation(fields: [dayId], references: [id], onDelete: Cascade)
+   createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
 
 model SystemDesignChapter {
   id            String                @id @default(cuid()) @map("_id")

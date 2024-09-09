@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { currentRole, currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
-import { UserRole } from "@prisma/client";
 import { Lock, Unlock } from "lucide-react";
 
 export interface UpcomingWorkshopProps {
@@ -13,7 +12,6 @@ export interface UpcomingWorkshopProps {
 }
 
 export const UpcomingWorkshops = async({Date , imageSrc,Category , Title , Description}:UpcomingWorkshopProps) => {
-  const role = await currentRole();
   const user = await currentUser();
   const subscription = await db.user.findUnique({
     where: {
@@ -30,7 +28,7 @@ export const UpcomingWorkshops = async({Date , imageSrc,Category , Title , Descr
     }
   });
 
-  const isPremiumActiveUser = subscription?.subscribedTo?.status === "ACTIVE" && subscription?.subscribedTo?.plan === "PREMIUM" && user?.role === "PREMIUM_USER";
+  const isPremiumActiveUser = (subscription?.subscribedTo?.status === "ACTIVE" && subscription?.subscribedTo?.plan === "PREMIUM" && user?.role === "PREMIUM_USER") || user?.role === "ADMIN";
 
   return (
     <Card className="cursor-pointer">

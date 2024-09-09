@@ -39,7 +39,7 @@ const TutorialPage = async () => {
     }
   });
 
-  const isPremiumActiveUser = subscription?.subscribedTo?.status === "ACTIVE" && subscription?.subscribedTo?.plan === "PREMIUM" && user?.role === "PREMIUM_USER";
+  const isPremiumActiveUser = (subscription?.subscribedTo?.status === "ACTIVE" && subscription?.subscribedTo?.plan === "PREMIUM" && user?.role === "PREMIUM_USER") || (user?.role === "ADMIN");
 
   return (
     <main className="px-4 py-4 flex flex-col ">

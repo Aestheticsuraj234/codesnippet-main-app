@@ -26,11 +26,13 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useModal } from "@/zustand/use-modal-store";
+import ImageUpload from "../Global/image-upload";
 
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Server name is required.",
   }),
+  imageUrl: z.string().optional(),
 });
 
 export const EditCommunityModal = () => {
@@ -48,6 +50,7 @@ export const EditCommunityModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      imageUrl: "",
     },
   });
 
@@ -55,7 +58,7 @@ export const EditCommunityModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/community/${community?.id}`, { ...values, imageUrl });
+      await axios.patch(`/api/community/${community?.id}`, values);
 
       form.reset();
       router.refresh();
@@ -65,20 +68,12 @@ export const EditCommunityModal = () => {
     }
   };
 
-  // Update avatar URL when server name changes
-  useEffect(() => {
-    const name = form.watch("name");
-    if (name) {
-      setImageUrl(`https://avatar.iran.liara.run/username?username=${name}`);
-    } else {
-      setImageUrl("");
-    }
-  }, [form.watch("name")]);
 
 
   useEffect(() => {
     if(community){
         form.setValue("name",community.name)
+        form.setValue("imageUrl",community.imageUrl)
     }
   },[community , form])
 
@@ -101,18 +96,23 @@ export const EditCommunityModal = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
-              <div className="flex items-center justify-center text-center">
-                <div className="relative h-20 w-20">
-                  {imageUrl && (
-                    <Image
-                      src={imageUrl || "https://via.placeholder.com/100"}
-                      alt="avatar"
-                      className="rounded-full object-cover"
-                      width={100}
-                      height={100}
-                    />
+            <div className="flex items-center justify-center text-center">
+                <FormField
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <ImageUpload
+                          value={field.value}
+                          onChange={field.onChange}
+                          onRemove={field.onChange}
+                          disabled={isLoading}
+                        />
+                      </FormControl>
+                    </FormItem>
                   )}
-                </div>
+                />
               </div>
 
               <FormField

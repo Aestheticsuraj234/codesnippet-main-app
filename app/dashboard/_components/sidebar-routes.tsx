@@ -43,7 +43,7 @@ const Routes = [
   {
     icon:PencilRulerIcon,
     label: "Workshops",
-    href: "/workshops",
+    href: "/dashboard/workshops",
   },
   {
     icon:Sheet,

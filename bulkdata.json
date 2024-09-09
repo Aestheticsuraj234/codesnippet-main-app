@@ -1,191 +1,183 @@
 [
-    {
-      "name": "HTML",
-      "description": "A foundational technology for creating web pages.",
-      "status": "PUBLISHED",
-      "image": "https://example.com/html-image.png",
-      "topics": [
-        {
-          "title": "Introduction to HTML",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "What is HTML?",
-              "videoLink": "https://example.com/what-is-html",
-              "videoDescription": "An introduction to HTML and its importance.",
-              "content": "{\"time\":1723976283342,\"blocks\":[{\"id\":\"FkOlwai612\",\"type\":\"paragraph\",\"data\":{\"text\":\"HTML stands for HyperText Markup Language.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "HTML Basic Syntax",
-              "videoLink": "https://example.com/html-basic-syntax",
-              "videoDescription": "Learn the basic syntax of HTML.",
-              "content": "{\"time\":1723976283343,\"blocks\":[{\"id\":\"FkOlwai613\",\"type\":\"paragraph\",\"data\":{\"text\":\"HTML uses tags to define elements on a webpage.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Tags",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Common HTML Tags",
-              "videoLink": "https://example.com/common-html-tags",
-              "videoDescription": "Overview of common HTML tags.",
-              "content": "{\"time\":1723976283344,\"blocks\":[{\"id\":\"FkOlwai614\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn about <div>, <span>, <a>, and more.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "HTML Attributes",
-              "videoLink": "https://example.com/html-attributes",
-              "videoDescription": "Understanding HTML attributes.",
-              "content": "{\"time\":1723976283345,\"blocks\":[{\"id\":\"FkOlwai615\",\"type\":\"paragraph\",\"data\":{\"text\":\"Attributes provide additional information about HTML elements.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Forms",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Creating Forms",
-              "videoLink": "https://example.com/creating-forms",
-              "videoDescription": "How to create forms in HTML.",
-              "content": "{\"time\":1723976283346,\"blocks\":[{\"id\":\"FkOlwai616\",\"type\":\"paragraph\",\"data\":{\"text\":\"Forms are used to collect user input.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "Form Elements",
-              "videoLink": "https://example.com/form-elements",
-              "videoDescription": "Different elements used in HTML forms.",
-              "content": "{\"time\":1723976283347,\"blocks\":[{\"id\":\"FkOlwai617\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn about <input>, <textarea>, <button>, and more.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Tables",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Creating Tables",
-              "videoLink": "https://example.com/creating-tables",
-              "videoDescription": "How to create tables in HTML.",
-              "content": "{\"time\":1723976283348,\"blocks\":[{\"id\":\"FkOlwai618\",\"type\":\"paragraph\",\"data\":{\"text\":\"Tables are used to display data in rows and columns.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "Table Attributes",
-              "videoLink": "https://example.com/table-attributes",
-              "videoDescription": "Attributes used in HTML tables.",
-              "content": "{\"time\":1723976283349,\"blocks\":[{\"id\":\"FkOlwai619\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn about table attributes like border, cellpadding, and cellspacing.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Multimedia",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Embedding Images",
-              "videoLink": "https://example.com/embedding-images",
-              "videoDescription": "How to embed images in HTML.",
-              "content": "{\"time\":1723976283350,\"blocks\":[{\"id\":\"FkOlwai620\",\"type\":\"paragraph\",\"data\":{\"text\":\"Use the <img> tag to include images.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "Embedding Videos",
-              "videoLink": "https://example.com/embedding-videos",
-              "videoDescription": "How to embed videos in HTML.",
-              "content": "{\"time\":1723976283351,\"blocks\":[{\"id\":\"FkOlwai621\",\"type\":\"paragraph\",\"data\":{\"text\":\"Use the <video> tag to include videos.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Semantics",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Semantic Elements",
-              "videoLink": "https://example.com/semantic-elements",
-              "videoDescription": "Understanding semantic HTML elements.",
-              "content": "{\"time\":1723976283352,\"blocks\":[{\"id\":\"FkOlwai622\",\"type\":\"paragraph\",\"data\":{\"text\":\"Semantic elements provide meaning to web content.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "Accessibility in HTML",
-              "videoLink": "https://example.com/accessibility-in-html",
-              "videoDescription": "Making HTML content accessible.",
-              "content": "{\"time\":1723976283353,\"blocks\":[{\"id\":\"FkOlwai623\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn about aria attributes and other accessibility features.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Best Practices",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Writing Clean HTML",
-              "videoLink": "https://example.com/writing-clean-html",
-              "videoDescription": "Tips for writing clean and maintainable HTML.",
-              "content": "{\"time\":1723976283354,\"blocks\":[{\"id\":\"FkOlwai624\",\"type\":\"paragraph\",\"data\":{\"text\":\"Follow best practices for clean HTML code.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "HTML and SEO",
-              "videoLink": "https://example.com/html-and-seo",
-              "videoDescription": "Optimizing HTML for search engines.",
-              "content": "{\"time\":1723976283355,\"blocks\":[{\"id\":\"FkOlwai625\",\"type\":\"paragraph\",\"data\":{\"text\":\"Use proper tags and attributes to improve SEO.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML APIs",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Introduction to HTML APIs",
-              "videoLink": "https://example.com/html-apis-introduction",
-              "videoDescription": "Overview of HTML APIs.",
-              "content": "{\"time\":1723976283356,\"blocks\":[{\"id\":\"FkOlwai626\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn about APIs like Geolocation and Web Storage.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "Using the Geolocation API",
-              "videoLink": "https://example.com/geolocation-api",
-              "videoDescription": "How to use the Geolocation API.",
-              "content": "{\"time\":1723976283357,\"blocks\":[{\"id\":\"FkOlwai627\",\"type\":\"paragraph\",\"data\":{\"text\":\"Access and use the user's geographical location.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        },
-        {
-          "title": "HTML Performance Optimization",
-          "status": "PUBLISHED",
-          "subTopics": [
-            {
-              "title": "Optimizing HTML Performance",
-              "videoLink": "https://example.com/optimizing-html-performance",
-              "videoDescription": "Tips for optimizing HTML performance.",
-              "content": "{\"time\":1723976283358,\"blocks\":[{\"id\":\"FkOlwai628\",\"type\":\"paragraph\",\"data\":{\"text\":\"Improve the performance of your HTML code.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            },
-            {
-              "title": "Minimizing HTML",
-              "videoLink": "https://example.com/minimizing-html",
-              "videoDescription": "Techniques for minimizing HTML size.",
-              "content": "{\"time\":1723976283359,\"blocks\":[{\"id\":\"FkOlwai629\",\"type\":\"paragraph\",\"data\":{\"text\":\"Reduce the size of your HTML files.\"}}],\"version\":\"2.30.2\"}",
-              "status": "PUBLISHED"
-            }
-          ]
-        }
-      ]
-    }
-
-  ]
+  {
+    "title": "5 Days MongoDB Workshop",
+    "description": "This workshop is designed to provide a comprehensive introduction to MongoDB.",
+    "image": "https://www.codewithantonio.com/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F08857d36-2392-4182-9f6f-5fb93a8e8543-2ytnxz.jpg&w=1920&q=75",
+    "startDate": "2024-09-15T05:59:50.202+00:00",
+    "endDate": "2024-09-20T05:59:50.202+00:00",
+    "techStack": ["MongoDB", "NodeJs", "ExpressJs"],
+    "status": "PUBLISHED",
+    "isRecorded": true,
+    "days": [
+      {
+        "title": "Introduction to MongoDB",
+        "dayNumber": 1,
+        "sourceCodeLink": "https://github.com/example/fullstack-day1",
+        "videoLink": "https://example.com/videos/fullstack-day1.mp4",
+        "notes": "Introduction to MongoDB, its installation, and setup."
+      },
+      {
+        "title": "MongoDB Basics",
+        "dayNumber": 2,
+        "sourceCodeLink": "https://github.com/example/fullstack-day2",
+        "videoLink": "https://example.com/videos/fullstack-day2.mp4",
+        "notes": "Understanding collections, documents, and basic CRUD operations."
+      },
+      {
+        "title": "Advanced MongoDB Queries",
+        "dayNumber": 3,
+        "sourceCodeLink": "https://github.com/example/fullstack-day3",
+        "videoLink": "https://example.com/videos/fullstack-day3.mp4",
+        "notes": "Diving into advanced query operations and indexing in MongoDB."
+      },
+      {
+        "title": "Integrating MongoDB with Node.js",
+        "dayNumber": 4,
+        "sourceCodeLink": "https://github.com/example/fullstack-day4",
+        "videoLink": "https://example.com/videos/fullstack-day4.mp4",
+        "notes": "Setting up a Node.js server and integrating MongoDB with it."
+      },
+      {
+        "title": "Building a Full-stack Application",
+        "dayNumber": 5,
+        "sourceCodeLink": "https://github.com/example/fullstack-day5",
+        "videoLink": "https://example.com/videos/fullstack-day5.mp4",
+        "notes": "Building a full-stack application using Node.js, Express, and MongoDB."
+      }
+    ]
+  },
+  {
+    "title": "7 Days React Basics Workshop",
+    "description": "A complete guide to getting started with React.js.",
+    "image": "https://example.com/images/react-workshop.jpg",
+    "startDate": "2024-09-25T05:59:50.202+00:00",
+    "endDate": "2024-10-01T05:59:50.202+00:00",
+    "techStack": ["React", "JavaScript", "HTML", "CSS"],
+    "status": "PUBLISHED",
+    "isRecorded": true,
+    "days": [
+      {
+        "title": "Introduction to React",
+        "dayNumber": 1,
+        "sourceCodeLink": "https://github.com/example/react-day1",
+        "videoLink": "https://example.com/videos/react-day1.mp4",
+        "notes": "Introduction to React and setting up the development environment."
+      },
+      {
+        "title": "JSX and Components",
+        "dayNumber": 2,
+        "sourceCodeLink": "https://github.com/example/react-day2",
+        "videoLink": "https://example.com/videos/react-day2.mp4",
+        "notes": "Understanding JSX, components, and props."
+      },
+      {
+        "title": "State Management",
+        "dayNumber": 3,
+        "sourceCodeLink": "https://github.com/example/react-day3",
+        "videoLink": "https://example.com/videos/react-day3.mp4",
+        "notes": "Managing state with useState and useReducer."
+      },
+      {
+        "title": "Handling Events and Forms",
+        "dayNumber": 4,
+        "sourceCodeLink": "https://github.com/example/react-day4",
+        "videoLink": "https://example.com/videos/react-day4.mp4",
+        "notes": "Handling events and managing forms in React."
+      },
+      {
+        "title": "React Router Basics",
+        "dayNumber": 5,
+        "sourceCodeLink": "https://github.com/example/react-day5",
+        "videoLink": "https://example.com/videos/react-day5.mp4",
+        "notes": "Introduction to React Router for handling navigation."
+      },
+      {
+        "title": "Working with APIs",
+        "dayNumber": 6,
+        "sourceCodeLink": "https://github.com/example/react-day6",
+        "videoLink": "https://example.com/videos/react-day6.mp4",
+        "notes": "Fetching data from APIs using React."
+      },
+      {
+        "title": "Deploying React Apps",
+        "dayNumber": 7,
+        "sourceCodeLink": "https://github.com/example/react-day7",
+        "videoLink": "https://example.com/videos/react-day7.mp4",
+        "notes": "Deploying React applications on various platforms."
+      }
+    ]
+  },
+  {
+    "title": "3 Days Docker Crash Course",
+    "description": "Learn Docker fundamentals and containerization in 3 days.",
+    "image": "https://example.com/images/docker-workshop.jpg",
+    "startDate": "2024-10-05T05:59:50.202+00:00",
+    "endDate": "2024-10-07T05:59:50.202+00:00",
+    "techStack": ["Docker", "DevOps"],
+    "status": "PUBLISHED",
+    "isRecorded": false,
+    "days": [
+      {
+        "title": "Introduction to Docker",
+        "dayNumber": 1,
+        "sourceCodeLink": "https://github.com/example/docker-day1",
+        "videoLink": "https://example.com/videos/docker-day1.mp4",
+        "notes": "Introduction to Docker, installation, and container basics."
+      },
+      {
+        "title": "Working with Docker Images and Containers",
+        "dayNumber": 2,
+        "sourceCodeLink": "https://github.com/example/docker-day2",
+        "videoLink": "https://example.com/videos/docker-day2.mp4",
+        "notes": "Creating and managing Docker images and containers."
+      },
+      {
+        "title": "Docker Compose and Orchestration",
+        "dayNumber": 3,
+        "sourceCodeLink": "https://github.com/example/docker-day3",
+        "videoLink": "https://example.com/videos/docker-day3.mp4",
+        "notes": "Using Docker Compose and understanding container orchestration."
+      }
+    ]
+  },
+  {
+    "title": "4 Days Data Science with Python Workshop",
+    "description": "Master the basics of data science and analytics using Python.",
+    "image": "https://example.com/images/datascience-workshop.jpg",
+    "startDate": "2024-10-10T05:59:50.202+00:00",
+    "endDate": "2024-10-13T05:59:50.202+00:00",
+    "techStack": ["Python", "Pandas", "NumPy", "Matplotlib"],
+    "status": "PUBLISHED",
+    "isRecorded": true,
+    "days": [
+      {
+        "title": "Python for Data Science",
+        "dayNumber": 1,
+        "sourceCodeLink": "https://github.com/example/datascience-day1",
+        "videoLink": "https://example.com/videos/datascience-day1.mp4",
+        "notes": "Introduction to Python and its use in data science."
+      },
+      {
+        "title": "Data Manipulation with Pandas",
+        "dayNumber": 2,
+        "sourceCodeLink": "https://github.com/example/datascience-day2",
+        "videoLink": "https://example.com/videos/datascience-day2.mp4",
+        "notes": "Learning data manipulation and analysis using Pandas."
+      },
+      {
+        "title": "Data Visualization with Matplotlib",
+        "dayNumber": 3,
+        "sourceCodeLink": "https://github.com/example/datascience-day3",
+        "videoLink": "https://example.com/videos/datascience-day3.mp4",
+        "notes": "Creating data visualizations using Matplotlib."
+      },
+      {
+        "title": "Final Project and Presentation",
+        "dayNumber": 4,
+        "sourceCodeLink": "https://github.com/example/datascience-day4",
+        "videoLink": "https://example.com/videos/datascience-day4.mp4",
+        "notes": "Applying learned skills to a final data science project."
+      }
+    ]
+  }
+]

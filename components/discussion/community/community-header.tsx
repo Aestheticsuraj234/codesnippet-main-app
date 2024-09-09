@@ -72,7 +72,7 @@ export const CommunityHeader = ({
             onClick={(event) => handleMenuItemClick(event, () => onOpen("editCommunity", { community }))}
             className="px-3 py-2 text-sm cursor-pointer"
           >
-            Server Settings
+            Community  Settings
             <Settings className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
         )}
@@ -102,7 +102,7 @@ export const CommunityHeader = ({
             onClick={(event) => handleMenuItemClick(event, () => onOpen("deleteCommunity", { community }))}
             className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
           >
-            Delete Server
+            Delete Community
             <Trash className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
         )}
@@ -111,7 +111,7 @@ export const CommunityHeader = ({
             onClick={(event) => handleMenuItemClick(event, () => onOpen("leaveCommunity", { community }))}
             className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
           >
-            Leave Server
+            Leave Community
             <LogOut className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
         )}

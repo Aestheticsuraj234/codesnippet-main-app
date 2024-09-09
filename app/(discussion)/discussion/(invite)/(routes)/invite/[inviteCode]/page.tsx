@@ -1,7 +1,7 @@
 import { currentUser } from '@/lib/auth/data/auth'
 import { db } from '@/lib/db/db'
 import { redirect } from 'next/navigation'
-import React from 'react'
+
 
 
 interface InviteCodePageProps {
@@ -54,11 +54,7 @@ const InviteCodePage = async({
         }
     })
 
-  return (
-    <div>
-        hello Invite
-    </div>
-  )
+  return redirect(`/discussion/community/${community.id}`)
 }
 
 export default InviteCodePage
