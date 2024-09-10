@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import React from "react";
 import CourseSidebarItem from "./course-sidebar-item";
+import { Progress } from "@/components/ui/progress";
 
 interface CourseSidebarProps {
   course: workshop & {
@@ -43,15 +44,25 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps) => {
       user?.role === "PREMIUM_USER") ||
     user?.role === "ADMIN";
 
+     const totalDays = course.days.length;
+
+
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
         <div className="p-8 flex flex-col border-b">
         <h1 className="font-semibold">
             {course.title}
         </h1>
-        {
-            // Check subscription and add progress
-        }
+        <div className="mt-5">
+                <Progress
+                  value={(progressCount / totalDays) * 100}
+                  className="h-2 mb-2"
+                  
+                />
+                <span className="text-xs text-emerald-500 font-semibold">
+                 {(progressCount / totalDays) * 100}% Completed
+                </span>
+              </div>
         </div>
 
 <div className="flex flex-col w-full">
