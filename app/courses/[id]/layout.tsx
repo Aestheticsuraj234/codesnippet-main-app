@@ -4,6 +4,13 @@ import { redirect } from "next/navigation";
 import React from "react";
 import CourseSidebar from "./_components/course-sidebar";
 import CourseNavbar from "./_components/course-navbar";
+import { Poppins } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const CourseLayout = async ({
   children,
@@ -64,10 +71,10 @@ const CourseLayout = async ({
     },
   });
 
-
+  
 
   return(
-    <div className="h-full">
+    <div className={cn("h-full" , poppins.className)}>
         <div className="h-[80px] md:pl-80 fixed inset-y-0 w-full z-50">
             <CourseNavbar
             course={workshop}
