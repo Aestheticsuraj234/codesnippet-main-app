@@ -1,182 +1,53 @@
 [
   {
-    "title": "5 Days MongoDB Workshop",
-    "description": "This workshop is designed to provide a comprehensive introduction to MongoDB.",
-    "image": "https://www.codewithantonio.com/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F08857d36-2392-4182-9f6f-5fb93a8e8543-2ytnxz.jpg&w=1920&q=75",
-    "startDate": "2024-09-15T05:59:50.202+00:00",
-    "endDate": "2024-09-20T05:59:50.202+00:00",
-    "techStack": ["MongoDB", "NodeJs", "ExpressJs"],
+    "title": "Introduction to JavaScript",
+    "description": "Learn the basics of JavaScript, the language of the web.",
+    "image": "https://example.com/image1.jpg",
+    "price": 29.99,
+    "discount": 10,
+    "startDate": "2024-10-01",
+    "courseVideoPitchLink": "https://example.com/pitch1.mp4",
     "status": "PUBLISHED",
-    "isRecorded": true,
-    "days": [
+    "chapters": [
       {
-        "title": "Introduction to MongoDB",
-        "dayNumber": 1,
-        "sourceCodeLink": "https://github.com/example/fullstack-day1",
-        "videoLink": "https://example.com/videos/fullstack-day1.mp4",
-        "notes": "Introduction to MongoDB, its installation, and setup."
+        "title": "Chapter 1: Basics",
+        "description": "Introduction to JavaScript basics.",
+        "chapterVideoLink": "https://example.com/chapter1.mp4",
+        "chapterNotes": "Basic syntax and variables.",
+        "sourceCodeLink": "https://example.com/source1.js"
       },
       {
-        "title": "MongoDB Basics",
-        "dayNumber": 2,
-        "sourceCodeLink": "https://github.com/example/fullstack-day2",
-        "videoLink": "https://example.com/videos/fullstack-day2.mp4",
-        "notes": "Understanding collections, documents, and basic CRUD operations."
-      },
-      {
-        "title": "Advanced MongoDB Queries",
-        "dayNumber": 3,
-        "sourceCodeLink": "https://github.com/example/fullstack-day3",
-        "videoLink": "https://example.com/videos/fullstack-day3.mp4",
-        "notes": "Diving into advanced query operations and indexing in MongoDB."
-      },
-      {
-        "title": "Integrating MongoDB with Node.js",
-        "dayNumber": 4,
-        "sourceCodeLink": "https://github.com/example/fullstack-day4",
-        "videoLink": "https://example.com/videos/fullstack-day4.mp4",
-        "notes": "Setting up a Node.js server and integrating MongoDB with it."
-      },
-      {
-        "title": "Building a Full-stack Application",
-        "dayNumber": 5,
-        "sourceCodeLink": "https://github.com/example/fullstack-day5",
-        "videoLink": "https://example.com/videos/fullstack-day5.mp4",
-        "notes": "Building a full-stack application using Node.js, Express, and MongoDB."
+        "title": "Chapter 2: Functions",
+        "description": "Understanding functions in JavaScript.",
+        "chapterVideoLink": "https://example.com/chapter2.mp4",
+        "chapterNotes": "Function declarations and expressions.",
+        "sourceCodeLink": "https://example.com/source2.js"
       }
     ]
   },
   {
-    "title": "7 Days React Basics Workshop",
-    "description": "A complete guide to getting started with React.js.",
-    "image": "https://example.com/images/react-workshop.jpg",
-    "startDate": "2024-09-25T05:59:50.202+00:00",
-    "endDate": "2024-10-01T05:59:50.202+00:00",
-    "techStack": ["React", "JavaScript", "HTML", "CSS"],
+    "title": "Advanced Python Programming",
+    "description": "Dive deep into advanced Python concepts.",
+    "image": "https://example.com/image2.jpg",
+    "price": 49.99,
+    "discount": 15,
+    "startDate": "2024-11-15",
+    "courseVideoPitchLink": "https://example.com/pitch2.mp4",
     "status": "PUBLISHED",
-    "isRecorded": true,
-    "days": [
+    "chapters": [
       {
-        "title": "Introduction to React",
-        "dayNumber": 1,
-        "sourceCodeLink": "https://github.com/example/react-day1",
-        "videoLink": "https://example.com/videos/react-day1.mp4",
-        "notes": "Introduction to React and setting up the development environment."
+        "title": "Chapter 1: Decorators",
+        "description": "Learn how to use decorators in Python.",
+        "chapterVideoLink": "https://example.com/chapter1.mp4",
+        "chapterNotes": "Function decorators and class decorators.",
+        "sourceCodeLink": "https://example.com/source1.py"
       },
       {
-        "title": "JSX and Components",
-        "dayNumber": 2,
-        "sourceCodeLink": "https://github.com/example/react-day2",
-        "videoLink": "https://example.com/videos/react-day2.mp4",
-        "notes": "Understanding JSX, components, and props."
-      },
-      {
-        "title": "State Management",
-        "dayNumber": 3,
-        "sourceCodeLink": "https://github.com/example/react-day3",
-        "videoLink": "https://example.com/videos/react-day3.mp4",
-        "notes": "Managing state with useState and useReducer."
-      },
-      {
-        "title": "Handling Events and Forms",
-        "dayNumber": 4,
-        "sourceCodeLink": "https://github.com/example/react-day4",
-        "videoLink": "https://example.com/videos/react-day4.mp4",
-        "notes": "Handling events and managing forms in React."
-      },
-      {
-        "title": "React Router Basics",
-        "dayNumber": 5,
-        "sourceCodeLink": "https://github.com/example/react-day5",
-        "videoLink": "https://example.com/videos/react-day5.mp4",
-        "notes": "Introduction to React Router for handling navigation."
-      },
-      {
-        "title": "Working with APIs",
-        "dayNumber": 6,
-        "sourceCodeLink": "https://github.com/example/react-day6",
-        "videoLink": "https://example.com/videos/react-day6.mp4",
-        "notes": "Fetching data from APIs using React."
-      },
-      {
-        "title": "Deploying React Apps",
-        "dayNumber": 7,
-        "sourceCodeLink": "https://github.com/example/react-day7",
-        "videoLink": "https://example.com/videos/react-day7.mp4",
-        "notes": "Deploying React applications on various platforms."
-      }
-    ]
-  },
-  {
-    "title": "3 Days Docker Crash Course",
-    "description": "Learn Docker fundamentals and containerization in 3 days.",
-    "image": "https://example.com/images/docker-workshop.jpg",
-    "startDate": "2024-10-05T05:59:50.202+00:00",
-    "endDate": "2024-10-07T05:59:50.202+00:00",
-    "techStack": ["Docker", "DevOps"],
-    "status": "PUBLISHED",
-    "isRecorded": false,
-    "days": [
-      {
-        "title": "Introduction to Docker",
-        "dayNumber": 1,
-        "sourceCodeLink": "https://github.com/example/docker-day1",
-        "videoLink": "https://example.com/videos/docker-day1.mp4",
-        "notes": "Introduction to Docker, installation, and container basics."
-      },
-      {
-        "title": "Working with Docker Images and Containers",
-        "dayNumber": 2,
-        "sourceCodeLink": "https://github.com/example/docker-day2",
-        "videoLink": "https://example.com/videos/docker-day2.mp4",
-        "notes": "Creating and managing Docker images and containers."
-      },
-      {
-        "title": "Docker Compose and Orchestration",
-        "dayNumber": 3,
-        "sourceCodeLink": "https://github.com/example/docker-day3",
-        "videoLink": "https://example.com/videos/docker-day3.mp4",
-        "notes": "Using Docker Compose and understanding container orchestration."
-      }
-    ]
-  },
-  {
-    "title": "4 Days Data Science with Python Workshop",
-    "description": "Master the basics of data science and analytics using Python.",
-    "image": "https://example.com/images/datascience-workshop.jpg",
-    "startDate": "2024-10-10T05:59:50.202+00:00",
-    "endDate": "2024-10-13T05:59:50.202+00:00",
-    "techStack": ["Python", "Pandas", "NumPy", "Matplotlib"],
-    "status": "PUBLISHED",
-    "isRecorded": true,
-    "days": [
-      {
-        "title": "Python for Data Science",
-        "dayNumber": 1,
-        "sourceCodeLink": "https://github.com/example/datascience-day1",
-        "videoLink": "https://example.com/videos/datascience-day1.mp4",
-        "notes": "Introduction to Python and its use in data science."
-      },
-      {
-        "title": "Data Manipulation with Pandas",
-        "dayNumber": 2,
-        "sourceCodeLink": "https://github.com/example/datascience-day2",
-        "videoLink": "https://example.com/videos/datascience-day2.mp4",
-        "notes": "Learning data manipulation and analysis using Pandas."
-      },
-      {
-        "title": "Data Visualization with Matplotlib",
-        "dayNumber": 3,
-        "sourceCodeLink": "https://github.com/example/datascience-day3",
-        "videoLink": "https://example.com/videos/datascience-day3.mp4",
-        "notes": "Creating data visualizations using Matplotlib."
-      },
-      {
-        "title": "Final Project and Presentation",
-        "dayNumber": 4,
-        "sourceCodeLink": "https://github.com/example/datascience-day4",
-        "videoLink": "https://example.com/videos/datascience-day4.mp4",
-        "notes": "Applying learned skills to a final data science project."
+        "title": "Chapter 2: Generators",
+        "description": "Understanding Python generators and yield.",
+        "chapterVideoLink": "https://example.com/chapter2.mp4",
+        "chapterNotes": "Generator functions and expressions.",
+        "sourceCodeLink": "https://example.com/source2.py"
       }
     ]
   }

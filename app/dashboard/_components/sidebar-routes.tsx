@@ -16,6 +16,7 @@ import {
   PencilRuler,
   PencilRulerIcon,
   Rss,
+  School,
   Settings,
   Sheet,
   SquareCode,
@@ -36,15 +37,21 @@ const Routes = [
     href: "/dashboard/tutorials",
   },
   {
-    icon:Rss,
-    label: "Blog",
-    href: "/blog",
-  },
-  {
     icon:PencilRulerIcon,
     label: "Workshops",
     href: "/dashboard/workshops",
   },
+  {
+    icon:School,
+    label: "Courses",
+    href: "/dashboard/courses",
+  },
+  {
+    icon:Rss,
+    label: "Blog",
+    href: "/blog",
+  },
+ 
   {
     icon:Sheet,
     label: "DSA",
@@ -65,11 +72,7 @@ const Routes = [
     label: "Cs Subjects",
     href: "/cs-subjects",
   },
-  {
-    icon:Code2Icon,
-    label: "Projects",
-    href: "/projects",
-  },
+
 ];
 
 export const SidebarRoutes = () => {

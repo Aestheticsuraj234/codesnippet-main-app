@@ -109,7 +109,7 @@ const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
                   <Badge
                     key={i}
                     variant="secondary"
-                    className="bg-sky-500/10 text-sky-800"
+                    className="bg-sky-500/10 text-sky-800 dark:text-sky-300"
                   >
                     <PencilRuler className="h-4 w-4 mr-2" />
                     <span>{tech}</span>
@@ -138,7 +138,7 @@ const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
                   value={(progress! / workshop?.days?.length!) * 100}
                   className="h-2 mb-2"
                 />
-                <p className="text-sm font-medium text-sky-700">
+                <p className="text-sm font-medium text-sky-700 dark:text-sky-400">
                   {progress} of {workshop?.days.length} days completed
                 </p>
               </div>

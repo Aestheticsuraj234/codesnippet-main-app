@@ -58,6 +58,9 @@ model User {
 
   workShopDayProgress WorkshopDayProgress[]
 
+  coursePurchase CoursePurchase[]
+  chapterProgress ChapterProgress[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -238,53 +241,49 @@ model BlogVisitedBy {
 }
 
 model workshop {
-  id             String        @id @default(cuid()) @map("_id")
-  content        Content       @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  contentId      String
-  title          String
-  description    String
-  image          String
-  startDate      DateTime
-  endDate        DateTime
-  techStack      String[]
-  days          WorkshopDay[]
-  isRecorded     Boolean     @default(false)
-  status         ContentStatus @default(UNPUBLISHED)
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id          String        @id @default(cuid()) @map("_id")
+  content     Content       @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  contentId   String
+  title       String
+  description String
+  image       String
+  startDate   DateTime
+  endDate     DateTime
+  techStack   String[]
+  days        WorkshopDay[]
+  isRecorded  Boolean       @default(false)
+  status      ContentStatus @default(UNPUBLISHED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
-
-model WorkshopDay{
-   id            String      @id @default(cuid()) @map("_id")
-  workshop      workshop    @relation(fields: [workshopId], references: [id], onDelete: Cascade)
-  workshopId    String
-  title        String
-  dayNumber     Int       
-  sourceCodeLink String?    
-  videoLink     String?     
-  notes         String?     
-  userProgress  WorkshopDayProgress[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+model WorkshopDay {
+  id             String                @id @default(cuid()) @map("_id")
+  workshop       workshop              @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+  workshopId     String
+  title          String
+  dayNumber      Int
+  sourceCodeLink String?
+  videoLink      String?
+  notes          String?
+  userProgress   WorkshopDayProgress[]
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
 }
 
 model WorkshopDayProgress {
-  id           String     @id @default(cuid()) @map("_id")
+  id           String      @id @default(cuid()) @map("_id")
   userId       String
-  dayId        String     @unique
-  markedAsDone Boolean    @default(false)
-  completedAt  DateTime?  // Date when the day was marked as done
-  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  day          WorkshopDay       @relation(fields: [dayId], references: [id], onDelete: Cascade)
-   createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-
+  dayId        String     
+  markedAsDone Boolean     @default(false)
+  completedAt  DateTime? // Date when the day was marked as done
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  day          WorkshopDay @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   @@unique([userId, dayId])
-
 }
-
 
 model SystemDesignChapter {
   id            String                @id @default(cuid()) @map("_id")
@@ -646,12 +645,10 @@ model Member {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
-  messages Message[]
-  directMessages DirectMessage[]
-  conversationInitiated Conversation[] @relation("MemberOne")
-  conversationReceived  Conversation[] @relation("MemberTwo")
-
-  
+  messages              Message[]
+  directMessages        DirectMessage[]
+  conversationInitiated Conversation[]  @relation("MemberOne")
+  conversationReceived  Conversation[]  @relation("MemberTwo")
 
   @@index([userId])
   @@index([communityId])
@@ -694,8 +691,6 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-
-
   @@index([memberId])
   @@index([channelId])
 }
@@ -716,18 +711,16 @@ model Conversation {
   @@index([memberTwoId])
 }
 
-
-model DirectMessage{
-  id String @id @default(cuid()) @map("_id")
+model DirectMessage {
+  id      String  @id @default(cuid()) @map("_id")
   content String
   fileUrl String?
 
   memberId String
-  member Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
 
-
-  conversationId String 
-  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -736,5 +729,69 @@ model DirectMessage{
 
   @@index([memberId])
   @@index([conversationId])
-  
 }
+
+
+
+model Courses {
+  id          String        @id @default(cuid()) @map("_id")
+  title       String
+  description String
+  image       String
+  price       Float
+  discount    Float?
+  startDate   DateTime    
+  purchaseByUser CoursePurchase[]
+  courseVideoPitchLink String
+  status      ContentStatus @default(UNPUBLISHED)
+  features            Json?              // Updated to Json type for more flexibility
+  syllabus            Json?              // Updated to Json type for more flexibility
+  faq                 Json?    
+  chapters   Chapter[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+
+model CoursePurchase {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  courseId  String
+  isPurchase Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Courses  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, courseId])
+}
+
+model Chapter {
+  id          String        @id @default(cuid()) @map("_id")
+  courseId     String
+  course      Courses      @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  chapterVideoLink String
+  chapterNotes   String
+  sourceCodeLink String
+  chapterProgression  ChapterProgress[]
+  status      ContentStatus @default(UNPUBLISHED)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ChapterProgress {
+  id           String      @id @default(cuid()) @map("_id")
+  userId       String
+  chapterId    String
+  markedAsDone Boolean     @default(false)
+  completedAt  DateTime? // Date when the day was marked as done
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter      Chapter     @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@unique([userId, chapterId])
+}
+
