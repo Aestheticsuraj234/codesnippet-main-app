@@ -4,8 +4,10 @@ import { db } from "@/lib/db/db";
 import { Lock, Unlock } from "lucide-react";
 import { Button } from "../ui/button";
 import { formatDate } from "@/lib/utils";
+import Link from "next/link";
 
 export interface CourseCardProps {
+  id:string;
   date: Date;
   imageSrc: string;
   price: number;
@@ -15,7 +17,7 @@ export interface CourseCardProps {
   description: string;
 }
 
-const CourseCard = async ({ date, imageSrc, price, discountedPrice, isPurchased, title, description }: CourseCardProps) => {
+const CourseCard = async ({ id , date, imageSrc, price, discountedPrice, isPurchased, title, description }: CourseCardProps) => {
   return (
     <Card className="cursor-pointer">
       <CardContent className="p-4">
@@ -42,6 +44,7 @@ const CourseCard = async ({ date, imageSrc, price, discountedPrice, isPurchased,
           </div>
         </main>
         <div className="mt-4">
+          <Link href={`/live-course/${id}`}>
           <Button
             variant={isPurchased ? "premium" : "outline"}
             size="default"
@@ -49,6 +52,7 @@ const CourseCard = async ({ date, imageSrc, price, discountedPrice, isPurchased,
           >
             {isPurchased ? "Start Learning" : "View Details"}
           </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>

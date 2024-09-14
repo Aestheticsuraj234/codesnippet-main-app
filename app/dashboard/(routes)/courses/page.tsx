@@ -36,6 +36,7 @@ const CoursesMainPage = async () => {
                   : false;
               return (
                 <CourseCard
+                id={course.id}
                   date={course.startDate}
                   title={course.title}
                   description={course.description}

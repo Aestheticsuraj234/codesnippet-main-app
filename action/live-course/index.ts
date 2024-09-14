@@ -39,3 +39,26 @@ export const getAllCourses = async ()=>{
 
     return course
 }
+
+
+export const getCourseById = async (id:string)=>{
+
+    const course = await db.courses.findUnique({
+        where:{
+            id
+        },
+        select:{
+            chapters:true,
+             id:true,
+             courseVideoPitchLink:true,
+             description:true,
+             title: true  ,
+             image:true,
+             startDate:true,
+             price:true,
+             discount:true,
+        }
+    })
+
+    return course
+}
