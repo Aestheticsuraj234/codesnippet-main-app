@@ -105,7 +105,7 @@ export default function LiveCourseLandingPage({ course }: Props) {
           const res = await result.json();
           if (res.isOk) {
             setIsPaymentSuccessful(true);
-            window.location.href = "/dashboard/course";
+            window.location.href = "/dashboard/courses";
           } else {
             toast(res.message);
           }
@@ -152,6 +152,23 @@ export default function LiveCourseLandingPage({ course }: Props) {
   const currentCourseData = courseData.find((data) => data.id === params?.id);
 
   console.log(currentCourseData);
+
+
+  if(isPaymentSuccessful) {
+    // show the loading bar with payment is successful and with the messsage of redirecting to the dashboard
+    return (
+      <div className="min-h-screen bg-white dark:bg-zinc-900">
+        <Navbar />
+        <section className="relative py-20 text-center text-white">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90"></div>
+          <div className="relative container mx-auto px-4">
+            <h1 className="mb-4 text-5xl font-extrabold">Payment Successful</h1>
+            <p className="mb-8 text-xl">Redirecting to the dashboard...</p>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-900">

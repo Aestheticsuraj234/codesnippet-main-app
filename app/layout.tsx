@@ -9,6 +9,7 @@ import { ToastProvider } from "@/providers/toast-provider";
 import { ModalProvider } from "@/providers/modal-provider";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { SocketProvider } from "@/providers/socket-provider";
+import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -39,6 +40,10 @@ export default async function RootLayout({
           <ToastProvider />
           <ModalProvider />
           {children}
+          <Script
+        id="razorpay-checkout-js"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+      />
           </SocketProvider>
         </ThemeProvider>
         </ReactQueryProvider>

@@ -1,6 +1,7 @@
 import React from 'react'
 import LiveCourseLandingPage from './_components/landing-page'
 import { getCourseById } from '@/action/live-course'
+import { redirect } from 'next/navigation'
 
 
 interface Props {
@@ -14,7 +15,11 @@ const LiveCourseIdPage = async({params}:Props) => {
   const course = await getCourseById(params.id);
 
 
-  console.log(JSON.stringify(course , null , 2))
+ if(!course) {
+  return redirect("/dashboard/courses");
+ }
+
+
 
   return (
     <LiveCourseLandingPage
