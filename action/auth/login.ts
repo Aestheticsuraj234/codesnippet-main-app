@@ -22,7 +22,7 @@ import { getTwoFactorConfirmationByUserId } from "@/lib/auth/two-factor-confirma
  * @returns {Promise<{ success?: string, error?: string, twoFactor?: boolean }>} - The result of the login process.
  * @throws {Error} - If the login fields are invalid.
  */
-export const login = async (values: z.infer<typeof LoginSchema>): Promise<{ success?: string; error?: string; twoFactor?: boolean; }> => {
+export const login = async (values: z.infer<typeof LoginSchema> , redirectUrl?:string): Promise<{ success?: string; error?: string; twoFactor?: boolean; }> => {
   // Validate the input fields against the schema
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -93,7 +93,7 @@ export const login = async (values: z.infer<typeof LoginSchema>): Promise<{ succ
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: redirectUrl || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {

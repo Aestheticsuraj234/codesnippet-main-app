@@ -5,11 +5,18 @@ import { FaGithub } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
-export const Social = () => {
+
+interface Props {
+  redirectUrl?: string;
+}
+
+export const Social = ({
+  redirectUrl,
+}:Props) => {
 
   const onClick = (provider:"google"|"github")=>{
     signIn(provider, {
-      callbackUrl:DEFAULT_LOGIN_REDIRECT
+      callbackUrl: redirectUrl || DEFAULT_LOGIN_REDIRECT
     })
   }
 

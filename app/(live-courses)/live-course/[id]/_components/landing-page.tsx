@@ -29,6 +29,8 @@ import { useParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/auth/use-current-user";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useAuthModal } from "@/zustand/use-auth-modal";
 
 interface Props {
   course: Courses;
@@ -46,9 +48,14 @@ export default function LiveCourseLandingPage({ course }: Props) {
   const [isPending, setIsPending] = useState(false);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const user = useCurrentUser();
-
+  const { status } = useSession();
+const {onOpen , onClose } = useAuthModal();
 
   const createOrderId = async () => {
+    if(status !== "authenticated"){
+      onOpen();
+      return;
+    }
     setIsPending(true);
     try {
       const amount = course?.discount * 100;

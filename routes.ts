@@ -33,7 +33,16 @@ export const publicRoutes: RegExp[] = [
     "/auth/reset",
     "/auth/new-password",
   ];
+
+  /**
+   * An Array of routes that are accessible to the public
+   * Routes that start with this (/api/auth) prefix do not require authentication
+   * @type {string[]}
+   */
   
+  export const courseRoutes: RegExp[] = [
+    /^\/live-course\/[^/]+$/,
+  ]
   /**
    * Prefix for API authentication routes that do not require authentication
    * @type {string}

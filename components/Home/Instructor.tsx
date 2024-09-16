@@ -30,10 +30,10 @@ const Instructor = () => {
 
   return (
     <div className="mt-10 space-y-5">
-      <p className="text-yellow-500 font-bold text-base text-center">
+      <p className="text-[#08BD80] font-bold text-base text-center">
         INSTRUCTOR
       </p>
-      <h1 className="md:text-4xl text-2xl font-bold text-zinc-700 dark:text-zinc-100 text-center">
+      <h1 className="md:text-4xl text-2xl font-bold text-[#1A1818] dark:text-[#ffffff] text-center">
         Meet Our Instructors
       </h1>
 
@@ -57,10 +57,10 @@ const Instructor = () => {
               className="rounded-full"
             />
             <div className="flex flex-col justify-center items-start">
-              <p className="text-lg font-bold text-zinc-700 dark:text-zinc-100">
+              <p className="text-lg font-bold text-[#1A1818] dark:text-[#ffffff]">
                 Suraj Kumar Jha
               </p>
-              <p className="text-md font-medium text-zinc-600 dark:text-zinc-400">
+              <p className="text-md font-medium text-[#1A1818] dark:text-[#ffffff]">
                 SWE | Mentor | Founder SigmaCoders
               </p>
             </div>
@@ -72,10 +72,10 @@ const Instructor = () => {
                 key={item.id}
                 className="flex flex-row items-center space-x-2"
               >
-                <span className="text-lg font-bold text-zinc-700 dark:text-zinc-100">
+                <span className="text-lg font-bold text-[#6B7280] dark:text-[#A1A1AA]">
                   {index + 1}:
                 </span>
-                <span className="text-md font-medium text-zinc-600 dark:text-zinc-400">
+                <span className="text-md font-medium text-[#6B7280] dark:text-[#A1A1AA]">
                   {item.title}
                 </span>
               </li>
@@ -83,19 +83,19 @@ const Instructor = () => {
           </ul>
 
           <div className="flex flex-row items-center justify-center gap-5 px-5 py-5">
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-yellow-400 dark:hover:bg-yellow-500">
+            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
             <FaInstagram size={28} />
             </Link>
 
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-yellow-400 dark:hover:bg-yellow-500">
+            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
             <FaGithub size={28} />
             </Link>
 
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-yellow-400 dark:hover:bg-yellow-500">
+            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
             <FaLinkedin size={28} />
             </Link>
 
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-yellow-400 dark:hover:bg-yellow-500">
+            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
             <FaTwitter size={28} />
             </Link>
           </div>

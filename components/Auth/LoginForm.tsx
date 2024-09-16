@@ -23,7 +23,11 @@ import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export const LoginForm = () => {
+interface Props {
+  redirectUrl?: string;
+}
+
+export const LoginForm = ({redirectUrl}:Props) => {
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email is already registered with another account" : "";
 
@@ -48,7 +52,7 @@ export const LoginForm = () => {
     setSuccess("");
   
 startTransition(() => {
-  login(values)
+  login(values,redirectUrl)
   .then((data)=>{
     if(data?.error)
       {
@@ -80,6 +84,7 @@ startTransition(() => {
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
       showSocial
+      redirectUrl={redirectUrl}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

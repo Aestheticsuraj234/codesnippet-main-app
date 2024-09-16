@@ -18,6 +18,7 @@ interface CardWrapperProps {
   backButtonLabel?: string;
   backButtonHref?: string;
   showSocial?: boolean;
+  redirectUrl?: string;
 }
 
 export const CardWrapper = ({
@@ -26,6 +27,7 @@ export const CardWrapper = ({
   backButtonLabel,
   backButtonHref,
   showSocial = false,
+  redirectUrl,
 }: CardWrapperProps) => {
   return (
     <Card className="w-[400px] border-[#03DC7A] shadow-md bg-zinc-900">
@@ -35,7 +37,7 @@ export const CardWrapper = ({
       <CardContent>{children}</CardContent>
       {showSocial && (
         <CardFooter>
-          <Social />
+          <Social redirectUrl={redirectUrl}/>
         </CardFooter>
       )}
       <CardFooter>

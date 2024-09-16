@@ -84,10 +84,10 @@ const SubFeature = () => {
 
   return (
     <section className="glassmorphism flex w-[100%]  flex-col p-4 mt-12 rounded-lg max-w-full ">
-      <h4 className="items-center justify-center uppercase flex text-center font-bold text-md  dark:text-zinc-200 text-zinc-700 ">
+      <h4 className="items-center justify-center uppercase flex text-center font-bold text-md  text-[#6B7280] dark:text-[#A1A1AA] ">
         MAKE YOUR LIFE EASY!
       </h4>
-      <h1 className="items-center justify-center flex text-center mt-9 font-extrabold md:text-4xl text-3xl  text-[#f1c840] ">
+      <h1 className="items-center justify-center flex text-center mt-9 font-extrabold md:text-4xl text-3xl  text-[#08BD80] ">
         Why Choose us?{" "}
       </h1>
      
@@ -96,11 +96,11 @@ const SubFeature = () => {
         {/* Card 1 */}
         {FeatureItems.map((item) => (
           <div key={item.id} className="p-4 rounded-lg ">
-            <h3 className="text-xl font-bold flex flex-row justify-start dark:text-zinc-100 text-zinc-700  items-center dark:bg-clip-text dark:text-transparent md:text-left gap-3">
+            <h3 className="text-xl font-bold flex flex-row justify-start text-[#1A1818] dark:text-[#ffffff] items-center dark:bg-clip-text dark:text-transparent md:text-left gap-3">
               {item.icon}
               {item.title}
             </h3>
-            <p className="max-w-2xl mb-6 font-light  text-zinc-700 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            <p className="max-w-2xl mb-6 font-light  text-[#374151] dark:text-[#71717A]  lg:mb-8 md:text-lg lg:text-xl">
               {item.description}
             </p>
            

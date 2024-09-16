@@ -22,7 +22,11 @@ import { login } from "@/action/auth/login";
 import { useState, useTransition } from "react";
 import { register } from "@/action/auth/register";
 
-export const RegisterForm = () => {
+interface Props {
+  redirectUrl?: string;
+}
+
+export const RegisterForm = ({redirectUrl}:Props) => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -58,6 +62,8 @@ export const RegisterForm = () => {
       backButtonLabel="Already have an account"
       backButtonHref="/auth/login"
       showSocial
+      redirectUrl={redirectUrl}
+
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

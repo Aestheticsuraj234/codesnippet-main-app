@@ -3,7 +3,9 @@ import React from 'react'
 
 const RegisterPage = () => {
   return (
-    <RegisterForm/>
+    <RegisterForm
+    redirectUrl="/"
+    />
   )
 }
 
