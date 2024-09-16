@@ -26,7 +26,7 @@ const CourseNavbar = ({ course, progressCount }: CourseNavbarProps) => {
       <div className="flex gap-x-2 ml-auto">
         <ModeToggle />
         <Link href={"/dashboard/workshops"}>
-          <Button variant={"outline"} size={"sm"}>
+          <Button variant={"destructive"} size={"sm"}>
             <LogOut className="h-4 w-4 mr-2" />
             Exit
           </Button>

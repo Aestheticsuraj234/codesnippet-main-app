@@ -23,7 +23,7 @@ const CoursesMainPage = async () => {
       <main className="flex-1 container max-w-5xl mx-auto px-4 py-8 md:px-6 md:py-12 grid gap-8">
         <section>
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-zinc-600 dark:text-zinc-100">
+            <h2 className="text-2xl font-bold text-[#1A1818] dark:text-[#ffffff]">
               Upcoming Courses
             </h2>
           </div>

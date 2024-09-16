@@ -51,7 +51,7 @@ export const UserButton = () => {
         <div
           className={cn(
             "relative rounded-full ",
-            isPremiumActiveUser ? "border-2 p-1 border-indigo-500" : ""
+            isPremiumActiveUser ? "border-2 p-1 border-[#8188EC] dark:border-[#676ECC]" : ""
           )}
         >
           <Avatar>
@@ -61,7 +61,7 @@ export const UserButton = () => {
             </AvatarFallback>
           </Avatar>
           {isPremiumActiveUser && (
-            <span className="absolute top-0 left-0 bg-[#4169e1] rounded-full p-1 transform -translate-x-1/2 -translate-y-1/2">
+            <span className="absolute top-0 left-0 bg-[#8188EC] dark:bg-[#676ECC] rounded-full p-1 transform -translate-x-1/2 -translate-y-1/2">
               <Crown className="text-white" size={16} />
             </span>
           )}

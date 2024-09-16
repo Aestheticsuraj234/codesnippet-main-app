@@ -13,7 +13,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-background hover:bg-background/90 hover:text-accent-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
@@ -21,10 +21,12 @@ const buttonVariants = cva(
         brand:"bg-[#08BD80] text-[#fff]  hover:bg-[#08BD80]/80 ",
         secondaryOutline:" border  border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-[#1e201f] ",
         brandOutline:" border  border-[#E1C01D] text-[#E1C01D] hover:bg-[#E1C01D] hover:text-[#fff] ",
-        premium:"bg-[#4169e1] text-[#fff] hover:bg-[#4169e1]/80",
+        premium:"bg-[#8188EC] dark:bg-[#676ECC] text-[#fff] hover:bg-[#8188EC]/80 dark:hover:bg-[#676ECC]/80",
         completed:" bg-emerald-500 text-[#fff] hover:bg-emerald-500/80",
         liked:" bg-[#ff0000] text-[#fff] hover:bg-[#ff0000]/80",
         primary:"bg-indigo-500 text-white hover:bg-indigo-500/90",
+        auth:"bg-[#4169e1] text-[#fff] hover:bg-[#4169e1]/80",
+        
         
       },
       size: {

@@ -40,10 +40,15 @@ export const UpgradeButton = () => {
 
   const ButtonText = isPremiumActiveUser ? "Premium User" : "Upgrade to Pro";
   const ButtonIcon = isPremiumActiveUser ? <Crown size={20} /> : <LockKeyhole size={20} />;
-  const ButtonVariant = isPremiumActiveUser ? "premium" : "outline";
+  const ButtonVariant = isPremiumActiveUser ? "premium" : "brand";
 
   // Memoize the admin check to prevent unnecessary calculations
   const isAdmin = useMemo(() => currentUser?.role === UserRole.ADMIN, [currentUser]);
+  // Memoize the premium user check to prevent unnecessary calculations
+  const isProUser = useMemo(() => currentUser?.role === UserRole.PREMIUM_USER, [currentUser]);
+  // Memoize the free user check to prevent unnecessary calculations
+  const isFreeUser = useMemo(() => currentUser?.role === UserRole.USER, [currentUser]);
+
 
   if (isAdmin) {
     return (
@@ -60,8 +65,9 @@ export const UpgradeButton = () => {
     );
   }
 
-  return (
-    <Link href={"/pricing"}>
+  if(isProUser){
+    return (
+      <Link href={"/pricing"}>
       <Button
         variant={ButtonVariant}
         size={"default"}
@@ -71,5 +77,22 @@ export const UpgradeButton = () => {
         <span className="font-bold">{ButtonText}</span>
       </Button>
     </Link>
-  );
+    );
+  }
+
+  if(isFreeUser){
+    return (
+      <Link href={"/pricing"}>
+      <Button
+        variant={ButtonVariant}
+        size={"default"}
+        className="flex flex-1 justify-center items-center gap-2"
+      >
+        {ButtonIcon}
+        <span className="font-bold">{ButtonText}</span>
+      </Button>
+    </Link>
+    );
+  }
+  
 };

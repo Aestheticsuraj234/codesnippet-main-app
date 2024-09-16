@@ -46,7 +46,7 @@ export const NavbarRoutes = () => {
           </div>
         ) : (
           <Link href={"/auth/login"}>
-            <Button variant={"outline"} size={"lg"}>
+            <Button variant={"auth"} size={"lg"}>
               Login
             </Button>
           </Link>

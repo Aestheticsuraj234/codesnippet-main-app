@@ -26,7 +26,7 @@ const CourseCard = async ({
   description,
 }: CourseCardProps) => {
   return (
-    <Card className="cursor-pointer">
+    <Card className="cursor-pointer bg-[#F3F4F6] border-[#DDE2EC] dark:bg-[#27272A] dark:border-[#27272A]">
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="text-sm font-medium text-muted-foreground">
@@ -34,7 +34,7 @@ const CourseCard = async ({
           </div>
           <div className="flex items-center gap-2">
             {isPurchased ? (
-              <div className="flex items-center justify-center rounded-full bg-green-500 p-2 text-primary-foreground">
+              <div className="flex items-center justify-center rounded-full dark:bg-[#676ECC] bg-[#8188EC]  p-2 text-white">
                 <Unlock className="h-4 w-4" />
               </div>
             ) : (
@@ -69,13 +69,13 @@ const CourseCard = async ({
         <div className="mt-4">
           {isPurchased ? (
             <Link href={`/live/${id}`}>
-              <Button variant={"completed"} size={"default"} className="w-full">
+              <Button variant={"outline"} size={"default"} className="w-full">
                 Start Course
               </Button>
             </Link>
           ) : (
             <Link href={`/live-course/${id}`}>
-              <Button variant={"premium"} size={"default"} className="w-full">
+              <Button variant={"brand"} size={"default"} className="w-full">
                 Buy Course
               </Button>
             </Link>
