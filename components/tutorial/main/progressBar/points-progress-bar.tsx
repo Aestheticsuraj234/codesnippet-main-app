@@ -10,7 +10,7 @@ const PointsProgressBar: React.FC<PointsProgressBarProps> = ({ currentPoints, ma
   const progress = (currentPoints / maxPoints) * 100
 
   return (
-    <div className="flex items-center space-x-3 border  p-2 rounded-md shadow-sm">
+    <div className="flex items-center space-x-3 border  p-2 rounded-md shadow-sm bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
       <div className="relative flex-shrink-0">
         <div className="bg-purple-500 rounded-full p-1.5">
           <Award className="w-5 h-5 text-white" />

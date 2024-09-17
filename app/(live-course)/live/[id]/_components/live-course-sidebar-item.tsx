@@ -34,7 +34,7 @@ interface LiveCourseSidebarItemProps {
       type="button"
       className={cn(
         "flex items-center gap-x-2 text-slate-500 dark:text-slate-100 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
-        isActive && "text-slate-700 dark:text-slate-200 bg-slate-200/20 hover:bg-slate-200/20 hover:text-slate-700",
+        isActive && "text-slate-700 dark:text-slate-200 bg-slate-400/20 hover:bg-slate-400/20 hover:text-slate-700",
         isCompleted && "text-emerald-700 dark:text-emerald-500  hover:text-emerald-700 dark:hover:text-emerald-500",
         isCompleted && isActive && "bg-emerald-200/20  dark:bg-emerald-200/20" 
       )}

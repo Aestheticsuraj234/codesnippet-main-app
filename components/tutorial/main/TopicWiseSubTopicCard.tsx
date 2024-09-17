@@ -15,7 +15,7 @@ interface TopicWiseSubTopicProps {
 const TopicWiseSubTopicCard = ({title  , id , isCompleted=true , technologyId}:TopicWiseSubTopicProps) => {
 
   return (
-    <Card className="overflow-hidden px-4 py-4">
+    <Card className="overflow-hidden px-4 py-4 dark:bg-[#18181B] bg-[#FFFFFF]">
     <CardContent className="p-0">
      <div className="flex flex-row items-center justify-between w-full">
             <div className='flex flex-row justify-start items-center gap-2'>

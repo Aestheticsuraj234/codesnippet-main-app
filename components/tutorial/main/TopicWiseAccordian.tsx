@@ -48,7 +48,7 @@ export default function TopicWiseAccordion({
   };
 
   return (
-    <div className="px-4 py-2 flex flex-col w-full items-center justify-center bg-white dark:bg-zinc-900 shadow-lg rounded-md border overflow-auto">
+    <div className="px-4 py-2 flex flex-col w-full items-center justify-center bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]  shadow-lg rounded-md  overflow-auto">
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -86,7 +86,7 @@ export default function TopicWiseAccordion({
               </div>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="mt-5">{children}</AccordionContent>
+          <AccordionContent className="mt-5 ">{children}</AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>

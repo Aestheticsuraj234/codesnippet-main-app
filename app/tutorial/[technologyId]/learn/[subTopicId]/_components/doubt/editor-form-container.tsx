@@ -67,7 +67,7 @@ const RichEditorFormContainer = () => {
           )}
         />
         <div className="w-full flex justify-end items-end">
-        <Button type="submit" disabled={isPending} className="self-end">
+        <Button variant={"brand"}  type="submit" disabled={isPending} className="self-end">
           {isPending ? "Posting..." : "Post Forum"}
         </Button>
         </div>

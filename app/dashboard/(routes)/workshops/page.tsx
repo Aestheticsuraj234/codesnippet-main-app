@@ -3,7 +3,6 @@ import { db } from "@/lib/db/db";
 import React from "react";
 import WorkshopInforCard from "./_components/WorkshopInfoCard";
 import { Calendar, VideoIcon } from "lucide-react";
-import { UpcomingWorkshops } from "../../_components/home/upcoming-workshops";
 import { WorkshopCards } from "@/components/workshop/WorkshopCard";
 
 const WorkshopMainPage = async () => {
@@ -67,7 +66,7 @@ const WorkshopMainPage = async () => {
       </div>
 
 
-<div className="flex flex-col justify-start items-start space-y-4 mt-8 text-zinc-700 dark:text-zinc-50">
+<div className="flex flex-col justify-start items-start space-y-4 mt-8 text-[#1A1818] dark:text-[#ffffff]">
   <h2 className="text-2xl font-bold">Upcoming Workshops</h2>
  
   <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6 mt-2">

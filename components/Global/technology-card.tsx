@@ -22,10 +22,10 @@ export default function TechnologyCard({
   isPremiumUser,
 }: TechnologyCardProps) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
       <CardContent className="p-0">
         <div className="flex items-center">
-          <div className="relative h-24 w-24 flex-shrink-0 px-4 flex justify-center items-center border mx-3 rounded-lg">
+          <div className="relative h-24 w-24 flex-shrink-0 px-4 flex justify-center items-center border mx-3 rounded-lg  dark:bg-[#18181B] bg-[#fff]">
             <Image
               alt="Technology image"
               className="object-cover rounded-md"
@@ -43,7 +43,7 @@ export default function TechnologyCard({
               {name.toUpperCase()}
             </h3>
             <p className="text-sm text-muted-foreground mb-2">{description}</p>
-            <Badge variant="secondary" className="text-xs w-fit">
+            <Badge  className="text-xs w-fit dark:bg-[#18181B] bg-[#fff] dark:text-white text-zinc-800">
               {numberOfTopics} Topics
             </Badge>
           </div>
@@ -58,7 +58,7 @@ export default function TechnologyCard({
           </Link>
         ) : (
           <Link href={"/pricing"}>
-            <Button variant={"premium"} size={"default"}>
+            <Button variant={"brand"} size={"default"}>
               Subscribe
             </Button>
           </Link>

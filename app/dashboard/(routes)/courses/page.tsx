@@ -15,7 +15,7 @@ const CoursesMainPage = async () => {
   console.log(JSON.stringify(courses, null, 2));
 
   return (
-    <section className="px-4 py-4 flex flex-col">
+    <section className="px-4 py-4 flex flex-col h-screen">
       <Header
         title="Courses"
         description="Courses are a great way to learn new skills and advance your career. Find the right course for you and start learning today."

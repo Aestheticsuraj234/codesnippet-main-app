@@ -85,7 +85,7 @@ const CustomRichTextEditor: React.FC<CustomRichTextEditorProps> = ({ onChange, v
   }
 
   return (
-    <Card className="mx-auto w-full">
+    <Card className="mx-auto w-full ">
       <CardContent className="p-6 w-full">
         <div className="mb-4 flex flex-wrap gap-2">
           <Toggle pressed={editor.isActive('bold')} onPressedChange={() => toggleStyle('toggleBold')}>

@@ -26,7 +26,7 @@ const CourseCard = async ({
   description,
 }: CourseCardProps) => {
   return (
-    <Card className="cursor-pointer bg-[#F3F4F6] border-[#DDE2EC] dark:bg-[#27272A] dark:border-[#27272A]">
+    <Card className="cursor-pointer bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="text-sm font-medium text-muted-foreground">
@@ -52,7 +52,7 @@ const CourseCard = async ({
           </div>
         </div>
         <main className="flex flex-col items-start justify-center mt-3">
-          <div className="aspect-video relative overflow-hidden border rounded-md shadow-md hover:shadow-xl">
+          <div className="aspect-video relative overflow-hidden border dark:border-[#3F3F46] border-[#E5E7EB] rounded-md shadow-md hover:shadow-xl">
             <img
               src={imageSrc}
               className="object-cover w-full h-full rounded-md"

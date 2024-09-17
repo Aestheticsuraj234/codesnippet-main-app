@@ -102,14 +102,14 @@ const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="dark:bg-[#27272A] bg-[#F3F4F6] dark:border-[#3F3F46] border-[#E5E7EB]">
             <CardContent className="p-6">
               <div className="flex items-center gap-x-2 mb-3">
                 {workshop?.techStack.map((tech, i) => (
                   <Badge
                     key={i}
                     variant="secondary"
-                    className="bg-sky-500/10 text-sky-800 dark:text-sky-300"
+                    className="bg-emerald-500/10 text-emerald-800 dark:text-emerald-300"
                   >
                     <PencilRuler className="h-4 w-4 mr-2" />
                     <span>{tech}</span>
@@ -138,7 +138,7 @@ const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
                   value={(progress! / workshop?.days?.length!) * 100}
                   className="h-2 mb-2"
                 />
-                <p className="text-sm font-medium text-sky-700 dark:text-sky-400">
+                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
                   {progress} of {workshop?.days.length} days completed
                 </p>
               </div>
@@ -177,12 +177,12 @@ const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
           <Card>
             <div className="flex flex-col items-center justify-center space-y-2">
               {isPremiumActiveUser ? (
-                <Button variant={"outline"} className="w-full">
+                <Button variant={"premium"} className="w-full">
                   <FaGithub className="h-4 w-4 mr-2" />
                   Clone repository
                 </Button>
               ) : (
-                <Button variant={"primary"} className="w-full">
+                <Button variant={"brand"} className="w-full">
                   <Lock className="h-4 w-4 mr-2" />
                   Unlock with Premium
                 </Button>

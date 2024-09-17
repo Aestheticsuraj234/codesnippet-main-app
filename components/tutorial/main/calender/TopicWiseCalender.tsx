@@ -121,7 +121,7 @@ export default function TopicDayWiseCalendar({
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4">
-      <div className="bg-card text-card-foreground rounded-lg shadow-lg">
+      <div className="bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB] text-card-foreground rounded-lg shadow-lg">
         <div className="flex items-center justify-between p-4 border-b">
           <Button
             variant="outline"
@@ -164,7 +164,7 @@ export default function TopicDayWiseCalendar({
                 className={cn(
                   "border rounded-lg p-2 aspect-square",
                   "flex flex-col",
-                  isCurrentMonth ? "bg-background" : "bg-muted",
+                  isCurrentMonth ? "bg-[#FFFFFF]  dark:bg-[#18181B]" : "bg-muted",
                   isTodayDate ? "border-indigo-400 border-2" : ""
                 )}
               >

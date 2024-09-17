@@ -1,11 +1,6 @@
 import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
-import {
-  Courses,
-  CoursePurchase,
-  Chapter,
-  ChapterProgress,
-} from "@prisma/client";
+import { Courses, CoursePurchase, Chapter, ChapterProgress } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 import React from "react";
@@ -32,7 +27,7 @@ const LiveCourseSidebar = async ({
     return redirect("/");
   }
 
-  const CoursePurchase = await db.coursePurchase.findUnique({
+  const coursePurchase = await db.coursePurchase.findUnique({
     where: {
       userId_courseId: {
         userId: user?.id!,
@@ -44,23 +39,26 @@ const LiveCourseSidebar = async ({
     },
   });
 
-  if (!CoursePurchase?.isPurchase) {
+  if (!coursePurchase?.isPurchase) {
     return redirect("/dashboard/courses");
   }
 
   const totalChapters = liveCourse.chapters.length;
 
+  // Corrected calculation: Progress as a percentage
+  const progressPercentage = (progressCount / totalChapters) * 100;
+
   return (
-    <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-      <div className="p-8 flex flex-col border-b">
+    <div className="h-full border-r dark:border-[#3F3F46] border-[#E5E7EB] flex flex-col overflow-y-auto shadow-sm bg-[#fff] dark:bg-[#27272A] ">
+      <div className="p-8 flex flex-col border-b dark:border-[#3F3F46] border-[#E5E7EB] ">
         <h1 className="font-semibold">{liveCourse.title}</h1>
         <div className="mt-5">
           <Progress
-            value={(progressCount / totalChapters) * 100}
+            value={progressPercentage}
             className="h-2 mb-2"
           />
           <span className="text-xs text-emerald-500 font-semibold">
-            {(progressCount / totalChapters) * 100}% Completed
+            {progressPercentage.toFixed(2)}% Completed
           </span>
         </div>
       </div>

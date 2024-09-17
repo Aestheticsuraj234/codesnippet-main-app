@@ -46,17 +46,20 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps) => {
 
   const totalDays = course.days.length;
 
+  // Calculate progress percentage correctly
+  const progressPercentage = (progressCount / totalDays) * 100;
+
   return (
-    <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-      <div className="p-8 flex flex-col border-b">
+    <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm dark:border-[#3F3F46] border-[#E5E7EB] bg-[#fff] dark:bg-[#27272A]">
+      <div className="p-8 flex flex-col border-b dark:border-[#3F3F46] border-[#E5E7EB]">
         <h1 className="font-semibold">{course.title}</h1>
         <div className="mt-5">
           <Progress
-            value={(progressCount / totalDays) * 100}
+            value={progressPercentage}
             className="h-2 mb-2"
           />
           <span className="text-xs text-emerald-500 font-semibold">
-            {(progressCount / totalDays) * 100}% Completed
+            {progressPercentage.toFixed(2)}% Completed
           </span>
         </div>
       </div>

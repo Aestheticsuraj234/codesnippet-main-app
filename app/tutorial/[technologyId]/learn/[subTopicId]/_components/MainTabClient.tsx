@@ -74,69 +74,47 @@ const MainTabClient = ({
     <TabsList className="grid w-full grid-cols-4">
       <TabsTrigger
         value="content"
-        className="flex items-center justify-center gap-2 data-[state=active]:text-yellow-500 data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121]  "
+        className="flex items-center justify-center gap-2 data-[state=active]:text-[#08BD80] data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121]  "
       >
         <FileText
           size={20}
-          className=" group-data-[state=active]:text-yellow-500"
+          className=" group-data-[state=active]:text-[#08BD80]"
         />
         <span className="hidden sm:inline">Content</span>
       </TabsTrigger>
       <TabsTrigger
         value="video"
-        className="flex items-center justify-center gap-2 data-[state=active]:text-yellow-500 data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121] "
+        className="flex items-center justify-center gap-2 data-[state=active]:text-[#08BD80] data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121] "
       >
         <Video
           size={20}
-          className=" group-data-[state=active]:text-yellow-500"
+          className=" group-data-[state=active]:text-[#08BD80]"
         />
         <span className="hidden sm:inline ">Video</span>
       </TabsTrigger>
       <TabsTrigger
         value="doubt"
-        className="flex items-center justify-center gap-2 data-[state=active]:text-yellow-500 data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121] "
+        className="flex items-center justify-center gap-2 data-[state=active]:text-[#08BD80] data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121] "
       >
         <HelpCircle
           size={20}
-          className=" group-data-[state=active]:text-yellow-500"
+          className=" group-data-[state=active]:text-[#08BD80]"
         />
         <span className="hidden sm:inline">Doubt</span>
       </TabsTrigger>
       <TabsTrigger
         value="notes"
-        className="flex items-center justify-center gap-2 data-[state=active]:text-yellow-500 data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121] "
+        className="flex items-center justify-center gap-2 data-[state=active]:text-[#08BD80] data-[state=active]:font-bold dark:data-[state=active]:bg-[#212121] "
       >
         <Notebook
           size={20}
-          className=" group-data-[state=active]:text-yellow-500"
+          className=" group-data-[state=active]:text-[#08BD80]"
         />
         <span className="hidden sm:inline">Notes</span>
       </TabsTrigger>
     </TabsList>
     <TabsContent value="content" className="mt-4" forceMount={true} hidden={"content" !== tab} >
       <div className="rounded-lg border p-6 flex flex-col justify-start items-start ">
-        <div className="w-full flex flex-row justify-between items-center">
-          <div>
-            {/* @ts-ignore */}
-            <h1 className="text-2xl font-bold mb-2">{subTopic?.title}</h1>
-            <Badge variant="secondary" className="text-yellow-500 ">
-              <Star className="h-4 w-4 fill-current mr-1" />
-              150 points
-            </Badge>
-          </div>
-          <ActionMenu
-            isMarkAsDone={isMarkAsDone}
-            // @ts-ignore
-            subTopicId={subTopic?.id}
-            // @ts-ignore
-            userId={user?.id}
-            isLiked={isLiked}
-            likeCount={count}
-            isUnliked={isUnliked}
-            isSaved={isSaved}
-          />
-        </div>
-        <Separator className="my-4" />
         <ContentClient data={subTopic} />
       </div>
     </TabsContent>

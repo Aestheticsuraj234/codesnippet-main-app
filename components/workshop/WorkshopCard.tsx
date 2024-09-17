@@ -1,8 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { currentRole, currentUser } from "@/lib/auth/data/auth";
+import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
-import { Calendar, Play, Users } from "lucide-react";
-import { Button } from "../ui/button";
+import { Calendar } from "lucide-react";
 import { Badge } from "../ui/badge";
 import Link from "next/link";
 
@@ -26,30 +25,11 @@ export const WorkshopCards = async ({
   techStack,
 }: WorkshopCardProps) => {
   const user = await currentUser();
-  const subscription = await db.user.findUnique({
-    where: {
-      id: user?.id,
-    },
-    select: {
-      subscribedTo: {
-        select: {
-          endDate: true,
-          status: true,
-          plan: true,
-        },
-      },
-    },
-  });
 
-  const isPremiumActiveUser =
-    (subscription?.subscribedTo?.status === "ACTIVE" &&
-      subscription?.subscribedTo?.plan === "PREMIUM" &&
-      user?.role === "PREMIUM_USER") ||
-    user?.role === "ADMIN";
 
   return (
     <Link href={`/dashboard/workshops/${id}`}>
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer">
+    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer dark:bg-[#27272A] bg-[#F3F4F6] dark:border-[#3F3F46] border-[#E5E7EB] ">
       <div className="aspect-video relative">
         <img
           src={imageSrc}
@@ -82,15 +62,6 @@ export const WorkshopCards = async ({
       <CardContent className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold line-clamp-1">{Title}</h3>
-          <div className="text-xs text-muted-foreground flex items-center truncate">
-            <Calendar className="w-3 h-3 mr-1" />
-            <span>
-              {date.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-              })}
-            </span>
-          </div>
         </div>
         <p className="text-sm text-muted-foreground line-clamp-2 mb-4">{Description}</p>
       </CardContent>

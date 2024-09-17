@@ -37,44 +37,51 @@ const LearnMainPage = async ({
 
   const count = await likeCount(params.subTopicId);
 
-const videoTopic = await getVideoBySubTopicId(params.subTopicId);
+  const videoTopic = await getVideoBySubTopicId(params.subTopicId);
 
-const notes = await getNotesBySubTopicId(params.subTopicId);
+  const notes = await getNotesBySubTopicId(params.subTopicId);
 
-const {doubts} = await GetDoubtsBySubTopicId(params.subTopicId);
+  const { doubts } = await GetDoubtsBySubTopicId(params.subTopicId);
 
-console.log(JSON.stringify(doubts));
-
+  console.log(JSON.stringify(doubts));
 
   return (
     <ContentLayout>
-      <section className={cn("w-auto flex flex-col flex-1 justify-start items-start", poppins.className)}>
+      <section
+        className={cn(
+          "w-auto flex flex-col flex-1 justify-start items-start",
+          poppins.className
+        )}
+      >
         <Link href={`/tutorial/${params.technologyId}`} className="mb-4">
-        <Hint
-        label="Back to topic"
-       align="center"
-       side="right"
-       alignOffset={10}
-       sideOffset={10}
-        >
-        <Button variant={"outline"} size={"icon"} className="text-sm text-gray-500">
-            <ArrowLeft size={16} />
-          </Button>
-        </Hint>
-         
+          <Hint
+            label="Back to topic"
+            align="center"
+            side="right"
+            alignOffset={10}
+            sideOffset={10}
+          >
+            <Button
+              variant={"brand"}
+              size={"icon"}
+              className="text-sm text-white"
+            >
+              <ArrowLeft size={16} />
+            </Button>
+          </Hint>
         </Link>
-      <MainTabClient
-        subTopic={subTopic}
-        isMarkAsDone={isMarkAsDone}
-        isLiked={isLiked}
-        isUnliked={isUnliked}
-        isSaved={isSaved}
-        count={count}
-        videoTopic={videoTopic}
-        notes={notes}
-        user={user}
-        doubt={doubts}
-      />
+        <MainTabClient
+          subTopic={subTopic}
+          isMarkAsDone={isMarkAsDone}
+          isLiked={isLiked}
+          isUnliked={isUnliked}
+          isSaved={isSaved}
+          count={count}
+          videoTopic={videoTopic}
+          notes={notes}
+          user={user}
+          doubt={doubts}
+        />
       </section>
     </ContentLayout>
   );

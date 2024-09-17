@@ -16,7 +16,7 @@ interface CourseNavbarProps {
 }
 const CourseNavbar = ({ course, progressCount }: CourseNavbarProps) => {
   return (
-    <div className="p-4 border-b h-full flex items-center shadow-sm">
+    <div className="p-4 border-b h-full flex items-center shadow-sm dark:border-[#3F3F46] border-[#E5E7EB] bg-[#fff] dark:bg-[#27272A]">
 
     <CourseMobileSidebar
         course={course}

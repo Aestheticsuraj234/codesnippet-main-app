@@ -67,7 +67,6 @@ const CourseLayout = async ({
       day: {
         workshopId: params.id,
       },
-      markedAsDone: true,
     },
   });
 

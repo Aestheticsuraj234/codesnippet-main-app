@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 export function Navbar() {
     const { status } = useSession();
   return (
-    <header className="sticky top-0 z-10 w-full bg-[#fff]/95 dark:bg-[#]  shadow backdrop-blur supports-[backdrop-filter]:bg-[#27272A]/60 dark:shadow-secondary dark:supports-[backdrop-filter]:bg-[#27272A]/60">
+    <header className="sticky top-0 z-10 w-full dark:border-[#3F3F46] border-[#E5E7EB] bg-[#fff] dark:bg-[#27272A]">
       <div className="mx-4 sm:mx-8 flex h-[80px] items-center">
         <div className="flex items-center space-x-4 lg:space-x-0">
           <SheetMenu />

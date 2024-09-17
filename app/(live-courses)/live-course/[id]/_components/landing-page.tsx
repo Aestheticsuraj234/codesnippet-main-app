@@ -164,7 +164,7 @@ const {onOpen , onClose } = useAuthModal();
   if(isPaymentSuccessful) {
     // show the loading bar with payment is successful and with the messsage of redirecting to the dashboard
     return (
-      <div className="min-h-screen bg-white dark:bg-zinc-900">
+      <div className="min-h-screen bg-white dark:bg-zinc-900 h-screen">
         <Navbar />
         <section className="relative py-20 text-center text-white">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90"></div>
@@ -181,12 +181,12 @@ const {onOpen , onClose } = useAuthModal();
     <div className="min-h-screen bg-white dark:bg-zinc-900">
       <Navbar />
 
-      <section className="relative py-20 text-center text-white">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90"></div>
+      <section className="relative py-20 text-center dark:text-white text-zinc-800">
+        <div className="absolute inset-0 dark:bg-[#27272A] bg-[#F3F4F6]  opacity-90"></div>
         <div className="relative container mx-auto px-4">
           <h1 className="mb-4 text-5xl font-extrabold">{course.title}</h1>
           <p className="mb-8 text-xl">{course.description}</p>
-          <Button disabled={isPending} onClick={processPayment}  size="lg" variant="secondary">
+          <Button disabled={isPending} onClick={processPayment}  size="lg" variant="brand">
             Get Started Today
           </Button>
         </div>
@@ -241,7 +241,7 @@ const {onOpen , onClose } = useAuthModal();
                 </ul>
               </CardContent>
             </Card>
-            <Button disabled={isPending} onClick={processPayment} size="lg" className="w-full">
+            <Button variant={"brand"}  disabled={isPending} onClick={processPayment} size="lg" className="w-full">
               Enroll Now for ₹{course.discount}
             </Button>
           </div>
@@ -407,7 +407,7 @@ const {onOpen , onClose } = useAuthModal();
           </Accordion>
         </section>
 
-        <section className="rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center text-white">
+        <section className="rounded-lg dark:bg-[#27272A]  bg-[#F3F4F6]  p-8 text-center text-zinc-800  dark:text-white">
           <h2 className="mb-4 text-3xl font-semibold">
             Ready to Start Your Journey?
           </h2>
@@ -415,7 +415,7 @@ const {onOpen , onClose } = useAuthModal();
             Enroll now and take the first step towards becoming a Professional
             Developer.
           </p>
-          <Button disabled={isPending} onClick={processPayment} size="lg" variant="secondary">
+          <Button disabled={isPending} onClick={processPayment} size="lg" variant="brand">
             Enroll Now for ₹{course.discount}
           </Button>
         </section>

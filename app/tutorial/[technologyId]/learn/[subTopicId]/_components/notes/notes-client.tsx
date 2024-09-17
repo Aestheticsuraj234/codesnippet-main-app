@@ -42,7 +42,7 @@ const NotesClient = ({ content, video, notes }: NotesClientProps) => {
         className="h-full w-full rounded-lg border"
       >
         <ResizablePanel defaultSize={50} className="h-full w-full">
-          <Card className="h-full w-full overflow-hidden">
+          <Card className="h-full w-full overflow-hidden ">
             <CardContent className="h-full p-6">
               <ScrollArea className="h-full">
                 <EditorClient data={notes} />
