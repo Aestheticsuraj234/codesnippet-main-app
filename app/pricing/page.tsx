@@ -37,7 +37,7 @@ const Pricing = async () => {
   const { subscribedTo } = subscription || {};
   const { endDate,plan,status } = subscribedTo || {};
 
-  const isPremiumActiveUser = plan === "PREMIUM" && role === "PREMIUM_USER";
+  const isPremiumActiveUser = (plan === "PREMIUM" && role === "PREMIUM_USER") || role === "ADMIN";
 
 
   if (isPremiumActiveUser) {
@@ -124,8 +124,8 @@ const Pricing = async () => {
         <PricingCard
           id="premium"
           title="Premium"
-          actualPrice="₹299"
-          discountedPrice="₹199"
+          actualPrice="₹2299"
+          discountedPrice="₹999"
           features={FeatureDataPopular}
           isPopular={true}
         />

@@ -20,8 +20,10 @@ const generatedSignature = (
 };
 
 export async function POST(request: NextRequest) {
-  const { orderCreationId, razorpayPaymentId, razorpaySignature, userId, plan } =
+  const { orderCreationId, razorpayPaymentId, razorpaySignature, userId, plan , referalCode } =
     await request.json();
+
+
 
   const signature = generatedSignature(orderCreationId, razorpayPaymentId);
 
@@ -49,8 +51,9 @@ export async function POST(request: NextRequest) {
         },
       });
 
+     
       // Create new subscription
-      await prisma.subscription.create({
+    const subscription =   await prisma.subscription.create({
         data: {
           userId: userId,
           plan: plan,
@@ -59,6 +62,44 @@ export async function POST(request: NextRequest) {
           endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
         },
       });
+      if(referalCode){
+        const ambassador = await prisma.campusAmbassador.findUnique({
+          where: {
+            referralCode: referalCode
+          }
+        });
+
+        if(ambassador){
+          await prisma.referral.create({
+            data:{
+              referredUserId: userId,
+              ambassadorId: ambassador.id,
+              subscriptionId:subscription.id
+            }
+          })
+
+           // Update the ambassador's points instead of resetting it
+          await prisma.campusAmbassador.update({
+            where: { id: ambassador.id },
+            data: {
+              points: {
+                increment: 50,
+              }
+            },
+          }); 
+
+          await prisma.pointTransaction.create({
+            data:{
+              ambassadorId: ambassador.id,
+              points: 50,
+              reason:"Subscription by referred user",
+              transactionType:"EARN",
+              createdAt: new Date(),
+            }
+          })
+        }
+      }
+
     });
 
     return NextResponse.json(

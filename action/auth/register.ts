@@ -12,10 +12,11 @@ import { sendVerificationEmail } from "@/lib/mail/mail";
  * Register a new user, hash their password, and send a verification email.
  *
  * @param {z.infer<typeof RegisterSchema>} values - The registration form values.
+ * @param {string?} referalCode - The referal code for the user.
  * @returns {Promise<{ success?: string, error?: string }>} - The result of the registration process.
  * @throws {Error} - If the registration fields are invalid.
  */
-export const register = async (values: z.infer<typeof RegisterSchema>): Promise<{ success?: string; error?: string; }> => {
+export const register = async (values: z.infer<typeof RegisterSchema>): Promise<{ success?: string; error?: string }> => {
   // Validate the input fields against the schema
   const validatedFields = RegisterSchema.safeParse(values);
 
@@ -36,7 +37,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>): Promise<
   }
 
   // Create the new user in the database
-  await db.user.create({
+  const newUser = await db.user.create({
     data: {
       name,
       email,
@@ -44,6 +45,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>): Promise<
     },
   });
 
+  
   // Generate a verification token for the user
   const verificationToken = await generateVerificationToken(email);
 
@@ -55,3 +57,4 @@ export const register = async (values: z.infer<typeof RegisterSchema>): Promise<
 
   return { success: "Confirmation email sent!" };
 };
+

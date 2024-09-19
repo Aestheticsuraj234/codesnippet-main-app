@@ -1,6 +1,7 @@
 "use client";
 
 import { AddModal } from "@/components/modal/Add-Modal";
+import AmbassadorModal from "@/components/modal/ambassdor-modal";
 import AuthModal from "@/components/modal/auth-modal";
 import { CreateChannelModal } from "@/components/modal/create-channel-moda";
 import { CreateCommunityModal } from "@/components/modal/create-community-modal";
@@ -44,6 +45,7 @@ export const ModalProvider = () => {
       <MessageFileModal />
       <DeleteMessageModal />
       <AuthModal/>
+      <AmbassadorModal/>
     </>
   );
 };

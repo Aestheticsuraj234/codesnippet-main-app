@@ -19,14 +19,15 @@ import { Button } from "../ui/button";
 import { FormError } from "../Global/Froms/FormError";
 import { FormSuccess } from "../Global/Froms/FormSuccess";
 import { login } from "@/action/auth/login";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { register } from "@/action/auth/register";
+import useReferalCode from "@/zustand/use-referal";
 
 interface Props {
   redirectUrl?: string;
 }
 
-export const RegisterForm = ({redirectUrl}:Props) => {
+export const RegisterForm = ({ redirectUrl }: Props) => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -43,7 +44,6 @@ export const RegisterForm = ({redirectUrl}:Props) => {
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
     setSuccess("");
-
 
     startTransition(() => {
       register(values).then((data) => {
@@ -63,7 +63,6 @@ export const RegisterForm = ({redirectUrl}:Props) => {
       backButtonHref="/auth/login"
       showSocial
       redirectUrl={redirectUrl}
-
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

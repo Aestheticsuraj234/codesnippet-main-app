@@ -1,4 +1,4 @@
-import { Briefcase, MessageCircle, SchoolIcon, YoutubeIcon } from "lucide-react";
+import { Briefcase, GraduationCap, MessageCircle, Notebook, SchoolIcon, YoutubeIcon } from "lucide-react";
 import React from "react";
 import ExploreCard from "./ExploreCard";
 
@@ -36,6 +36,22 @@ const Explore = () => {
             title:"Get Community Support.",
             description:"We have seperate community where you can chat on the group and discuss about your problems",
             href:"/discussion",
+        },
+        {
+          icon:Notebook,
+          backgroundHex:"#F0AA75",
+          colorHex:"#BF6B17",
+          title:"Explore Notebooks",
+          description:"Click Here to explore Notebooks which going to help you learning latest technology",
+          href:"/dashboard/notebooks",
+        },
+        {
+          icon:GraduationCap,
+          backgroundHex:"#96A8F6",
+          colorHex:"#7137F7",
+          title:"Become a Campus Ambassador",
+          description:"Click Here to explore Campus Ambassador Program",
+          href:"/dashboard/campus-ambassador",
         }
     ]
 

@@ -8,7 +8,7 @@ import GithubCode from "./GithubCode";
 const HomeComponent = () => {
   return (
     <div className=" flex flex-1 items-center justify-between">
-      <div className="flex flex-col justify-center items-start gap-6 max-w-[50%]">
+      <div className="flex flex-col justify-center items-start gap-6 md:max-w-[50%] max-w-full">
         <h1 className="font-extrabold text-[#1A1818] dark:text-[#ffffff] text-3xl lg:text-5xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center lg:items-start">
           <span className="relative">Welcome to <span className="text-[#08BD80]">CODESNIPPET</span></span>
         </h1>

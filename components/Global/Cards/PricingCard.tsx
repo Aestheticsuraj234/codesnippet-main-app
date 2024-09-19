@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 // import { Spinner } from "@/components/ui/spinner"; // Import a spinner component
 import { Loader } from "../loader";
+import useReferalCode from "@/zustand/use-referal";
 
 // add type of Razorpay in type of global
 declare global {
@@ -56,6 +57,7 @@ const PricingCard = ({
   const { isSubscribed, setIsSubscribed } = useIsSubscribed();
   const user = useCurrentUser();
   const router = useRouter();
+  const {referalCode} = useReferalCode();
 
   const parseAmount = (amount: string) => {
     // Remove any non-numeric characters except for the dot
@@ -108,6 +110,7 @@ const PricingCard = ({
             razorpaySignature: response.razorpay_signature,
             userId: user?.id,
             plan: PLAN.PREMIUM,
+            referalCode: referalCode || "",
           };
 
           const result = await fetch("/api/verify", {

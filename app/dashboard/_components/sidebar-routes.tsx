@@ -1,25 +1,14 @@
 "use client";
 import {
-  BriefcaseBusiness,
-  Brush,
-  Cable,
+  Bell,
   CircleDollarSign,
-  Code2Icon,
-  Computer,
-  FigmaIcon,
-  FolderGit2,
   GraduationCap,
   Home,
-  LineChart,
-  Notebook,
   NotebookPen,
-  PencilRuler,
   PencilRulerIcon,
-  Rss,
   School,
   Settings,
-  Sheet,
-  SquareCode,
+  Trophy,
   User,
 } from "lucide-react";
 
@@ -29,7 +18,12 @@ const Routes = [
   {
     icon: Home,
     label: "Home",
-    href: "/",
+    href: "/dashboard",
+  },
+  {
+    icon:Bell,
+    label: "Notifications",
+    href: "/dashboard/notifications",
   },
   {
     icon:GraduationCap ,
@@ -46,31 +40,21 @@ const Routes = [
     label: "Courses",
     href: "/dashboard/courses",
   },
+
   {
-    icon:Rss,
-    label: "Blog",
-    href: "/blog",
-  },
- 
-  {
-    icon:Sheet,
-    label: "DSA",
-    href: "/dashboard/dsa",
+    icon:Trophy,
+    label: "Leaderboard",
+    href: "/dashboard/leaderboard",
   },
   {
-    icon:FigmaIcon,
-    label:"System Design",
-    href:"/dashboard/system-design"
+    icon:CircleDollarSign,
+    label:"Campus Ambassador",
+    href: "/dashboard/campus-ambassador",
   },
   {
-    icon:NotebookPen,
-    label: "Notebooks",
-    href: "/notebooks",
-  },
-  {
-    icon:Computer,
-    label: "Cs Subjects",
-    href: "/cs-subjects",
+    icon:User,
+    label: "Profile",
+    href: "/dashboard/profile",
   },
 
 ];

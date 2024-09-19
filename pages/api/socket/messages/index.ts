@@ -1,11 +1,7 @@
 import { NextApiRequest } from "next";
-
 import { NextApiResponseServerIo } from "@/types";
-
 import { db } from "@/lib/db/db";
-import { getSession } from "next-auth/react";
-import { currentUser } from "@/lib/auth/data/auth";
-import  getServerSession  from "next-auth"
+
 
 export default async function handler(
   req: NextApiRequest,

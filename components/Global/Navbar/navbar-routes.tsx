@@ -20,7 +20,7 @@ export const NavbarRoutes = () => {
 
   return (
     <div className="flex justify-between items-center w-full">
-      {pathname.includes("/dashboard") ? null : (
+      {pathname.includes("/dashboard") || pathname?.includes("/campus-ambassador") ? null : (
         <div className="flex justify-center items-center gap-3 hover:cursor-pointer">
           <Image
             src={"/logo-new.svg"}

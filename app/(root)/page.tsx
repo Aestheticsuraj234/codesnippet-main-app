@@ -1,4 +1,4 @@
-
+"use client";
 // import { get_all_content } from "@/action/content";
 import SubFeature from "@/components/Home/SubFeature";
 import Instructor from "@/components/Home/Instructor";
@@ -6,8 +6,20 @@ import FAQ from "@/components/Home/FAQ";
 import HomeComponent from "@/components/Home/HomeComponent";
 import HowItWorks from "@/components/Home/HowItWorks";
 import Explore from "@/components/Home/Explore";
+import { useEffect } from "react";
 
 const Home=()=>{
+  const refCode = new URLSearchParams(window.location.search).get("ref");
+
+   useEffect(() => {
+    // if we have ref code, we will save it in local storage
+    if (refCode) {
+      localStorage.setItem("refCode", refCode);
+    }
+
+  } , [
+    refCode
+  ]);
 
 
 
