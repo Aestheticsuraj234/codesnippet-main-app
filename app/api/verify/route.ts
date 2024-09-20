@@ -94,6 +94,7 @@ export async function POST(request: NextRequest) {
               points: 50,
               reason:"Subscription by referred user",
               transactionType:"EARN",
+              status:"COMPLETED",
               createdAt: new Date(),
             }
           })

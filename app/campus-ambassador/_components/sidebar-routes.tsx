@@ -29,11 +29,6 @@ export const SidebarRoutes = () => {
       href: `/campus-ambassador/${params?.id}`,
     },
     {
-      icon:Sparkles,
-      label: "Referrals Management",
-      href: `/campus-ambassador/${params?.id}/referrals`,
-    },
-    {
       icon:SquareMousePointer ,
       label: "Points & Earnings",
       href: `/campus-ambassador/${params?.id}/points`,

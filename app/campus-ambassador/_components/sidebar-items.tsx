@@ -4,6 +4,7 @@ import { LucideIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { useParams } from "next/navigation";
 
 
 
@@ -21,10 +22,10 @@ export const SidebarItem = ({
 }: SidebarItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
-
+const params = useParams();
   const isActive =
   (pathname === href) ||
-  (pathname?.startsWith(href!) && href !== "/dashboard");
+  (pathname?.startsWith(href!) && href !== `/campus-ambassador/${params?.id}`);
 
 
   const onClick = () => {

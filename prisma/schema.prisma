@@ -809,7 +809,7 @@ model CampusAmbassador {
   fullName        String
   mobileNumber    String
   points          Int      @default(0)
-    pointTransactions PointTransaction[]
+  pointTransactions PointTransaction[]
   upiId           String
   campusName      String
   termsAccepted   Boolean  @default(false)
@@ -827,7 +827,7 @@ model PointTransaction {
   transactionType TransactionType // Earn or Redeem
   reason         String          // Description of why points were added or redeemed
   createdAt      DateTime        @default(now())
-
+  status         TransactionStatus          // Pending, Completed, Failed
   ambassador     CampusAmbassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
 }
 
@@ -836,6 +836,11 @@ enum TransactionType {
   REDEEM
 }
 
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
 
 model Referral {
   id              String   @id @default(cuid()) @map("_id")
