@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronRight, Users, Award, Gift, Briefcase } from "lucide-react";
 import { useModal } from "@/zustand/use-modal";
+import { useCurrentUser } from "@/hooks/auth/use-current-user";
+import Link from "next/link";
 
 const MainSection = () => {
+  const user = useCurrentUser();
   const { onOpen } = useModal();
   return (
     <>
@@ -104,14 +107,22 @@ const MainSection = () => {
       </section>
 
       <div className="text-center mb-12">
-        <Button
-          onClick={() => onOpen("ONBOARD_AMBASSADOR")}
-          size="lg"
-          variant={"brand"}
-          className="font-semibold py-3 px-8 rounded-md transition duration-300"
-        >
-          Apply Now
-        </Button>
+        {user?.role === "PREMIUM_USER" ? (
+          <Button
+            onClick={() => onOpen("ONBOARD_AMBASSADOR")}
+            size="lg"
+            variant={"brand"}
+            className="font-semibold py-3 px-8 rounded-md transition duration-300"
+          >
+            Apply Now
+          </Button>
+        ) : (
+          <Link href={"/pricing"}>
+            <Button variant={"brand"} size={"default"}>
+              Subscribe to Premium
+            </Button>
+          </Link>
+        )}
       </div>
     </>
   );

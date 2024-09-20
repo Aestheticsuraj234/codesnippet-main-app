@@ -2,6 +2,7 @@
 import {
   Bell,
   CircleDollarSign,
+  Flame,
   GraduationCap,
   Home,
   NotebookPen,
@@ -25,7 +26,12 @@ export const SidebarRoutes = () => {
   const Routes = [
     {
       icon: Home,
-      label: "Overview",
+      label: "Dashboard",
+      href: `/dashboard`,
+    },
+    {
+      icon:Flame,
+      label:"Overview",
       href: `/campus-ambassador/${params?.id}`,
     },
     {

@@ -1,15 +1,25 @@
 import Script from "next/script";
 import { Sidebar } from "../_components/sidebar";
 import { Navbar } from "@/app/(root)/_components/navbar";
+import { currentUser } from "@/lib/auth/data/auth";
+import { redirect } from "next/navigation";
 
 
-const CampusAmbassadorDashboardLayout = ({
+
+const CampusAmbassadorDashboardLayout = async({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { id: string };
 }) => {
+
+  const user = await currentUser();
+
+  if(user?.role !== "PREMIUM_USER"){
+    return redirect("/dashboard")
+  }
+
   return (
     <div className="h-full">
       <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-50">

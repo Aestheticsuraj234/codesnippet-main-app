@@ -58,7 +58,7 @@ model User {
 
   workShopDayProgress WorkshopDayProgress[]
 
-  coursePurchase CoursePurchase[]
+  coursePurchase  CoursePurchase[]
   chapterProgress ChapterProgress[]
 
   campusAmbassador CampusAmbassador[]
@@ -128,7 +128,7 @@ model Subscription {
   user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   plan      PLAN // Example: "BASIC", "PREMIUM", etc.
   status    SubscriptionStatus @default(ACTIVE)
-   referrals  Referral[]
+  referrals Referral[]
   startDate DateTime           @default(now())
   endDate   DateTime? // Optional: Subscription expiration date
 
@@ -278,7 +278,7 @@ model WorkshopDay {
 model WorkshopDayProgress {
   id           String      @id @default(cuid()) @map("_id")
   userId       String
-  dayId        String     
+  dayId        String
   markedAsDone Boolean     @default(false)
   completedAt  DateTime? // Date when the day was marked as done
   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -735,100 +735,95 @@ model DirectMessage {
   @@index([conversationId])
 }
 
-
-
 model Courses {
-  id          String        @id @default(cuid()) @map("_id")
-  title       String
-  description String
-  image       String
-  price       Float
-  discount    Float?
-  startDate   DateTime    
-  purchaseByUser CoursePurchase[]
+  id                   String           @id @default(cuid()) @map("_id")
+  title                String
+  description          String
+  image                String
+  price                Float
+  discount             Float?
+  startDate            DateTime
+  purchaseByUser       CoursePurchase[]
   courseVideoPitchLink String
-  status      ContentStatus @default(UNPUBLISHED)
-  features            Json?              // Updated to Json type for more flexibility
-  syllabus            Json?              // Updated to Json type for more flexibility
-  faq                 Json?    
-  chapters   Chapter[]
-  referrals  Referral[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  status               ContentStatus    @default(UNPUBLISHED)
+  features             Json? // Updated to Json type for more flexibility
+  syllabus             Json? // Updated to Json type for more flexibility
+  faq                  Json?
+  chapters             Chapter[]
+  referrals            Referral[]
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
 }
 
-
 model CoursePurchase {
-  id        String   @id @default(cuid()) @map("_id")
-  userId    String
-  courseId  String
+  id         String   @id @default(cuid()) @map("_id")
+  userId     String
+  courseId   String
   isPurchase Boolean  @default(false)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  course    Courses  @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course     Courses  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([userId, courseId])
 }
 
 model Chapter {
-  id          String        @id @default(cuid()) @map("_id")
-  courseId     String
-  course      Courses      @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  title       String
-  description String
-  chapterVideoLink String
-  chapterNotes   String
-  sourceCodeLink String
-  chapterProgression  ChapterProgress[]
-  status      ContentStatus @default(UNPUBLISHED)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id                 String            @id @default(cuid()) @map("_id")
+  courseId           String
+  course             Courses           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title              String
+  description        String
+  chapterVideoLink   String
+  chapterNotes       String
+  sourceCodeLink     String
+  chapterProgression ChapterProgress[]
+  status             ContentStatus     @default(UNPUBLISHED)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
 }
 
 model ChapterProgress {
-  id           String      @id @default(cuid()) @map("_id")
+  id           String    @id @default(cuid()) @map("_id")
   userId       String
   chapterId    String
-  markedAsDone Boolean     @default(false)
+  markedAsDone Boolean   @default(false)
   completedAt  DateTime? // Date when the day was marked as done
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  chapter      Chapter     @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter      Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@unique([userId, chapterId])
 }
 
-
-
 model CampusAmbassador {
-  id              String   @id @default(cuid()) @map("_id")
-  userId          String
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fullName        String
-  mobileNumber    String
-  points          Int      @default(0)
+  id                String             @id @default(cuid()) @map("_id")
+  userId            String
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName          String
+  mobileNumber      String
+  points            Int                @default(0)
   pointTransactions PointTransaction[]
-  upiId           String
-  campusName      String
-  termsAccepted   Boolean  @default(false)
-  referralCode    String   @unique
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  upiId             String
+  campusName        String
+  termsAccepted     Boolean            @default(false)
+  referralCode      String             @unique
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 
-  referrals       Referral[]
+  referrals Referral[]
 }
 
 model PointTransaction {
-  id             String     @id @default(cuid()) @map("_id")
-  ambassadorId   String
-  points         Int        
+  id              String            @id @default(cuid()) @map("_id")
+  ambassadorId    String
+  points          Int
   transactionType TransactionType // Earn or Redeem
-  reason         String          // Description of why points were added or redeemed
-  createdAt      DateTime        @default(now())
-  status         TransactionStatus          // Pending, Completed, Failed
-  ambassador     CampusAmbassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  reason          String // Description of why points were added or redeemed
+  createdAt       DateTime          @default(now())
+  status          TransactionStatus // Pending, Completed, Failed
+  ambassador      CampusAmbassador  @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
 }
 
 enum TransactionType {
@@ -843,17 +838,17 @@ enum TransactionStatus {
 }
 
 model Referral {
-  id              String   @id @default(cuid()) @map("_id")
-  ambassadorId    String
-  referredUserId  String
-  courseId        String?
-  subscriptionId  String?
-  createdAt       DateTime @default(now())
+  id             String   @id @default(cuid()) @map("_id")
+  ambassadorId   String
+  referredUserId String
+  courseId       String?
+  subscriptionId String?
+  createdAt      DateTime @default(now())
 
-  ambassador      CampusAmbassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
-  referredUser    User     @relation(fields: [referredUserId], references: [id], onDelete: Cascade)
-  course          Courses? @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  subscription    Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  ambassador   CampusAmbassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  referredUser User             @relation(fields: [referredUserId], references: [id], onDelete: Cascade)
+  course       Courses?         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  subscription Subscription?    @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 
   @@index([ambassadorId])
   @@index([referredUserId])

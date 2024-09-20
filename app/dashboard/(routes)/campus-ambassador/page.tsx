@@ -18,9 +18,9 @@ const CampusAmbassador = async() => {
     select:{
       id: true,
     }
-  });
+  })
 
-  if(isAmbassador){
+  if(isAmbassador && user?.role === "PREMIUM_USER"){
     return redirect(`/campus-ambassador/${isAmbassador.id}`);
   }
 
