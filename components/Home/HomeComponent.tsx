@@ -4,6 +4,7 @@ import RocketSvg from "@/public/Rocket.svg"; // import the animated SVG
 import { ArrowRightIcon, Gift } from "lucide-react";
 import Image from "next/image";
 import GithubCode from "./GithubCode";
+import Link from "next/link";
 
 const HomeComponent = () => {
   return (
@@ -19,14 +20,14 @@ const HomeComponent = () => {
         <p className="text-lg font-semibold opacity-80 leading-relaxed text-[#374151] dark:text-[#71717A]">
         Explore Live-Courses, Organized Tutorials , Weekly Workshops , Explore Blog , Master CS Concepts, Design Systems Sharpen Your Skills and Ace Interviews with Confidence.
         </p>
-
+      <Link href="/dashboard">
         <Button
           variant={"brand"}
           className="flex items-center justify-center gap-3 font-bold text-md w-full"
         >
           Get Started <ArrowRightIcon className="w-6 h-6" />
         </Button>
-
+        </Link>
         
       </div>
 

@@ -76,7 +76,7 @@ const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
 
   const communityJoinInviteLink = await db.community.findFirst({
     where:{
-        name:"Workshops"
+        name:process.env.NEXT_PUBLIC_COMMUNITY_WORKSHOP_NAME
     },
     select:{
         inviteCode:true

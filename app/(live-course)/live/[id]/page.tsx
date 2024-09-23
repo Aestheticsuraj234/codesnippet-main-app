@@ -43,11 +43,7 @@ const LiveIdPage = async ({ params }: { params: { id: string } }) => {
     if(liveCourse.chapters.length === 0 ){
         const community = await db.community.findFirst({
             where:{
-                channels:{
-                    some:{
-                        name:"general"
-                    }
-                }
+              name:process.env.NEXT_PUBLIC_COMMUNITY_LIVE_COURSE_NAME
             },
             select:{
                 id:true,

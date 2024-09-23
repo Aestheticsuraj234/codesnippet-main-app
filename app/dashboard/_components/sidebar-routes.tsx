@@ -21,11 +21,6 @@ const Routes = [
     href: "/dashboard",
   },
   {
-    icon:Bell,
-    label: "Notifications",
-    href: "/dashboard/notifications",
-  },
-  {
     icon:GraduationCap ,
     label: "Tutorials",
     href: "/dashboard/tutorials",
