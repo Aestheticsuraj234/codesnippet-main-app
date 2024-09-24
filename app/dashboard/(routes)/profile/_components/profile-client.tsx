@@ -50,7 +50,7 @@ const ProfileClient = ({ user }: Props) => {
       <Card className="overflow-hidden bg-gradient-to-br from-primary/5 to-primary/10 border-none shadow-lg transition-all duration-300 hover:shadow-xl">
         <CardContent className="p-0">
           <div className="relative">
-            <div className="h-32 bg-gradient-to-r from-primary to-primary-foreground" />
+            <div className="h-32 bg-gradient-to-r from-green-200 via-green-400 to-green-500" />
             <Avatar className="absolute left-6 -bottom-16 h-32 w-32 border-4 border-background transition-transform duration-300 hover:scale-105">
               <AvatarImage src={user.image} alt={user.name} />
               <AvatarFallback>

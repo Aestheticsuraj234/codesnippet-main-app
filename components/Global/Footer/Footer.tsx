@@ -1,7 +1,23 @@
+"use client";
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const Footer = () => {
+  const { theme } = useTheme();
+  const [imagePath, setImagePath] = useState("/code-snippet2ss.svg");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setImagePath("/code-snippet-dark2.svg");
+    } else {
+      setImagePath("/code-snippet2.svg");
+    }
+  }, [theme]);
+
+  const year  = new Date().getFullYear();
+
   return (
     <footer className="dark:bg-[#212121] border-t border-[#212121]/10">
       <div className="max-w-7xl mx-auto px-8 py-24">
@@ -11,18 +27,18 @@ const Footer = () => {
               <Image
                 alt="Sigma-Coders logo"
                 fetchPriority="high"
-                width={80}
-                height={80}
+                width={160}
+                height={160}
                 style={{ color: 'transparent' }}
-                src="/logo-new.svg"
+                src={imagePath}
               />
             </Link>
             <p className="mt-3 text-sm text-zinc-700 dark:text-[#E5ECEA]/80 leading-relaxed">
-            Code with a Sigma Mindset.
+              Build Skills , Break Limits
               <br />
-              Copyright © 2024 - All rights reserved
+              Copyright © {year} - All rights reserved
             </p>
-            <Link className="inline-block mt-4 text-sm border dark:border-[#e5ecea]/20 dark:hover:bg-[#212121] duration-200 cursor-pointer rounded text-zinc-700 dark:text-[#e5ecea]/80 px-2 py-1" href="/">
+            <Link className="inline-block mt-4 text-sm border dark:border-[#e5ecea]/20 dark:hover:bg-[#212121] duration-200 cursor-pointer rounded text-zinc-700 dark:text-[#e5ecea]/80 px-2 py-1" href="https://nextjs.org/">
               <div className="flex gap-2 items-center">
                 <span>Built with</span>
                 <span className="font-bold text-[#E5ECEA]/40 flex gap-0.5 items-center tracking-tight">

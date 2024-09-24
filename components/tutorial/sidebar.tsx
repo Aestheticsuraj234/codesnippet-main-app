@@ -6,9 +6,22 @@ import { useStore } from "@/zustand/use-store";
 import { useSidebarToggle } from "@/zustand/use-sidebarToggle";
 import { SidebarToggle } from "./sidebar-toggle";
 import { Menu } from "./menu";
+import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export function Sidebar() {
+  const {theme} = useTheme()
+  const [imagePath , setImagePath] = useState("/code-snippet2ss.svg") 
   const sidebar = useStore(useSidebarToggle, (state) => state);
+
+  useEffect(() => {
+    if(theme === "dark"){
+      setImagePath("/code-snippet-dark2.svg")
+    }else{
+      setImagePath("/code-snippet2.svg")
+    }
+  }  , [theme])
   
   if(!sidebar) return null;
 
@@ -29,18 +42,8 @@ export function Sidebar() {
           variant="link"
           asChild
         >
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <PanelsTopLeft className="w-6 h-6 mr-1" />
-            <h1
-              className={cn(
-                "font-bold text-lg whitespace-nowrap transition-[transform,opacity,display] ease-in-out duration-300",
-                sidebar?.isOpen === false
-                  ? "-translate-x-96 opacity-0 hidden"
-                  : "translate-x-0 opacity-100"
-              )}
-            >
-              Brand
-            </h1>
+          <Link href="/dashboard" className="flex items-center gap-2 mt-4">
+            <Image src={imagePath} alt="logo" width={240} height={240} className="flex-shrink-0" /> 
           </Link>
         </Button>
         <Menu isOpen={sidebar?.isOpen} />

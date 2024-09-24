@@ -25,8 +25,8 @@ const Explore = () => {
             icon:YoutubeIcon,
             backgroundHex:"#A8C7F9",
             colorHex:"#1664E4",
-            title:"Get Community Support.",
-            description:"We have seperate community where you can chat on the group and discuss about your problems",
+            title:"Explore tutorials",
+            description:"Click Here to explore tutorials which going to help you learning latest technology",
             href:"/dashboard/tutorials",
         },
         {
@@ -36,14 +36,6 @@ const Explore = () => {
             title:"Get Community Support.",
             description:"We have seperate community where you can chat on the group and discuss about your problems",
             href:"/discussion",
-        },
-        {
-          icon:Notebook,
-          backgroundHex:"#F0AA75",
-          colorHex:"#BF6B17",
-          title:"Explore Notebooks",
-          description:"Click Here to explore Notebooks which going to help you learning latest technology",
-          href:"/dashboard/notebooks",
         },
         {
           icon:GraduationCap,
