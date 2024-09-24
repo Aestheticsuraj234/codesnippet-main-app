@@ -1,186 +1,169 @@
 import { Header } from "@/components/Global/header";
+import TechnologyCard from "@/components/Global/technology-card";
 import { currentUser } from "@/lib/auth/data/auth";
+import { db } from "@/lib/db/db";
+
 import React from "react";
-import { UpcomingWorkshops } from "./_components/home/upcoming-workshops";
+import TechnologyDashboardCard from "./_components/technology-dashboard-card";
+import {
+  getProgressForAllCourses,
+  getProgressForAllTechnologies,
+  getProgressForAllWorkshops,
+} from "@/action/dashboard";
+import WorkshopCalendar from "./_components/workshop-calender";
 import Link from "next/link";
-import { RecentlyAdded } from "./_components/home/recently-added";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { getAllCourses } from "@/action/live-course";
+import CourseCardDashboard from "./_components/course-card-dashboard";
 
 const Home = async () => {
   const user = await currentUser();
+
+  const technologies = await db.technology.findMany({
+    where: {
+      status: "PUBLISHED",
+    },
+    select: {
+      id: true,
+      image: true,
+      name: true,
+      description: true,
+      topics: {
+        select: {
+          subTopics: true,
+        },
+      },
+    },
+  });
+
+  const subscription = await db.user.findUnique({
+    where: {
+      id: user?.id,
+    },
+    select: {
+      subscribedTo: {
+        select: {
+          endDate: true,
+          status: true,
+          plan: true,
+        },
+      },
+    },
+  });
+
+  const progress = await getProgressForAllTechnologies();
+  const workshopProgress = await getProgressForAllWorkshops();
+  const courseProgress = await getProgressForAllCourses();
+
+  const isPremiumActiveUser =
+    (subscription?.subscribedTo?.status === "ACTIVE" &&
+      subscription?.subscribedTo?.plan === "PREMIUM" &&
+      user?.role === "PREMIUM_USER") ||
+    user?.role === "ADMIN";
+
+  const workshop = await db.workshop.findMany({
+    where: {
+      status: "PUBLISHED",
+    },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+      description: true,
+      isRecorded: true,
+      startDate: true,
+    },
+    take: 3,
+  });
+
+  const newWorkshop = workshop.map((workshop) => {
+    return {
+      id: workshop.id,
+      title: workshop.title,
+      image: workshop.image,
+      description: workshop.description,
+      isPurchased:isPremiumActiveUser,
+      startDate: workshop.startDate,
+      isRecorded: workshop.isRecorded,
+      progress: workshopProgress.find((p) => p.workshopId === workshop.id)
+        ?.progress!,
+    };
+  });
+
+
+  const courses = await getAllCourses();
+
+
   return (
-    <main className="px-4 py-4 flex flex-col ">
+    <section className="px-4 py-4 flex flex-col flex-1">
       <Header
-        title={`HELLO ${user?.name?.toUpperCase()}👋`}
-        description={"Let's Learn Something New Today"}
+        title={`Hi ${user?.name}👋`}
+        description="This is your dashboard, you can see all progress and activities here"
       />
-
-      {/* */}
-      <main className="flex-1 container max-w-5xl mx-auto px-4 py-8 md:px-6 md:py-12 grid gap-8">
-        <section>
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-zinc-600 dark:text-zinc-100">
-              Upcoming Workshops
-            </h2>
-            <Link
-              href="/workshops"
-              className="text-sm font-medium text-yellow-500 hover:underline underline-offset-4"
-              prefetch={false}
-            >
+      {/* tutorial progress section where we are wanted to show the course section here! */}
+      <div className="flex flex-col flex-1 justify-start items-start mt-10 container">
+        <div className="flex flex-row w-full justify-between items-center">
+          <h1 className="text-3xl font-bold text-primary text-[#1A1818] dark:text-[#ffffff] mb-6">
+            Technologies
+          </h1>
+          <Link href={"/dashboard/tutorials"} className="">
+            <Button variant={"link"} className="text-lg font-semibold ">
               View All
-            </Link>
-          </div>
+            </Button>
+          </Link>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
-            <UpcomingWorkshops
-              Category="DSA"
-              imageSrc="https://www.codewithantonio.com/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F08857d36-2392-4182-9f6f-5fb93a8e8543-2ytnxz.jpg&w=1920&q=75"
-              Date="7 August, 2024"
-              Title="Data Structure and Algorithm"
-              Description="Learn about the basics of Data Structure and Algorithm"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          {technologies.map((technology) => (
+            <TechnologyDashboardCard
+              key={technology.id}
+              imageUrl={technology.image}
+              id={technology.id}
+              name={technology.name}
+              description={technology.description}
+              numberOfTopics={technology.topics.length}
+              isPremiumUser={isPremiumActiveUser}
+              progress={
+                progress.find((p) => p.technologyId === technology.id)
+                  ?.progress!
+              }
             />
-            <UpcomingWorkshops
-              Category="Frontend"
-              imageSrc="https://www.codewithantonio.com/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F6f5ddbbe-cf91-44d4-bd10-5fdb235889df-tt9026.png&w=1920&q=75"
-              Date="27 July, 2024"
-              Title="React Workshop"
-              Description="Learn about the basics of React"
-            />
-            <UpcomingWorkshops
-              Category="Backend"
-              imageSrc="https://www.codewithantonio.com/_next/image?url=https%3A%2F%2Futfs.io%2Ff%2F3fd4e9e6-8489-4005-a6a7-29f0338745b1-jbkgcj.jpg&w=1920&q=75"
-              Date="17 August, 2024"
-              Title="Nodejs Workshop"
-              Description="Learn about the basics of Nodejs"
-            />
-          </div>
-        </section>
-      </main>
-
-      <main className="flex-1 container max-w-5xl mx-auto px-4 py-8 md:px-6 md:py-12 grid gap-8">
-        <section>
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-zinc-600 dark:text-zinc-100">
-              Recently Added
-            </h2>
-            <Link
-              href="/dsa"
-              className="text-sm font-medium text-yellow-500 hover:underline underline-offset-4"
-              prefetch={false}
-            >
-              View All
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
-            <RecentlyAdded
-              Category="DSA"
-              Date="7 August, 2024"
-              Title="Linked List "
-              Description=" Learn about the basics of Linked List"
-            />
-            <RecentlyAdded
-              Category="Notes"
-              Date="27 July, 2024"
-              Title="Html Notes"
-              Description="Learn about the basics of Html"
-            />
-            <RecentlyAdded
-              Category="System Design"
-              Date="17 August, 2024"
-              Title="System Design of Instagram"
-              Description="Learn about the basics of System Design"
-            />
-          </div>
-        </section>
-      </main>
-      <div className="grid grid-cols-1  lg:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Calendar</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center justify-center py-8">
-              <div className="text-4xl font-bold">20</div>
-              <div className="text-sm font-medium text-muted-foreground">
-                July 2024
-              </div>
-            </div>
-            <div className="border-t pt-4">
-              <div className="flex items-center justify-between text-sm font-medium text-muted-foreground">
-                <div>Upcoming Events</div>
-                <Link
-                  href="#"
-                  className="text-primary hover:underline underline-offset-4"
-                  prefetch={false}
-                >
-                  View All
-                </Link>
-              </div>
-              <div className="mt-2 grid gap-2">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">
-                    Introduction to React.js
-                  </div>
-                  <div className="text-xs font-medium text-muted-foreground">
-                    July 15
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-medium">
-                    Mastering Arrays and Linked Lists
-                  </div>
-                  <div className="text-xs font-medium text-muted-foreground">
-                    August 5
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>To-Do List</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Checkbox />
-                  <div className="text-sm font-medium">
-                    Finish React.js project
-                  </div>
-                </div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  Due: July 25
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Checkbox />
-                  <div className="text-sm font-medium">Review DSA sheet</div>
-                </div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  Due: August 1
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Checkbox />
-                  <div className="text-sm font-medium">
-                    Complete Python course
-                  </div>
-                </div>
-                <div className="text-sm font-medium text-muted-foreground">
-                  Due: August 15
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
       </div>
-    </main>
+
+      <div className="flex flex-col flex-1 justify-start items-start mt-10">
+        <WorkshopCalendar workshops={newWorkshop} />
+      </div>
+
+      <div className="flex flex-col flex-1 justify-start items-start mt-10 container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {courses.map((course) => {
+              const isPurchased =
+                course.purchaseByUser.length > 0
+                  ? course.purchaseByUser[0].isPurchase
+                  : false;
+              return (
+                <CourseCardDashboard
+                id={course.id}
+                  date={course.startDate}
+                  title={course.title}
+                  description={course.description}
+                  price={course.price}
+                  discountedPrice={course.discount!}
+                  imageSrc={course.image}
+                  isPurchased={isPurchased}
+                  key={course.id}
+                  progress={
+                    courseProgress.find((p) => p.courseId === course.id)
+                      ?.progress!
+                  }
+                />
+              );
+            })}
+        </div>
+      </div>
+    </section>
   );
 };
 
