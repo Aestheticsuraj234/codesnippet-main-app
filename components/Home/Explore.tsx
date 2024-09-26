@@ -1,4 +1,4 @@
-import { Briefcase, GraduationCap, MessageCircle, Notebook, SchoolIcon, YoutubeIcon } from "lucide-react";
+import { Briefcase, GraduationCap, Handshake, MessageCircle, Notebook, SchoolIcon, YoutubeIcon } from "lucide-react";
 import React from "react";
 import ExploreCard from "./ExploreCard";
 
@@ -44,6 +44,14 @@ const Explore = () => {
           title:"Become a Campus Ambassador",
           description:"Click Here to explore Campus Ambassador Program",
           href:"/dashboard/campus-ambassador",
+        },
+        {
+          icon:Handshake,
+          backgroundHex:"#FFA7A6",
+          colorHex:"#CD201F",
+          title:"1:1 Mentorship",
+          description:"Click Here to explore 1:1 Mentorship Program",
+          href:"/dashboard/mentorship",
         }
     ]
 

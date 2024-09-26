@@ -1,53 +1,90 @@
 [
   {
-    "title": "Introduction to JavaScript",
-    "description": "Learn the basics of JavaScript, the language of the web.",
-    "image": "https://example.com/image1.jpg",
-    "price": 29.99,
-    "discount": 10,
-    "startDate": "2024-10-01",
-    "courseVideoPitchLink": "https://example.com/pitch1.mp4",
-    "status": "PUBLISHED",
-    "chapters": [
+    "title": "AI Roadmap Consultation",
+    "description": "Get personalized guidance on your AI learning path, tools, and resources.",
+    "duration": 60,
+    "price": 2000,
+    "discountedPrice": 1500,
+    "availableSlots": [
       {
-        "title": "Chapter 1: Basics",
-        "description": "Introduction to JavaScript basics.",
-        "chapterVideoLink": "https://example.com/chapter1.mp4",
-        "chapterNotes": "Basic syntax and variables.",
-        "sourceCodeLink": "https://example.com/source1.js"
+        "date": "2024-09-30T00:00:00Z",
+        "time": "2024-09-30T10:00:00Z"
       },
       {
-        "title": "Chapter 2: Functions",
-        "description": "Understanding functions in JavaScript.",
-        "chapterVideoLink": "https://example.com/chapter2.mp4",
-        "chapterNotes": "Function declarations and expressions.",
-        "sourceCodeLink": "https://example.com/source2.js"
+        "date": "2024-09-30T00:00:00Z",
+        "time": "2024-09-30T14:00:00Z"
+      },
+      {
+        "date": "2024-10-01T00:00:00Z",
+        "time": "2024-10-01T09:00:00Z"
       }
     ]
   },
   {
-    "title": "Advanced Python Programming",
-    "description": "Dive deep into advanced Python concepts.",
-    "image": "https://example.com/image2.jpg",
-    "price": 49.99,
-    "discount": 15,
-    "startDate": "2024-11-15",
-    "courseVideoPitchLink": "https://example.com/pitch2.mp4",
-    "status": "PUBLISHED",
-    "chapters": [
+    "title": "MERN Stack Roadmap",
+    "description": "A detailed roadmap session for mastering MERN stack (MongoDB, Express.js, React, and Node.js).",
+    "duration": 90,
+    "price": 2500,
+    "discountedPrice": 2200,
+    "availableSlots": [
       {
-        "title": "Chapter 1: Decorators",
-        "description": "Learn how to use decorators in Python.",
-        "chapterVideoLink": "https://example.com/chapter1.mp4",
-        "chapterNotes": "Function decorators and class decorators.",
-        "sourceCodeLink": "https://example.com/source1.py"
+        "date": "2024-09-29T00:00:00Z",
+        "time": "2024-09-29T11:00:00Z"
       },
       {
-        "title": "Chapter 2: Generators",
-        "description": "Understanding Python generators and yield.",
-        "chapterVideoLink": "https://example.com/chapter2.mp4",
-        "chapterNotes": "Generator functions and expressions.",
-        "sourceCodeLink": "https://example.com/source2.py"
+        "date": "2024-10-01T00:00:00Z",
+        "time": "2024-10-01T15:00:00Z"
+      }
+    ]
+  },
+  {
+    "title": "Resume Review",
+    "description": "A comprehensive review of your resume with tips for improvement and optimization.",
+    "duration": 30,
+    "price": 1000,
+    "discountedPrice": 750,
+    "availableSlots": [
+      {
+        "date": "2024-10-03T00:00:00Z",
+        "time": "2024-10-03T10:30:00Z"
+      },
+      {
+        "date": "2024-10-03T00:00:00Z",
+        "time": "2024-10-03T13:30:00Z"
+      }
+    ]
+  },
+  {
+    "title": "Career Guidance",
+    "description": "One-on-one session to discuss your career goals and receive actionable advice for the next steps.",
+    "duration": 45,
+    "price": 1500,
+    "discountedPrice": 1200,
+    "availableSlots": [
+      {
+        "date": "2024-09-28T00:00:00Z",
+        "time": "2024-09-28T11:00:00Z"
+      },
+      {
+        "date": "2024-09-29T00:00:00Z",
+        "time": "2024-09-29T12:00:00Z"
+      }
+    ]
+  },
+  {
+    "title": "Portfolio Review",
+    "description": "A thorough review of your portfolio, including tips for improving layout, content, and structure.",
+    "duration": 40,
+    "price": 1800,
+    "discountedPrice": 1500,
+    "availableSlots": [
+      {
+        "date": "2024-09-30T00:00:00Z",
+        "time": "2024-09-30T09:00:00Z"
+      },
+      {
+        "date": "2024-10-02T00:00:00Z",
+        "time": "2024-10-02T14:00:00Z"
       }
     ]
   }

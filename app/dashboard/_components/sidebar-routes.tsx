@@ -3,6 +3,7 @@ import {
   Bell,
   CircleDollarSign,
   GraduationCap,
+  Handshake,
   Home,
   NotebookPen,
   PencilRulerIcon,
@@ -35,17 +36,23 @@ const Routes = [
     label: "Courses",
     href: "/dashboard/courses",
   },
-
-  {
-    icon:Trophy,
-    label: "Leaderboard",
-    href: "/dashboard/leaderboard",
-  },
   {
     icon:CircleDollarSign,
     label:"Campus Ambassador",
     href: "/dashboard/campus-ambassador",
   },
+  {
+    icon:Handshake,
+    label:"1:1 Mentorship",
+    href: "/dashboard/mentorship",
+
+  },
+  {
+    icon:Trophy,
+    label: "Leaderboard",
+    href: "/dashboard/leaderboard",
+  },
+ 
   {
     icon:User,
     label: "Profile",

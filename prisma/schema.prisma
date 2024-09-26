@@ -64,6 +64,8 @@ model User {
   campusAmbassador CampusAmbassador[]
   referrals        Referral[]
 
+  meetings  Booking[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -852,4 +854,51 @@ model Referral {
 
   @@index([ambassadorId])
   @@index([referredUserId])
+}
+
+model Meeting {
+  id              String          @id @default(cuid()) @map("_id")
+  title           String
+  description     String
+  duration        Int // Duration in minutes
+  price           Float
+  discountedPrice Float?
+  availableSlots  AvailableSlot[] // Available time slots for scheduling
+  bookings        Booking[] // Relationship to Booking
+}
+
+model AvailableSlot {
+  id        String   @id @default(cuid()) @map("_id")
+  meetingId String  
+  date      DateTime // Available date
+  time      DateTime // Available time
+  isBooked  Boolean  @default(false) // Track if the slot is booked
+  Meeting   Meeting  @relation(fields: [meetingId], references: [id])
+  booking   Booking? // One-to-one relationship with Booking
+  
+}
+
+
+
+model Booking {
+  id            String        @id @default(cuid()) @map("_id")
+  userId        String
+  meetingId     String
+  slotId        String   @unique
+  confirmationDate DateTime?
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  meeting       Meeting       @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  slot          AvailableSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  paymentStatus PaymentStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@unique([userId, meetingId])
+}
+
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
 }
