@@ -12,6 +12,7 @@ import { EditChannelModal } from "@/components/modal/edit-channel-modal";
 import { EditCommunityModal } from "@/components/modal/edit-community-modal";
 import { InviteModal } from "@/components/modal/invite-community-modal";
 import { LeaveCommunityModal } from "@/components/modal/leave-community-modal";
+import MeetingModal from "@/components/modal/meeting-modal";
 import { MembersModal } from "@/components/modal/members-modal";
 import { MessageFileModal } from "@/components/modal/message-file";
 import { RemoveModal } from "@/components/modal/Remove-Modal";
@@ -46,6 +47,7 @@ export const ModalProvider = () => {
       <DeleteMessageModal />
       <AuthModal/>
       <AmbassadorModal/>
+      <MeetingModal/>
     </>
   );
 };

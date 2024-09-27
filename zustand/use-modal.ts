@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "INITIAL_DAY_SETUP" | "ADD_DAY" | "REMOVE_DAY" | "ONBOARD_AMBASSADOR"
+export type ModalType = "INITIAL_DAY_SETUP" | "ADD_DAY" | "REMOVE_DAY" | "ONBOARD_AMBASSADOR" | "MEETING_OPEN"
 
 interface ModalStore {
   type: ModalType | null;

@@ -1,5 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { useModal } from "@/zustand/use-modal";
 import { CalendarIcon, ArrowRight } from "lucide-react" // Import the right arrow icon
 
 interface AvailableSlot {
@@ -18,7 +20,10 @@ interface MentorshipCardProps {
   availableSlots?: AvailableSlot[]
 }
 
-export function MentorshipCard({ title, description, duration, price }: MentorshipCardProps) {
+export function MentorshipCard({ title, description, duration, price  , availableSlots}: MentorshipCardProps) {
+
+    const {onOpen , type  , data } = useModal()
+
   return (
     <Card className="h-full flex flex-col bg-[#F3F4F6] border-[#DDE2EC] dark:bg-[#27272A] dark:border-[#27272A]">
       <CardHeader className="flex flex-col justify-center items-start space-y-2 p-4"> {/* Add padding */}
@@ -42,6 +47,7 @@ export function MentorshipCard({ title, description, duration, price }: Mentorsh
         <div className="flex flex-row items-center gap-2">
           <Button
             variant="brand"
+            onClick={()=>onOpen("MEETING_OPEN" , {availableSlots})}
             className="flex items-center justify-center gap-2"
           >
             <span className="text-base font-bold text-[#ffffff]">₹{price}</span>
