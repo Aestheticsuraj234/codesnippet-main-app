@@ -13,6 +13,7 @@ interface AvailableSlot {
   }
 
 interface MentorshipCardProps {
+  id:string
   title: string
   description: string
   duration: number
@@ -20,9 +21,9 @@ interface MentorshipCardProps {
   availableSlots?: AvailableSlot[]
 }
 
-export function MentorshipCard({ title, description, duration, price  , availableSlots}: MentorshipCardProps) {
+export function MentorshipCard({id, title, description, duration, price  , availableSlots}: MentorshipCardProps) {
 
-    const {onOpen , type  , data } = useModal()
+    const {onOpen} = useModal()
 
   return (
     <Card className="h-full flex flex-col bg-[#F3F4F6] border-[#DDE2EC] dark:bg-[#27272A] dark:border-[#27272A]">
@@ -47,7 +48,7 @@ export function MentorshipCard({ title, description, duration, price  , availabl
         <div className="flex flex-row items-center gap-2">
           <Button
             variant="brand"
-            onClick={()=>onOpen("MEETING_OPEN" , {availableSlots})}
+            onClick={()=>onOpen("MEETING_OPEN" , {availableSlots  , price , id})}
             className="flex items-center justify-center gap-2"
           >
             <span className="text-base font-bold text-[#ffffff]">₹{price}</span>

@@ -13,6 +13,7 @@ interface AvailableSlot {
 }
 
 interface MentorshipData {
+  id:string
   title: string
   description: string
   duration: number
@@ -24,7 +25,10 @@ interface Props {
   mentorshipData: MentorshipData[]
 }
 
+
 export function CarouselSpacing({ mentorshipData }: Props) {
+
+  console.log(mentorshipData) 
   return (
     <Carousel className="w-full h-full relative overflow-hidden">
       <CarouselContent className="flex -ml-2 h-full">
@@ -32,6 +36,7 @@ export function CarouselSpacing({ mentorshipData }: Props) {
           <CarouselItem key={index} className="pl-2 sm:basis-1/2 xl:basis-1/3 h-full flex-shrink-0">
             <div className="p-1 h-full">
               <MentorshipCard
+              id={session.id}
                 title={session.title}
                 description={session.description}
                 duration={session.duration}

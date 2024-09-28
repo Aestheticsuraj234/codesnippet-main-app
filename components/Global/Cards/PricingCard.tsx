@@ -99,7 +99,7 @@ const PricingCard = ({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Use the correct environment variable
         amount: parseAmount(discountedPrice) * 100,
         currency: "INR",
-        name: "Sigma Coders",
+        name: "CodeSnippet",
         description: `Payment for ${id} plan`,
         order_id: orderId,
         handler: async function (response: any) {

@@ -1,16 +1,11 @@
+import { getAllMentorshipSession } from "@/action/mentorship";
 import { CarouselSpacing } from "@/components/meeting/card-carousel-container";
 import { db } from "@/lib/db/db";
 
 const Mentorship = async () => {
-  const mentorshipSessions = await db.meeting.findMany({
-    select: {
-      title: true,
-      description: true,
-      duration: true,
-      discountedPrice: true,
-      availableSlots: true, // Available slots fetched but not used for now
-    },
-  });
+  const mentorshipSessions = await getAllMentorshipSession(); // Fetch mentorship data
+
+
 
   return (
     <main className="flex flex-col flex-1 px-4 py-4 h-screen">
