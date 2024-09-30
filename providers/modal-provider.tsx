@@ -17,7 +17,7 @@ import { MembersModal } from "@/components/modal/members-modal";
 import { MessageFileModal } from "@/components/modal/message-file";
 import { RemoveModal } from "@/components/modal/Remove-Modal";
 
-import { useEffect, useState } from "react";
+import  React , { useEffect, useState } from "react";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);

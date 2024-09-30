@@ -61,40 +61,41 @@ export default function TopicDayWiseCalendar({
 
   const generateEvents = () => {
     const events: Event[] = [];
-    let currentStartDate = new Date(technology.isDayAssigned[0].startDate);
+    let currentStartDate = new Date(technology.isDayAssigned?.[0]?.startDate || new Date());
     let globalDayCounter = 1;
     const today = startOfDay(new Date()); // Get today's date at the start of the day
   
     technology.topics.forEach((topic: any) => {
-      const dayAssigned = topic.dayAssigned[0].dayAssigned;
-      let status = topic.dayAssigned[0].complettionStatus;
+      const dayAssignedEntry = topic.dayAssigned?.[0]; // Check if dayAssigned exists
+      if (dayAssignedEntry) {
+        const dayAssigned = dayAssignedEntry.dayAssigned;
+        let status = dayAssignedEntry.complettionStatus;
   
-      for (let i = 0; i < dayAssigned; i++) {
-        const eventDate = addDays(currentStartDate, i);
+        for (let i = 0; i < dayAssigned; i++) {
+          const eventDate = addDays(currentStartDate, i);
   
-       
-        if (isBefore(eventDate, today)) {
-          status = "DONE";
-        } 
-
-        
+          if (isBefore(eventDate, today)) {
+            status = "DONE";
+          }
   
-        events.push({
-          id: topic.id,
-          title: topic.title,
-          date: eventDate,
-          status: status,
-          dayNumber: globalDayCounter,
-        });
+          events.push({
+            id: topic.id,
+            title: topic.title,
+            date: eventDate,
+            status: status,
+            dayNumber: globalDayCounter,
+          });
   
-        globalDayCounter++;
+          globalDayCounter++;
+        }
+  
+        currentStartDate = addDays(currentStartDate, dayAssigned);
       }
-  
-      currentStartDate = addDays(currentStartDate, dayAssigned);
     });
-
+  
     return events;
   };
+  
   
 
   const getDayEvents = (day: number): Event[] => {

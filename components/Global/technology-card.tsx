@@ -13,6 +13,15 @@ interface TechnologyCardProps {
   isPremiumUser: boolean;
 }
 
+// Helper function to truncate description
+const truncateDescription = (description: string, wordLimit: number = 15) => {
+  const words = description.split(" ");
+  if (words.length <= wordLimit) {
+    return description;
+  }
+  return words.slice(0, wordLimit).join(" ") + "...";
+};
+
 export default function TechnologyCard({
   imageUrl,
   name,
@@ -42,8 +51,10 @@ export default function TechnologyCard({
             <h3 className="text-xl font-bold tracking-tight text-primary mb-1">
               {name.toUpperCase()}
             </h3>
-            <p className="text-sm text-muted-foreground mb-2">{description}</p>
-            <Badge  className="text-xs w-fit dark:bg-[#18181B] bg-[#fff] dark:text-white text-zinc-800">
+            <p className="text-sm text-muted-foreground mb-2">
+              {truncateDescription(description)}
+            </p>
+            <Badge className="text-xs w-fit dark:bg-[#18181B] bg-[#fff] dark:text-white text-zinc-800">
               {numberOfTopics} Topics
             </Badge>
           </div>

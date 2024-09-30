@@ -51,19 +51,27 @@ const TutorialPage = async () => {
         description="Learn Tutorial from the best"
       />
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 mt-10 mx-10">
-        {technologies.map((technology) => (
-          <TechnologyCard
-            key={technology.id}
-            imageUrl={technology.image}
-            id={technology.id}
-            name={technology.name}
-            description={technology.description}
-            numberOfTopics={technology.topics.length}
-            isPremiumUser={isPremiumActiveUser}
-          />
-        ))}
-      </div>
+      {/* Check if there are any technologies */}
+      {technologies.length > 0 ? (
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 mt-10 mx-10">
+          {technologies.map((technology) => (
+            <TechnologyCard
+              key={technology.id}
+              imageUrl={technology.image}
+              id={technology.id}
+              name={technology.name}
+              description={technology.description}
+              numberOfTopics={technology.topics.length}
+              isPremiumUser={isPremiumActiveUser}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center mt-20">
+          <p className="text-lg font-semibold">No technologies available at the moment.</p>
+          <p className="text-gray-500">Please check back later for new tutorials.</p>
+        </div>
+      )}
     </main>
   );
 };
