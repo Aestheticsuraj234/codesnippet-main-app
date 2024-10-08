@@ -1,31 +1,29 @@
 import { currentUser } from '@/lib/auth/data/auth';
-import { db } from '@/lib/db/db'
+import { db } from '@/lib/db/db';
 import { redirect } from 'next/navigation';
-import React from 'react'
 
 const CourseIdPage = async({
   params
-}:{
-  params:{id:string}
+}: {
+  params: { id: string }
 }) => {
 
   const workshop = await db.workshop.findUnique({
-    where:{
-      id:params.id
+    where: {
+      id: params.id
     },
-    include:{
-      days:{
-       orderBy:{
-        dayNumber:'asc'
-       }
+    include: {
+      days: {
+        orderBy: {
+          dayNumber: 'asc'
+        }
       }
     }
   });
 
-  if(!workshop){
-    return redirect("/dashboard")
+  if (!workshop) {
+    return redirect("/dashboard");
   }
-
 
   const user = await currentUser();
   const subscription = await db.user.findUnique({
@@ -45,12 +43,16 @@ const CourseIdPage = async({
 
   const isPremiumActiveUser = (subscription?.subscribedTo?.status === "ACTIVE" && subscription?.subscribedTo?.plan === "PREMIUM" && user?.role === "PREMIUM_USER") || user?.role === "ADMIN";
 
-
-  if(!isPremiumActiveUser){
-    return redirect("/dashboard")
+  if (!isPremiumActiveUser) {
+    return redirect("/dashboard");
   }
 
-  return redirect(`/courses/${params.id}/days/${workshop.days[0].id}`);
+  // Check if there are no days in the workshop
+  if (workshop.days.length === 0) {
+    return redirect(`/dashboard/workshops/${params.id}`);
+  } else {
+    return redirect(`/courses/${params.id}/days/${workshop.days[0]?.id}`);
+  }
 }
 
-export default CourseIdPage
+export default CourseIdPage;

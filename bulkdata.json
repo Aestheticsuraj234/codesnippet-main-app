@@ -1,90 +1,131 @@
 [
   {
-    "title": "AI Roadmap Consultation",
-    "description": "Get personalized guidance on your AI learning path, tools, and resources.",
-    "duration": 60,
-    "price": 2000,
-    "discountedPrice": 1500,
-    "availableSlots": [
+    "title": "Advanced JavaScript Workshop",
+    "description": "A comprehensive workshop covering advanced JavaScript concepts and best practices.",
+    "image": "/images/js-advanced.png",
+    "status": "PUBLISHED",
+    "startDate": "2024-11-01",
+    "endDate": "2024-11-10",
+    "isRecorded": true,
+    "days": [
       {
-        "date": "2024-09-30T00:00:00Z",
-        "time": "2024-09-30T10:00:00Z"
+        "title": "Day 1: ES6 Fundamentals",
+        "dayNumber": 1,
+        "notes": {
+          "time": 1728365254650,
+          "blocks": [
+            {
+              "id": "1FAEUo-l75",
+              "type": "header",
+              "data": {
+                "text": "Introduction",
+                "level": 1
+              }
+            },
+            {
+              "id": "Rmf9tg8H9_",
+              "type": "paragraph",
+              "data": {
+                "text": "Overview of ES6 features like let, const, and arrow functions."
+              }
+            }
+          ],
+          "version": "2.30.2"
+        },
+        "sourceCodeLink": "https://github.com/user/repo/day1",
+        "videoLink": "https://youtube.com/video1"
       },
       {
-        "date": "2024-09-30T00:00:00Z",
-        "time": "2024-09-30T14:00:00Z"
-      },
-      {
-        "date": "2024-10-01T00:00:00Z",
-        "time": "2024-10-01T09:00:00Z"
+        "title": "Day 2: Asynchronous JavaScript",
+        "dayNumber": 2,
+        "notes": {
+          "time": 1728365254650,
+          "blocks": [
+            {
+              "id": "1FAEUo-l75",
+              "type": "header",
+              "data": {
+                "text": "Asynchronous JavaScript",
+                "level": 1
+              }
+            },
+            {
+              "id": "Rmf9tg8H9_",
+              "type": "paragraph",
+              "data": {
+                "text": "Understanding callbacks, promises, and async/await in JavaScript."
+              }
+            }
+          ],
+          "version": "2.30.2"
+        },
+        "sourceCodeLink": "https://github.com/user/repo/day2",
+        "videoLink": "https://youtube.com/video2"
       }
     ]
   },
   {
-    "title": "MERN Stack Roadmap",
-    "description": "A detailed roadmap session for mastering MERN stack (MongoDB, Express.js, React, and Node.js).",
-    "duration": 90,
-    "price": 2500,
-    "discountedPrice": 2200,
-    "availableSlots": [
+    "title": "React.js Beginner Workshop",
+    "description": "Learn React.js from scratch, building dynamic web applications.",
+    "image": "/images/react-beginner.png",
+    "status": "PUBLISHED",
+    "startDate": "2024-12-01",
+    "endDate": "2024-12-05",
+    "isRecorded": false,
+    "days": [
       {
-        "date": "2024-09-29T00:00:00Z",
-        "time": "2024-09-29T11:00:00Z"
+        "title": "Day 1: React Basics",
+        "dayNumber": 1,
+        "notes": {
+          "time": 1728365254650,
+          "blocks": [
+            {
+              "id": "1FAEUo-l75",
+              "type": "header",
+              "data": {
+                "text": "Introduction to React",
+                "level": 1
+              }
+            },
+            {
+              "id": "Rmf9tg8H9_",
+              "type": "paragraph",
+              "data": {
+                "text": "Introduction to React components, JSX, and state."
+              }
+            }
+          ],
+          "version": "2.30.2"
+        },
+        "sourceCodeLink": "https://github.com/user/repo/react-day1",
+        "videoLink": "https://youtube.com/react-video1"
       },
       {
-        "date": "2024-10-01T00:00:00Z",
-        "time": "2024-10-01T15:00:00Z"
-      }
-    ]
-  },
-  {
-    "title": "Resume Review",
-    "description": "A comprehensive review of your resume with tips for improvement and optimization.",
-    "duration": 30,
-    "price": 1000,
-    "discountedPrice": 750,
-    "availableSlots": [
-      {
-        "date": "2024-10-03T00:00:00Z",
-        "time": "2024-10-03T10:30:00Z"
-      },
-      {
-        "date": "2024-10-03T00:00:00Z",
-        "time": "2024-10-03T13:30:00Z"
-      }
-    ]
-  },
-  {
-    "title": "Career Guidance",
-    "description": "One-on-one session to discuss your career goals and receive actionable advice for the next steps.",
-    "duration": 45,
-    "price": 1500,
-    "discountedPrice": 1200,
-    "availableSlots": [
-      {
-        "date": "2024-09-28T00:00:00Z",
-        "time": "2024-09-28T11:00:00Z"
-      },
-      {
-        "date": "2024-09-29T00:00:00Z",
-        "time": "2024-09-29T12:00:00Z"
-      }
-    ]
-  },
-  {
-    "title": "Portfolio Review",
-    "description": "A thorough review of your portfolio, including tips for improving layout, content, and structure.",
-    "duration": 40,
-    "price": 1800,
-    "discountedPrice": 1500,
-    "availableSlots": [
-      {
-        "date": "2024-09-30T00:00:00Z",
-        "time": "2024-09-30T09:00:00Z"
-      },
-      {
-        "date": "2024-10-02T00:00:00Z",
-        "time": "2024-10-02T14:00:00Z"
+        "title": "Day 2: React Props and Events",
+        "dayNumber": 2,
+        "notes": {
+          "time": 1728365254650,
+          "blocks": [
+            {
+              "id": "1FAEUo-l75",
+              "type": "header",
+              "data": {
+                "text": "React Props and Events",
+                "level": 1
+              }
+            },
+            {
+              "id": "Rmf9tg8H9_",
+              "type": "paragraph",
+              "data": {
+                "text": "Understanding how to pass data through props and handling events in React."
+              }
+            }
+          ],
+          "version": "2.30.2"
+        },
+        "sourceCodeLink": "https://github.com/user/repo/react-day2",
+        "videoLink": "https://youtube.com/react-video2"
       }
     ]
   }
