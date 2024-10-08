@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { trimDescription } from "@/lib/utils"
 import { BookOpen, ChevronRight, Trophy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -43,7 +44,7 @@ export default function TechnologyDashboardCard({
               {name}
             </h3>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-              {description}
+              {trimDescription(description, 13)}
             </p>
           </div>
         </div>

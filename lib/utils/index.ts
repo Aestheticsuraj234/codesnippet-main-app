@@ -64,3 +64,12 @@ export const generateReferalCode = (length = 6) => {
 
   return result;
 }
+
+
+export function trimDescription(description: string, wordLimit: number): string {
+  const words = description.split(' ')
+  if (words.length <= wordLimit) {
+    return description
+  }
+  return words.slice(0, wordLimit).join(' ') + '...'
+}
