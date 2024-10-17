@@ -9,19 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  BookOpen,
-  CheckCircle,
-  Clock,
-  Video,
-  Star,
-  Users,
-  Award,
-  Target,
-  Zap,
-  Globe,
-  LucideIcon,
-} from "lucide-react";
+
 import { Navbar } from "@/app/(root)/_components/navbar";
 import { Courses } from "@prisma/client";
 import { courseData } from "./Jsons/data";

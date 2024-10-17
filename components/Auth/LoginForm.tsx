@@ -29,7 +29,7 @@ interface Props {
 
 export const LoginForm = ({redirectUrl}:Props) => {
   const searchParams = useSearchParams();
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked" ? "Email is already registered with another account" : "";
+  const urlError = searchParams?.get("error") === "OAuthAccountNotLinked" ? "Email is already registered with another account" : "";
 
 
 

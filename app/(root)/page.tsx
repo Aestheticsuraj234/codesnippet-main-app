@@ -1,5 +1,4 @@
 "use client";
-// import { get_all_content } from "@/action/content";
 import SubFeature from "@/components/Home/SubFeature";
 import Instructor from "@/components/Home/Instructor";
 import FAQ from "@/components/Home/FAQ";
@@ -13,16 +12,22 @@ const Home = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // This ensures window is only accessed client-side
+      // Check the URL for ref code ONLY on the first render
       const code = new URLSearchParams(window.location.search).get("ref");
-      setRefCode(code);
-      // set to local storage
-      localStorage.setItem("ref", refCode || "");
+
+      if (code) {
+        setRefCode(code); // Store in state
+        localStorage.setItem("ref", code); // Store in localStorage
+      } else {
+        // If there's no code in the URL, check localStorage
+        const savedRef = localStorage.getItem("ref");
+        if (savedRef) setRefCode(savedRef); // Restore state from localStorage
+      }
     }
-  }, [refCode]);
+  }, []); // Run only once when the component mounts
 
   return (
-    <main className="mx-10 mt-20 mb-10 flex h-full flex-col justify-start items-center ">
+    <main className="mx-10 mt-20 mb-10 flex h-full flex-col justify-start items-center">
       <HomeComponent />
       <HowItWorks />
       <Explore />

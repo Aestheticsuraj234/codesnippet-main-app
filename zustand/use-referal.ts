@@ -8,9 +8,9 @@ type Type = {
 
 // Create Zustand store with localStorage fetching inside it
 const useReferalCode = create<Type>((set) => ({
-  referalCode: typeof window !== "undefined" ? localStorage.getItem("refCode") || "" : "", 
+  referalCode: typeof window !== "undefined" ? localStorage.getItem("ref") || "" : "", 
   setReferalCode: (referalCode: string) => {
-    localStorage.setItem("refCode", referalCode); // Save to localStorage
+    localStorage.setItem("ref", referalCode); // Save to localStorage
     set({ referalCode });
   },
 }));
