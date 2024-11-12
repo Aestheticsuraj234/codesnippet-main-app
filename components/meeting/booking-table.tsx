@@ -2,8 +2,8 @@ import React from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { format } from 'date-fns';
+import { BookingStatus } from '@prisma/client';
 
-// Update the Booking interface to match your fetched data
 interface Booking {
   id: string;
   meeting: {
@@ -14,12 +14,12 @@ interface Booking {
     time: Date;
   };
   paymentStatus: 'COMPLETED' | 'PENDING' | 'CANCELLED';
+  meetingStatus: BookingStatus;
   confirmationDate: Date | null;
-
 }
 
 interface BookingsTableProps {
-  bookings: Booking[]; // Accept bookings as props
+  bookings: Booking[];
 }
 
 const getStatusColor = (status: Booking['paymentStatus']) => {
@@ -28,6 +28,21 @@ const getStatusColor = (status: Booking['paymentStatus']) => {
       return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
     case 'PENDING':
       return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+    case 'CANCELLED':
+      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
+    default:
+      return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+  }
+};
+
+const getMeetingStatusColor = (status: BookingStatus) => {
+  switch (status) {
+    case 'PENDING':
+      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+    case 'CONFIRMED':
+      return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+    case 'COMPLETED':
+      return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
     case 'CANCELLED':
       return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
     default:
@@ -46,6 +61,7 @@ export function BookingsTable({ bookings }: BookingsTableProps) {
           <TableHead>Date</TableHead>
           <TableHead>Time</TableHead>
           <TableHead>Payment Status</TableHead>
+          <TableHead>Meeting Status</TableHead>
           <TableHead>Confirmation Date</TableHead>
         </TableRow>
       </TableHeader>
@@ -62,11 +78,15 @@ export function BookingsTable({ bookings }: BookingsTableProps) {
               </Badge>
             </TableCell>
             <TableCell>
+              <Badge className={getMeetingStatusColor(booking.meetingStatus)}>
+                {booking.meetingStatus}
+              </Badge>
+            </TableCell>
+            <TableCell>
               {booking.confirmationDate
                 ? format(new Date(booking.confirmationDate), 'MMM d, yyyy')
                 : 'PENDING'}
             </TableCell>
-           
           </TableRow>
         ))}
       </TableBody>

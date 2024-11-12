@@ -8,11 +8,11 @@ import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
 
 const CoursesMainPage = async () => {
-  const user = await currentUser();
+
 
   const courses = await getAllCourses();
 
-  console.log(JSON.stringify(courses, null, 2));
+ 
 
   return (
     <section className="px-4 py-4 flex flex-col h-screen">

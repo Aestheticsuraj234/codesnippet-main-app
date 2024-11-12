@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 
 export const NavbarRoutes = () => {
   const { theme } = useTheme();
-  const [imagePath, setImagePath] = useState("/code-snippet2ss.svg");
+  const [imagePath, setImagePath] = useState("/code-snippet2.svg");
   const { status } = useSession();
   const pathname = usePathname();
 

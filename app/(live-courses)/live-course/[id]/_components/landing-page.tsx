@@ -19,6 +19,7 @@ import { useCurrentUser } from "@/hooks/auth/use-current-user";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useAuthModal } from "@/zustand/use-auth-modal";
+import { Star } from "lucide-react";
 
 interface Props {
   course: Courses;
@@ -46,7 +47,7 @@ const {onOpen , onClose } = useAuthModal();
     }
     setIsPending(true);
     try {
-      const amount = course?.discount * 100;
+      const amount = course?.discount! * 100;
        // Convert to the smallest currency unit
       const response = await fetch("/api/order", {
         method: "POST",
@@ -76,7 +77,7 @@ const {onOpen , onClose } = useAuthModal();
     try {
       const orderId: string = await createOrderId();
       const options = {
-        amount: course?.discount * 100,
+        amount: course?.discount! * 100,
         currency: "INR",
         name: "Sigma Coders",
         description: `Payment for ${course.title}`,

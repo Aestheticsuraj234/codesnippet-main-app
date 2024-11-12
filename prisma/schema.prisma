@@ -881,19 +881,26 @@ model AvailableSlot {
 
 
 model Booking {
-  id            String        @id @default(cuid()) @map("_id")
-  userId        String
-  meetingId     String
-  slotId        String   @unique
+  id               String        @id @default(cuid()) @map("_id")
+  userId           String
+  meetingId        String
+  slotId           String        @unique
   confirmationDate DateTime?
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  meeting       Meeting       @relation(fields: [meetingId], references: [id], onDelete: Cascade)
-  slot          AvailableSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
-  paymentStatus PaymentStatus @default(PENDING)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  meeting          Meeting       @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  slot             AvailableSlot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+  paymentStatus    PaymentStatus @default(PENDING)
+  meetingStatus    BookingStatus @default(PENDING)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 
-  @@unique([userId, meetingId])
+  @@unique([userId, meetingId , slotId])
+}
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
 }
 
 

@@ -1,108 +1,95 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa6";
+import Image from "next/image"
+import Link from "next/link"
+import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa"
 
-const Instructor = () => {
-  const ListData = [
+export default function Instructor() {
+  const instructors = [
     {
-      id: 1,
-      title: "5+ years of experience in Software Development",
+      name: "Suraj Kumar Jha",
+      role: "SWE | Mentor | Content-Creator",
+      image: "https://avatars.githubusercontent.com/u/107530887?v=4",
+      coverImage: "/instructor.jpeg",
+      experience: [
+        "5+ years of experience in Software Development",
+        "Previously Teaching Assistant at @codes.learning ",
+        "Also working as a Teaching Assistant at @codewith_random",
+        "Co-Founder of Codesnippet",
+        "Mentored 5000+ students in the field of Software Development",
+      ],
     },
     {
-      id: 2,
-      title: "Previously Teaching Assistant at codes.learning",
+      name: "Aryan Jha",
+      role: "Tech Lead Backend Engineer | Entrepreneur",
+      image: "/co-founder.jpg",
+      coverImage: "/co-founder.jpg",
+      experience: [
+        "7+ years of experience in Backend Development as .net and sql server",
+        "Lead Instructor at TechEd Academy",
+        "Open Source Contributor",
+        "Published author on web development topics",
+        "Conducted workshops for 500+ aspiring developers",
+      ],
     },
-    {
-      id: 3,
-      title: "Currently working as a Teaching Assistant at codewith_random",
-    },
-    {
-      id: 4,
-      title: "Founder of SigmaCoders",
-    },
-    {
-      id: 5,
-      title: "Mentored 1000+ students in the field of Software Development",
-    },
-  ];
+  ]
 
   return (
-    <div className="mt-10 space-y-5">
-      <p className="text-[#08BD80] font-bold text-base text-center">
-        INSTRUCTOR
-      </p>
-      <h1 className="md:text-4xl text-2xl font-bold text-[#1A1818] dark:text-[#ffffff] text-center">
-        Meet Our Instructors
-      </h1>
-
-      <div className="flex flex-col md:flex-row h-auto md:h-[30rem] w-full md:w-[60rem] border px-4 py-4 rounded-md space-y-5 md:space-y-0 md:space-x-5 mx-auto">
-        <div className="flex-shrink-0 h-full w-full md:w-[40%] border overflow-hidden rounded-md">
-          <Image
-            src={"/instructor.jpeg"}
-            className="object-cover h-full w-full"
-            height={500}
-            width={500}
-            alt="Instructor"
-          />
-        </div>
-        <div className="h-full w-full md:w-[60%] border px-4 py-4 flex flex-col items-start justify-start space-y-4 rounded-md">
-          <div className="flex flex-row items-center justify-start space-x-3">
-            <Image
-              src={"https://avatars.githubusercontent.com/u/107530887?v=4"}
-              alt="Suraj Kumar Jha"
-              height={62}
-              width={62}
-              className="rounded-full"
-            />
-            <div className="flex flex-col justify-center items-start">
-              <p className="text-lg font-bold text-[#1A1818] dark:text-[#ffffff]">
-                Suraj Kumar Jha
-              </p>
-              <p className="text-md font-medium text-[#1A1818] dark:text-[#ffffff]">
-                SWE | Mentor | Founder SigmaCoders
-              </p>
+    <section className="w-1/3 py-12 bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB] rounded-md">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-[#1A1818] dark:text-white mb-2">Meet Our Instructors</h2>
+        <p className="text-center text-[#08BD80] font-semibold mb-12">Learn from the Best in the Industry</p>
+        <div className="grid  gap-8">
+          {instructors.map((instructor, index) => (
+            <div key={index} className="bg-white dark:bg-[#18181B] rounded-lg shadow-lg overflow-hidden border border-[#E5E7EB] dark:border-[#3F3F46] flex flex-col md:flex-row">
+              <div className="relative w-full md:w-2/5 h-96 md:h-auto overflow-hidden">
+                <Image
+                  src={instructor.coverImage}
+                  alt={`${instructor.name}'s portrait`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 hover:scale-105 obje"
+                />
+              </div>
+              <div className="p-6 flex-1">
+                <div className="flex items-center mb-4">
+                  <div className="relative w-16 h-16 mr-4">
+                    <Image
+                      src={instructor.image}
+                      alt={instructor.name}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-full border-2 border-[#08BD80] obj"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-[#1A1818] dark:text-white">{instructor.name}</h3>
+                    <p className="text-sm text-[#6B7280] dark:text-gray-300">{instructor.role}</p>
+                  </div>
+                </div>
+                <ul className="space-y-2 mb-6">
+                  {instructor.experience.map((item, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className="inline-block w-5 h-5 bg-[#08BD80] rounded-full mr-2 flex-shrink-0 mt-1" />
+                      <span className="text-sm text-[#6B7280] dark:text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex justify-center space-x-4">
+                  {[FaInstagram, FaGithub, FaLinkedin, FaTwitter].map((Icon, idx) => (
+                    <Link
+                      key={idx}
+                      href="#"
+                      className="text-[#6B7280] hover:text-[#08BD80] transition-colors duration-300"
+                    >
+                      <Icon size={24} />
+                      <span className="sr-only">Social media link</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-
-          <ul className="mt-4 space-y-3">
-            {ListData.map((item, index) => (
-              <li
-                key={item.id}
-                className="flex flex-row items-center space-x-2"
-              >
-                <span className="text-lg font-bold text-[#6B7280] dark:text-[#A1A1AA]">
-                  {index + 1}:
-                </span>
-                <span className="text-md font-medium text-[#6B7280] dark:text-[#A1A1AA]">
-                  {item.title}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex flex-row items-center justify-center gap-5 px-5 py-5">
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
-            <FaInstagram size={28} />
-            </Link>
-
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
-            <FaGithub size={28} />
-            </Link>
-
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
-            <FaLinkedin size={28} />
-            </Link>
-
-            <Link href={"#"} passHref className="px-2 py-2 rounded-full border hover:bg-[#08BD80] dark:hover:bg-[#08BD80]/50">
-            <FaTwitter size={28} />
-            </Link>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
-  );
-};
-
-export default Instructor;
+    </section>
+  )
+}

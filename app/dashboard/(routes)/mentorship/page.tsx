@@ -1,6 +1,7 @@
 import { getAllMentorshipSession, getBookingDataForCurrentUser } from "@/action/mentorship";
 import { BookingsTable } from "@/components/meeting/booking-table";
 import { CarouselSpacing } from "@/components/meeting/card-carousel-container";
+import { EmptyStateComponent } from "@/components/Global/empty-state";
 
 const Mentorship = async () => {
   const mentorshipSessions = await getAllMentorshipSession(); // Fetch mentorship data
@@ -13,7 +14,15 @@ const Mentorship = async () => {
         Get personalized help from our mentors
       </p>
       <div className="flex-grow overflow-hidden">
-        <CarouselSpacing mentorshipData={mentorshipSessions} /> {/* Pass mentorship data */}
+        {mentorshipSessions.length > 0 ? (
+          <CarouselSpacing mentorshipData={mentorshipSessions} /> // Pass mentorship data if available
+        ) : (
+          <EmptyStateComponent
+            title="No Mentorship Sessions Available"
+            description="Currently, there are no mentorship sessions to display."
+            imageUrl="/empty-meeting.svg" // Specify your empty state image path here
+          />
+        )}
       </div>
     
       {/* Booking Table */}
@@ -23,9 +32,11 @@ const Mentorship = async () => {
           {bookingData.length > 0 ? (
             <BookingsTable bookings={bookingData} /> // Show the booking table if data exists
           ) : (
-            <p className="text-center text-muted-foreground">
-              You have no bookings yet.
-            </p> // Show this message if there are no bookings
+            <EmptyStateComponent
+              title="No Bookings Found"
+              description="You have not booked any mentorship sessions yet."
+              imageUrl="/empty-booking.svg" // Specify your empty state image path here
+            />
           )}
         </div>
       </div>

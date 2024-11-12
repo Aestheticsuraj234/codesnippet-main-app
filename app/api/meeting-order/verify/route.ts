@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { db } from '@/lib/db/db'; // Ensure this points to your db client instance
-import { PaymentStatus } from '@prisma/client';
+import { BookingStatus, PaymentStatus } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 const generatedSignature = (
@@ -60,7 +60,9 @@ export async function POST(request: NextRequest) {
           meetingId:meetingId,
           confirmationDate:selectedDate,
           slotId:availableSlotsId,
-          paymentStatus:PaymentStatus.COMPLETED
+          paymentStatus:PaymentStatus.COMPLETED,
+          meetingStatus:BookingStatus.PENDING,
+          
         }
       });
 

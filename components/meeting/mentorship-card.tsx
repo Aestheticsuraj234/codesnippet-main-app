@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button"
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { trimDescription } from "@/lib/utils";
 import { useModal } from "@/zustand/use-modal";
 import { CalendarIcon, ArrowRight } from "lucide-react" // Import the right arrow icon
 
@@ -30,7 +31,7 @@ export function MentorshipCard({id, title, description, duration, price  , avail
       <CardHeader className="flex flex-col justify-center items-start space-y-2 p-4"> {/* Add padding */}
         <CardTitle className="text-xl text-[#1A1818] dark:text-[#ffffff]">{title}</CardTitle>
         <span className="text-sm font-normal text-[#6B7280] dark:text-[#A1A1AA]">
-          {description}
+          {trimDescription(description , 30) }
         </span>
       </CardHeader>
 

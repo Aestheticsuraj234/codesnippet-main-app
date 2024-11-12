@@ -31,6 +31,7 @@ export const getBookingDataForCurrentUser = async () => {
       id: true,
       paymentStatus: true,
       confirmationDate: true,
+      meetingStatus:true,
       meeting: {
         select: {
           id: true,
