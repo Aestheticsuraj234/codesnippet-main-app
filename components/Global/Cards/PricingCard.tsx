@@ -1,57 +1,61 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Check, Rocket, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useCurrentUser } from "@/hooks/auth/use-current-user";
-import { PLAN } from "@prisma/client";
-import Link from "next/link";
-import useIsSubscribed from "@/zustand/useSubscription";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-// import { Spinner } from "@/components/ui/spinner"; // Import a spinner component
-import { Loader } from "../loader";
-import useReferalCode from "@/zustand/use-referal";
+'use client'
 
-// add type of Razorpay in type of global
+import React, { useEffect, useState } from 'react'
+import { Check, Minus, X } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { toast } from 'sonner'
+import { useCurrentUser } from '@/hooks/auth/use-current-user'
+import { useRouter } from 'next/navigation'
+import useIsSubscribed from '@/zustand/useSubscription'
+import useReferalCode from '@/zustand/use-referal'
+import { PLAN } from '@prisma/client'
+
 declare global {
   interface Window {
     Razorpay: any;
   }
 }
 
-type FeatureData = {
-  id: number;
-  title: string;
-  isIncluded: boolean;
-};
+const features = [
+  { name: 'AI-Powered Code Generation', description: 'Generate code snippets using advanced AI' },
+  { name: 'Real-time Collaboration', description: 'Work together with team members in real-time' },
+  { name: 'Advanced Code Analytics', description: 'Get insights into your code quality and performance' },
+  { name: 'Custom Themes', description: 'Personalize your coding environment' },
+  { name: 'Priority Support', description: '24/7 dedicated support for your needs' },
+  { name: 'Offline Mode', description: 'Work without an internet connection' },
+  { name: 'Unlimited Projects', description: 'No restrictions on the number of projects' },
+  { name: 'API Access', description: 'Integrate our services into your workflow' },
+]
+
+const platforms = [
+  { name: 'Code-Snippet', price: '₹999', features: [true, true, true, true, true, true, true, true] },
+  { name: 'Other Platforms', price: '₹1499+', features: [true, true, false, 'some', 'some', false, 'some', 'some'] },
+]
+
+function FeatureIcon({ value }: { value: boolean | string }) {
+  if (value === true) return <Check className="h-6 w-6 text-[#08BD80]" />
+  if (value === false) return <X className="h-6 w-6 text-red-500" />
+  return <Minus className="h-6 w-6 text-yellow-500" />
+}
 
 type PricingCardProps = {
   id: string;
   title: string;
   actualPrice: string;
   discountedPrice: string;
-  features: FeatureData[];
+ 
   isPopular: boolean;
 };
-
 const PricingCard = ({
   id,
   title,
   actualPrice,
   discountedPrice,
-  features,
   isPopular,
-}: PricingCardProps) => {
+}:PricingCardProps) => {
   const [isPending, setIsPending] = useState(false);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
   const { isSubscribed, setIsSubscribed } = useIsSubscribed();
@@ -63,6 +67,7 @@ const PricingCard = ({
     // Remove any non-numeric characters except for the dot
     return parseFloat(amount.replace(/[^\d.]/g, ""));
   };
+
 
   const createOrderId = async () => {
     setIsPending(true);
@@ -159,100 +164,74 @@ const PricingCard = ({
       return () => clearTimeout(timer);
     }
   }, [isPaymentSuccessful, router]);
-
-  if (isPaymentSuccessful) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white">
-        <Loader /> {/* Display a spinner while redirecting */}
-        <h1 className="text-2xl font-bold mt-4">Payment Successful!</h1>
-        <p className="mt-2">Redirecting to your InfoCard...</p>
-      </div>
-    );
-  }
-
   return (
-    <>
-      <Card
-        className={cn(
-          "bg-[#212121] relative w-[30rem] flex flex-col justify-around",
-          isPopular ? "border-yellow-500 border-2" : "border-none"
-        )}
-      >
-        {isPopular && (
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-            <Badge variant="brand" className="border-none px-4 py-2 text-xs">
-              Popular
-            </Badge>
+    <Card className="w-full max-w-4xl mx-auto bg-zinc-900 border-zinc-800">
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle className="text-2xl font-bold text-white">Pricing Comparison</CardTitle>
+            <CardDescription className="text-zinc-400">
+              See how Code-Snippet stands out from the competition
+            </CardDescription>
           </div>
-        )}
-        <CardHeader>
-          <CardTitle className="font-semibold text-white text-xl">
-            {title}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col justify-between items-start">
-            <div className="flex flex-row gap-2">
-              <p className="text-[#6B7280] line-through text-xl">
-                {actualPrice}
-              </p>
-              <p className="text-white text-6xl font-bold">
-                {discountedPrice}{" "}
-                <span className="text-base font-medium text-zinc-400">INR</span>
-                <span className="text-base font-extrabold text-emerald-500 mx-2">
-                  Monthly
-                </span>
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 mt-8">
+          <Badge variant="outline" className="text-[#08BD80] border-[#08BD80]">
+            Best Value
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-zinc-800">
+                <th className="py-4 px-4 text-left text-sm font-medium text-zinc-400">Features</th>
+                {platforms.map((platform) => (
+                  <th key={platform.name} className="py-4 px-4 text-left text-sm font-medium text-zinc-400">
+                    <div className="font-bold text-white">{platform.name}</div>
+                    <div className="text-[#08BD80]">{platform.price}</div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
               {features.map((feature, index) => (
-                <CardDescription
-                  key={index}
-                  className="flex flex-row justify-start items-center gap-2"
+                <motion.tr
+                  key={feature.name}
+                  className="border-b border-zinc-800"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  {feature.isIncluded ? (
-                    <Check className="text-[#eed43c] w-6 h-6" />
-                  ) : (
-                    <X className="text-red-500 w-6 h-6" />
-                  )}
-                  <span
-                    className={cn(
-                      "text-base",
-                      feature.isIncluded
-                        ? "text-white font-semibold"
-                        : "text-zinc-400 font-light"
-                    )}
-                  >
-                    {feature.title}
-                    {feature.title === "Lifetime updates" &&
-                      feature.isIncluded && (
-                        <Badge
-                          variant="brand"
-                          className="text-xs mx-3 border-none"
-                        >
-                          Coming Soon
-                        </Badge>
-                      )}
-                  </span>
-                </CardDescription>
+                  <td className="py-4 px-4">
+                    <div className="font-medium text-white">{feature.name}</div>
+                    <div className="text-sm text-zinc-400">{feature.description}</div>
+                  </td>
+                  {platforms.map((platform) => (
+                    <td key={`${platform.name}-${feature.name}`} className="py-4 px-4">
+                      <FeatureIcon value={platform.features[index]} />
+                    </td>
+                  ))}
+                </motion.tr>
               ))}
-            </div>
-          </div>
-        </CardContent>
-        <CardFooter className="flex-1 w-full items-center justify-center">
-          <Button
-            disabled={isPending}
-            onClick={processPayment}
-            size={"lg"}
-            variant={"brand"}
-            className="text-sm font-semibold flex items-center justify-center gap-2"
-          >
-            <Rocket size={20} /> Subscribe
-          </Button>
-        </CardFooter>
-      </Card>
-    </>
-  );
-};
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-8 flex justify-center gap-4">
+         
+            <Button
+             
+              size="lg"
+              className="bg-[#08BD80] text-zinc-100 hover:bg-[#08BD80]/40 font-bold"
+              onClick={() =>processPayment()}
+              disabled={isPending}
+            >
+              Start Your Journey
+            </Button>
+         
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
 
 export default PricingCard;

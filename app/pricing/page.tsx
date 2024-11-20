@@ -14,6 +14,8 @@ import { Boxes } from "@/components/ui/background-boxes";
 import { Button } from "@/components/ui/button";
 import { Loader } from "@/components/Global/loader";
 import { redirect } from "next/navigation";
+import UpcomingV2Features from "@/components/Global/Cards/UpcomingFeatures";
+import { Hint } from "@/components/Global/hint";
 
 const Pricing = async () => {
   const role = await currentRole();
@@ -102,25 +104,35 @@ const Pricing = async () => {
   }
 
   return (
+    <>
+     <div className="flex justify-start items-start mx-6 my-6">
+        <Hint label="Back" side="right">
+          <Link href={"/"} >
+              <ArrowLeft size={24}/>
+          </Link>
+          </Hint>
+      </div>
     <section
       id="pricing"
-      className="flex px-2 bg-zinc-900 flex-col justify-center items-center gap-11 rounded-md pb-10"
+      className="flex px-2  flex-col justify-center items-center gap-11 rounded-md pb-10"
     >
-      <h4 className="items-center pt-10 justify-center uppercase flex text-center font-semibold text-md text-yellow-500">
-        Pricing that makes 🌟Sigma-Coders🌟 affordable
+     
+      <h4 className="items-center pt-10 justify-center uppercase flex text-center font-semibold text-md text-[#08BD80]">
+        Pricing that makes 🌟Code-Snippet🌟 affordable
       </h4>
 
       <h1 className="font-extrabold text-[#E5ECEA] text-2xl lg:text-5xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center lg:items-start">
-        Unlock Your Full Potential with Sigma-Coders!
+        Unlock Your Full Potential with CodeSnippet!
       </h1>
       <div className="text-white flex">
-        <span className="text-yellow-500 flex flex-row justify-center gap-1 items-center px-2">
+        <span className="text-[#08BD80] flex flex-row justify-center gap-1 items-center px-2">
           <Gift /> Special Offer
         </span>{" "}
         <span className="text-[#6B7280] text-sm">- Limited Time Only</span>
       </div>
 
-      <div className="flex justify-center items-center gap-6">
+      <div className="flex justify-center flex-col items-center gap-6 w-full">
+      <h1 className="text-4xl font-bold ">Pricing Comparision</h1>
         <PricingCard
           id="premium"
           title="Premium"
@@ -130,7 +142,12 @@ const Pricing = async () => {
           isPopular={true}
         />
       </div>
+      <div className="mt-5 flex flex-col justify-center items-center gap-6 w-full">
+        <h1 className="text-4xl font-bold ">Upcoming V2 Features</h1>
+      <UpcomingV2Features/>
+      </div>
     </section>
+    </>
   );
 };
 

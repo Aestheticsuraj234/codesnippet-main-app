@@ -209,7 +209,7 @@ const AmbassadorModal = () => {
                             {...field}
                           />
                           <span className="ml-2 text-sm">
-                            I agree to the Terms and Conditions
+                            I agree to the <Button variant={"link"} >Terms and Conditions</Button>
                           </span>
                         </label>
                       </FormControl>

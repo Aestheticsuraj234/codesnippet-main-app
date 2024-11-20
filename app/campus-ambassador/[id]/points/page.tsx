@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { EmptyStateComponent } from "@/components/Global/empty-state";
 
 const REDEEM_AMOUNT = 200;
 
@@ -74,7 +75,8 @@ export default async function PointsAndEarnings({
         <CardHeader>
           <CardTitle>Point History</CardTitle>
         </CardHeader>
-        <CardContent>
+       { 
+        transactions?.length === 0 ?<EmptyStateComponent  title="No Points History" imageUrl="/empty-points-ca.svg" description={"Points shows after you are having successfull referal"} /> :( <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
@@ -120,7 +122,8 @@ export default async function PointsAndEarnings({
               ))}
             </TableBody>
           </Table>
-        </CardContent>
+        </CardContent>)
+       }
       </Card>
     </div>
   );
