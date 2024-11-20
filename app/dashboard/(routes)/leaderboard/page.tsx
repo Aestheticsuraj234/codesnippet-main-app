@@ -6,7 +6,7 @@ import { getLeaderboardData } from "@/action/leaderboard";
 const Leaderboard = async () => {
   const { liveCourses, tutorial, workshops } = await getLeaderboardData();
 
-  console.log(liveCourses, tutorial, workshops);
+
 
   return (
     <main className="px-4 py-4 flex flex-col flex-1">

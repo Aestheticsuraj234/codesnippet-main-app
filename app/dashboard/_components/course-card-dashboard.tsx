@@ -83,7 +83,7 @@ export default function CourseSection({
             </div>
           ) : (
             <Link href={`/live-course/${id}`} className="block w-full">
-              <Button variant="brand" className="w-full bg-brand text-white hover:bg-brand/90">
+              <Button variant="brand" className="w-full">
                 Buy Course
               </Button>
             </Link>

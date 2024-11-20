@@ -8,8 +8,7 @@ import { redirect } from "next/navigation";
 const SetupPage = async () => {
   const user = await currentUser();
 
-  
-
+  // Check if the user is part of any community
   const community = await db.community.findFirst({
     where: {
       members: {
@@ -20,46 +19,38 @@ const SetupPage = async () => {
     },
   });
 
-  console.log(community);
+  if(!community){
+    return redirect("/dashboard")
+  }
 
-  if(community){
+
+  if (community) {
     return redirect(`/discussion/community/${community.id}`);
   }
 
- 
-
-// if user role is admin then show the create server page else show the join server page
-
-if(!community && user?.role === 'ADMIN'){
-    return( <InitialCommunityModal />)
-}
-
-
-const existingCommunity = await db.community.findFirst({
-  where:{
-    channels:{
-      some:{
-        name:"general"
-      }
-    }
+  // If user role is ADMIN and no community exists, show InitialCommunityModal
+  if (!community && user?.role === "ADMIN") {
+    return <InitialCommunityModal />;
   }
-});
 
+  // Check for an existing community with a "general" channel
+  const existingCommunity = await db.community.findFirst({
+    where: {
+      channels: {
+        some: {
+          name: "general",
+        },
+      },
+    },
+  });
 
-if(!existingCommunity){
-  return redirect("/tutorial")
-}
+  // If no existing community and no user role is applicable, redirect to /dashboard
+  if (!existingCommunity) {
+    return redirect("/dashboard");
+  }
 
-
-
-
-
-return (
- <InviteModal
-  community={existingCommunity!}
- />
-)
-  
+  // If an existing community exists, show InviteModal
+  return <InviteModal community={existingCommunity!} />;
 };
 
 export default SetupPage;

@@ -13,13 +13,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Navbar } from "@/app/(root)/_components/navbar";
 import { Courses } from "@prisma/client";
 import { courseData } from "./Jsons/data";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/auth/use-current-user";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useAuthModal } from "@/zustand/use-auth-modal";
-import { Star } from "lucide-react";
+import { ArrowLeft, Star } from "lucide-react";
+import { Hint } from "@/components/Global/hint";
 
 interface Props {
   course: Courses;
@@ -39,7 +40,7 @@ export default function LiveCourseLandingPage({ course }: Props) {
   const user = useCurrentUser();
   const { status } = useSession();
 const {onOpen , onClose } = useAuthModal();
-
+const router = useRouter()
   const createOrderId = async () => {
     if(status !== "authenticated"){
       onOpen();
@@ -166,12 +167,21 @@ const {onOpen , onClose } = useAuthModal();
     );
   }
 
+  const onBack = ()=>{
+    router.push("/")
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-900">
       <Navbar />
-
-      <section className="relative py-20 text-center dark:text-white text-zinc-800">
+      <Hint label="Go Back❤️"  side="right" align="center">
+          <Button onClick={onBack} variant={"outline"} size={"icon"} className="mx-4 my-4">
+              <ArrowLeft size={24} />
+          </Button>
+        </Hint>
+      <section className="relative py-20 text-center dark:text-white text-zinc-800 flex justify-start items-start">
         <div className="absolute inset-0 dark:bg-[#27272A] bg-[#F3F4F6]  opacity-90"></div>
+      
         <div className="relative container mx-auto px-4">
           <h1 className="mb-4 text-5xl font-extrabold">{course.title}</h1>
           <p className="mb-8 text-xl">{course.description}</p>
