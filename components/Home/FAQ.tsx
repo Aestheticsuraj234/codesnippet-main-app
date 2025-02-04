@@ -9,8 +9,8 @@ import { FrequentlyAskedQuestions } from "@/constants/Faq";
 
 const FAQ = () => {
   return (
-    <section id="faq" className="py-24 px-8 max-w-7xl mx-auto flex flex-col md:flex-row gap-12">
-      <div className="flex flex-col text-left basis-1/2">
+    <section id="faq" className="py-24 px-8 mx-auto flex flex-col md:flex-row gap-12 dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2]">
+      <div className="flex flex-col text-left basis-1/2 max-w-7xl">
         <p className="sm:text-4xl text-3xl font-extrabold text-zinc-700 dark:text-white mb-8">
           Frequently Asked Questions
         </p>

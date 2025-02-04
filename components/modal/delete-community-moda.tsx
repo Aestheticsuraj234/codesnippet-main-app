@@ -50,7 +50,7 @@ export const DeleteCommunityModal = () => {
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Are you sure you want to do this? <br />
-            <span className="text-indigo-500 font-semibold">{community?.name}</span> will be permanently deleted.
+            <span className="text-green-500 font-semibold">{community?.name}</span> will be permanently deleted.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="bg-gray-100 px-6 py-4">

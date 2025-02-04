@@ -86,7 +86,7 @@ startTransition(() => {
       showSocial
       redirectUrl={redirectUrl}
     >
-      <Form {...form}>
+      {/* <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             {
@@ -168,7 +168,7 @@ startTransition(() => {
                 {showTwoFactor ? "Verify" : "Login"}
           </Button>
         </form>
-      </Form>
+      </Form> */}
     </CardWrapper>
   );
 };

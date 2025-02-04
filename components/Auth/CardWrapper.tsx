@@ -13,7 +13,7 @@ import { Social } from "./Social";
 import { BackButton } from "./BackButton";
 
 interface CardWrapperProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   headerLabel: string;
   backButtonLabel?: string;
   backButtonHref?: string;
@@ -30,7 +30,7 @@ export const CardWrapper = ({
   redirectUrl,
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[400px] border-[#03DC7A] shadow-md bg-zinc-900">
+    <Card className="w-[400px] border-[#03DC7A] shadow-md dark:bg-zinc-900">
       <CardHeader>
         <Header label={headerLabel} />
     </CardHeader>

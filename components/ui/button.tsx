@@ -20,7 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         brand:"bg-[#08BD80] text-[#fff]  hover:bg-[#08BD80]/80 ",
         secondaryOutline:" border  border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-[#1e201f] ",
-        brandOutline:" border  border-[#E1C01D] text-[#E1C01D] hover:bg-[#E1C01D] hover:text-[#fff] ",
+        brandOutline:" border  border-[#08BD80] text-[#08BD80] hover:bg-[#08BD80] hover:text-[#fff] ",
         premium:"bg-[#8188EC] dark:bg-[#676ECC] text-[#fff] hover:bg-[#8188EC]/80 dark:hover:bg-[#676ECC]/80",
         completed:" bg-emerald-500 text-[#fff] hover:bg-emerald-500/80",
         liked:" bg-[#ff0000] text-[#fff] hover:bg-[#ff0000]/80",

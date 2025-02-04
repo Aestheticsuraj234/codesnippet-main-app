@@ -39,7 +39,7 @@ export const Social = ({
         variant={"brandOutline"}
         onClick={() => onClick("github")}
       >
-        <FaGithub className="h-5 w-5 text-white" />
+        <FaGithub className="h-5 w-5 dark:text-white text-black"  />
       </Button>
     </div>
   );

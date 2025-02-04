@@ -64,7 +64,7 @@ export const RegisterForm = ({ redirectUrl }: Props) => {
       showSocial
       redirectUrl={redirectUrl}
     >
-      <Form {...form}>
+      {/* <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <FormField
@@ -129,7 +129,7 @@ export const RegisterForm = ({ redirectUrl }: Props) => {
             Create an Account
           </Button>
         </form>
-      </Form>
+      </Form> */}
     </CardWrapper>
   );
 };

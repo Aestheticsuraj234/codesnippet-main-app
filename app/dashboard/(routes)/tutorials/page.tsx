@@ -2,6 +2,7 @@ import { Header } from "@/components/Global/header";
 import TechnologyCard from "@/components/Global/technology-card";
 import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
+import Image from "next/image";
 import React from "react";
 
 const TutorialPage = async () => {
@@ -67,8 +68,14 @@ const TutorialPage = async () => {
           ))}
         </div>
       ) : (
-        <div className="text-center mt-20">
-          <p className="text-lg font-semibold">No technologies available at the moment.</p>
+        <div className="text-center mt-20 flex flex-col items-center justify-center gap-5">
+          <Image
+          src={"/tutorial.svg"}
+          alt="Tutorial Empty Images"
+          height={300}
+          width={300}
+          />
+          <h1 className="text-3xl font-bold">No technologies available at the moment.</h1>
           <p className="text-gray-500">Please check back later for new tutorials.</p>
         </div>
       )}

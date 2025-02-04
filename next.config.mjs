@@ -30,6 +30,14 @@ const nextConfig = {
           hostname: 'www.codewithantonio.com',
           protocol: 'https',
         },
+        {
+          hostname:"images.unsplash.com",
+          protocol:"https"
+        },
+        {
+          hostname:"assets.aceternity.com",
+          protocol:"https"
+        }
       ],
     },
   };

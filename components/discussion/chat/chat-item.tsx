@@ -44,7 +44,7 @@ interface ChatItemProps {
 
 const roleIconMap = {
   "GUEST": null,
-  "MODERATOR": <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
+  "MODERATOR": <ShieldCheck className="h-4 w-4 ml-2 text-green-500" />,
   "ADMIN": <ShieldAlert className="h-4 w-4 ml-2 text-rose-500" />,
 }
 
@@ -172,12 +172,12 @@ export const ChatItem = ({
           )}
           {isPDF && (
             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
-              <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+              <FileIcon className="h-10 w-10 fill-indigo-200 stroke-green-400" />
               <a 
                 href={fileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+                className="ml-2 text-sm text-green-500 dark:text-green-400 hover:underline"
               >
                 PDF File
               </a>
