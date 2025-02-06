@@ -4,10 +4,8 @@ import { NextResponse } from "next/server";
 
 
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { communityId: string } }
-) {
+export async function PATCH(req: Request, props: { params: Promise<{ communityId: string }> }) {
+  const params = await props.params;
   try {
     const user = await currentUser();
 

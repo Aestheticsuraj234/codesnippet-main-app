@@ -13,13 +13,18 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
 });
 
-const LiveCourseLayout = async ({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { id: string };
-}) => {
+const LiveCourseLayout = async (
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ id: string }>;
+  }
+) => {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const user = await currentUser();
 
   if (!user) {
@@ -64,28 +69,29 @@ const LiveCourseLayout = async ({
     return redirect("/dashboard/courses");
   }
 
-    const progressCount = await db.chapterProgress.count({
-        where: {
-        userId: user.id,
-        chapter: {
-            courseId: liveCourse.id,
-        },
-        },
-    });
+  const progressCount = await db.chapterProgress.count({
+      where: {
+      userId: user.id,
+      chapter: {
+          courseId: liveCourse.id,
+      },
+      },
+  });
 
 
-    return(
-        <div className={cn("h-full", poppins.className)}>
-        <div className="h-[80px] md:pl-80 fixed inset-y-0 w-full z-50">
-          <LiveCourseNavbar liveCourse={liveCourse} progressCount={progressCount} />
-        </div>
-        <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
-          <LiveCourseSidebar liveCourse={liveCourse} progressCount={progressCount} />
-        </div>
-        <main className="md:pl-80 pt-[80px]  h-full">{children}</main>
+  return(
+      <div className={cn("h-full", poppins.className)}>
+      <div className="h-[80px] md:pl-80 fixed inset-y-0 w-full z-50">
+        {/* @ts-ignore */}
+        <LiveCourseNavbar liveCourse={liveCourse} progressCount={progressCount} />
       </div>
-    )
-
+      <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
+      {/* @ts-ignore */}
+        <LiveCourseSidebar liveCourse={liveCourse} progressCount={progressCount} />
+      </div>
+      <main className="md:pl-80 pt-[80px]  h-full">{children}</main>
+    </div>
+  )
 };
 
 

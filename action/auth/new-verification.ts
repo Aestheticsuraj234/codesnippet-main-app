@@ -54,7 +54,7 @@ export const newVerification = async (token: string): Promise<{ success?: string
 
     return { success: "Email verified successfully" };
   } catch (error) {
-    console.error("Error updating user:", error);
+    console.error("Error updating user:", (error as Error).message);
     return { error: "Failed to verify email" };
   }
 };

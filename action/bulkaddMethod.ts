@@ -44,12 +44,13 @@ export async function uploadFile(formData: FormData) {
 
   try {
     await fs.mkdir(uploadDir, { recursive: true });
+    // @ts-ignore
     await fs.writeFile(filePath, buffer);
 
     // Parse the file and insert into the database
     await processFile(filePath);
   } catch (error) {
-    throw new Error(`Error processing file: ${error.message}`);
+    throw new Error(`Error processing file: ${(error as Error).message}`);
   } finally {
     await fs.unlink(filePath);
   }
@@ -79,7 +80,7 @@ async function processFile(filePath: string) {
       },
     });
 
-    for (const topic of parsedData.topics) {
+    for (const topic of parsedData?.topics!) {
       const createdTopic = await db.topic.create({
         data: {
           title: topic.title,
@@ -88,7 +89,7 @@ async function processFile(filePath: string) {
         },
       });
 
-      for (const subTopic of topic.subTopics) {
+      for (const subTopic of topic?.subTopics!) {
         await db.subTopic.create({
           data: {
             title: subTopic.title,

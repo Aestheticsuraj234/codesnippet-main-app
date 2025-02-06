@@ -5,11 +5,12 @@ import MainContentTab from "@/components/tutorial/main/MainContentTab";
 import { currentUser } from "@/lib/auth/data/auth";
 import { redirect } from "next/navigation";
 
-const TutorialPage = async ({
-  params,
-}: {
-  params: { technologyId: string };
-}) => {
+const TutorialPage = async (
+  props: {
+    params: Promise<{ technologyId: string }>;
+  }
+) => {
+  const params = await props.params;
   const user = await currentUser();
 
   if (!user) {
@@ -31,10 +32,10 @@ const TutorialPage = async ({
       <InitialModal isDayAssigned={!isDayAssignedToTechnologyByCurrentUser} id={params.technologyId} />
     );
   }
-  
 
 
-  
+
+
 
   return (
   <ContentLayout>

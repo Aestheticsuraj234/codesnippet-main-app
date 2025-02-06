@@ -11,12 +11,13 @@ import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 
 interface WorkshopIdPageProps {
-  params: {
+  params: Promise<{
     workshopId: string;
-  };
+  }>;
 }
 
-const WorkshopIdPage = async ({ params }: WorkshopIdPageProps) => {
+const WorkshopIdPage = async (props: WorkshopIdPageProps) => {
+  const params = await props.params;
   // TODO: Fetch workshop data based on params.workshopId
   const user = await currentUser();
 

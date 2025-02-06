@@ -9,14 +9,15 @@ import ReferalCode from '../_components/overview/referal-codeinput';
 import { RefferalClient } from '../_components/table/client';
 import { db } from '@/lib/db/db';
 
-const CampusAmbassadorIdPage = async({ params }: { params: { id: string } }) => {
+const CampusAmbassadorIdPage = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
 
   const user = await currentUser();
 
   if (!user) {
     return redirect('/')
   }
-  
+
   const overviewData = await getCampusAmbassadorRefferalsById(params.id);
   const refferalUserData = await db.referral.findMany({
     where: {
@@ -35,7 +36,7 @@ const CampusAmbassadorIdPage = async({ params }: { params: { id: string } }) => 
       course: true
     }
   });
-  
+
   // Format the data to include referral type
   const formattedData = refferalUserData.map((data) => {
     let referralType = '';
@@ -88,6 +89,7 @@ const CampusAmbassadorIdPage = async({ params }: { params: { id: string } }) => 
 
       <div className="flex-col">
         <div className="flex-1 space-y-4 p-8 pt-6">
+          {/* @ts-ignore */}
           <RefferalClient data={formattedData} />
         </div>
       </div>

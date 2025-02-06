@@ -47,21 +47,22 @@ export async function uploadMeetingFile(formData: FormData) {
     console.log(`Directory created/exists: ${uploadDir}`);
 
     // Save file to the server
+    // @ts-ignore
     await fs.writeFile(filePath, buffer);
     console.log(`File written to: ${filePath}`);
 
     // Parse the file and insert it into the database
     await processMeetingFile(filePath);
   } catch (error) {
-    console.error(`Error processing file: ${error.message}`);
-    throw new Error(`Error processing file: ${error.message}`);
+    console.error(`Error processing file: ${(error as Error).message}`);
+    throw new Error(`Error processing file: ${(error as Error).message}`);
   } finally {
     try {
       // Clean up the uploaded file after processing
       await fs.unlink(filePath);
       console.log(`Temporary file deleted: ${filePath}`);
     } catch (err) {
-      console.warn(`Failed to delete temporary file: ${err.message}`);
+      console.warn(`Failed to delete temporary file: ${(err as Error).message}`);
     }
   }
 
@@ -85,7 +86,7 @@ async function processMeetingFile(filePath: string) {
     fileContent = await fs.readFile(filePath, 'utf-8');
     console.log("File content read successfully.");
   } catch (readError) {
-    console.error(`Error reading file: ${readError.message}`);
+    console.error(`Error reading file: ${(readError as Error).message}`);
     throw new Error("Failed to read the uploaded file.");
   }
 
@@ -94,7 +95,7 @@ async function processMeetingFile(filePath: string) {
     data = JSON.parse(fileContent);
     console.log("File content parsed successfully.");
   } catch (parseError) {
-    console.error(`JSON Parsing Error: ${parseError.message}`);
+    console.error(`JSON Parsing Error: ${(parseError as Error).message}`);
     throw new Error("Failed to parse JSON file.");
   }
 
@@ -129,8 +130,8 @@ async function processMeetingFile(filePath: string) {
         }
       }
     } catch (validationError) {
-      console.error(`Validation or Database Error: ${validationError.message}`);
-      throw new Error(`Error processing meeting data: ${validationError.message}`);
+      console.error(`Validation or Database Error: ${(validationError as Error).message}`);
+      throw new Error(`Error processing meeting data: ${(validationError as Error).message}`);
     }
   }
 }

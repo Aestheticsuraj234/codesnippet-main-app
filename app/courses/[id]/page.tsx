@@ -2,11 +2,12 @@ import { currentUser } from '@/lib/auth/data/auth';
 import { db } from '@/lib/db/db';
 import { redirect } from 'next/navigation';
 
-const CourseIdPage = async({
-  params
-}: {
-  params: { id: string }
-}) => {
+const CourseIdPage = async (
+  props: {
+    params: Promise<{ id: string }>
+  }
+) => {
+  const params = await props.params;
 
   const workshop = await db.workshop.findUnique({
     where: {

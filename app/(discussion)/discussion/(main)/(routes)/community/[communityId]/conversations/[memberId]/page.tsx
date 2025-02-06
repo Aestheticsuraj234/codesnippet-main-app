@@ -8,13 +8,14 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 interface MemberIdPageProps {
-  params: {
+  params: Promise<{
     communityId: string;
     memberId: string;
-  };
+  }>;
 }
 
-const MemberIdPage = async ({ params }: MemberIdPageProps) => {
+const MemberIdPage = async (props: MemberIdPageProps) => {
+  const params = await props.params;
   const user = await currentUser();
 
   if (!user) {

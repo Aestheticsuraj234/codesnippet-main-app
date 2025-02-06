@@ -3,13 +3,18 @@ import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
 import { CommunitySidebar } from "@/components/discussion/community/community-sidebar";
 
-const ServerIdLayout = async ({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { communityId: string };
-}) => {
+const ServerIdLayout = async (
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ communityId: string }>;
+  }
+) => {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const user = await currentUser();
 
   if (!user) {

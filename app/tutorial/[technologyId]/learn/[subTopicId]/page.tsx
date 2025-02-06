@@ -18,11 +18,12 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
 });
 
-const LearnMainPage = async ({
-  params,
-}: {
-  params: { technologyId: string; subTopicId: string };
-}) => {
+const LearnMainPage = async (
+  props: {
+    params: Promise<{ technologyId: string; subTopicId: string }>;
+  }
+) => {
+  const params = await props.params;
   const user = await currentUser();
 
   const subTopic = await getSubTopicById(params.subTopicId);
@@ -77,9 +78,12 @@ const LearnMainPage = async ({
           isUnliked={isUnliked}
           isSaved={isSaved}
           count={count}
+          // @ts-ignore
           videoTopic={videoTopic}
+            // @ts-ignore
           notes={notes}
           user={user}
+            // @ts-ignore
           doubt={doubts}
         />
       </section>

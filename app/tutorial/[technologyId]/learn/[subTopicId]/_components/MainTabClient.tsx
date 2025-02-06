@@ -149,6 +149,7 @@ const MainTabClient = ({
     <TabsContent value="doubt" className="mt-4" forceMount={true} hidden={"doubt" !== tab}>
       <div className=" p-6 flex flex-col justify-start items-start ">
         <MainDoubtSection 
+        // @ts-ignore
           doubt={doubt}
           userId={user?.id}
         />

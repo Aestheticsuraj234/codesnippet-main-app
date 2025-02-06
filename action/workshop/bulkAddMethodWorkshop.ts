@@ -47,12 +47,13 @@ export async function uploadWorkshopFile(formData: FormData) {
 
   try {
     await fs.mkdir(uploadDir, { recursive: true });
+    // @ts-ignore
     await fs.writeFile(filePath, buffer);
 
     // Parse the file and insert into the database
     await processWorkshopFile(filePath);
   } catch (error) {
-    throw new Error(`Error processing file: ${error.message}`);
+    throw new Error(`Error processing file: ${(error as Error).message}`);
   } finally {
     await fs.unlink(filePath);
   }
@@ -103,7 +104,7 @@ if (!workshopContent) {
     });
 
     // Create days associated with the workshop
-    for (const day of parsedData.days) {
+    for (const day of parsedData?.days!) {
       await db.workshopDay.create({
         data: {
           title: day.title,

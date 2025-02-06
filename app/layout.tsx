@@ -28,7 +28,7 @@ export default async function RootLayout({
     <SessionProvider session={session}>
     <html lang="en">
       <body className={cn(inter.className, "min-h-screen bg-[#F5F5F5] dark:bg-[#141413]")}>
-   
+    
       <ReactQueryProvider>
         <ThemeProvider
           attribute="class"

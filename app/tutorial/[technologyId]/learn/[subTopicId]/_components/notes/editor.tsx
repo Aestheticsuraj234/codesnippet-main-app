@@ -11,21 +11,23 @@ const Editor = ({ editorRef, initialData }: UpdateEditorProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const initializeEditor = async () => {
-    const EditorJS = (await import("@editorjs/editorjs")).default;
-    const Header = (await import("@editorjs/header")).default;
-    const List = (await import("@editorjs/list")).default;
-    const Embed = (await import("@editorjs/embed")).default;
-    const Table = (await import("@editorjs/table")).default;
-    const Quote = (await import("@editorjs/quote")).default;
-    const Marker = (await import("@editorjs/marker")).default;
-    const Warning = (await import("@editorjs/warning")).default;
-    const LinkTool = (await import("@editorjs/link")).default;
+    const EditorJS = (await import("@editorjs/editorjs")).default;    // @ts-ignore
+    const Header = (await import("@editorjs/header")).default;    // @ts-ignore
+    const List = (await import("@editorjs/list")).default;    // @ts-ignore
+    // @ts-ignore
+    const Embed = (await import("@editorjs/embed")).default;    // @ts-ignore
+    const Table = (await import("@editorjs/table")).default;    // @ts-ignore
+    const Quote = (await import("@editorjs/quote")).default;    // @ts-ignore
+        // @ts-ignore
+    const Marker = (await import("@editorjs/marker")).default;     // @ts-ignore
+    const Warning = (await import("@editorjs/warning")).default;     // @ts-ignore
+    const LinkTool = (await import("@editorjs/link")).default;     // @ts-ignore
     const RawTool = (await import("@editorjs/raw")).default;
-    const Delimiter = (await import("@editorjs/delimiter")).default;
-    const InlineCode = (await import("@editorjs/inline-code")).default;
-    const SimpleImage = (await import("@editorjs/simple-image")).default;
-    const Checklist = (await import("@editorjs/checklist")).default;
-    const CodeBox = (await import("@bomdi/codebox")).default;
+    const Delimiter = (await import("@editorjs/delimiter")).default;     // @ts-ignore
+    const InlineCode = (await import("@editorjs/inline-code")).default;     // @ts-ignore
+    const SimpleImage = (await import("@editorjs/simple-image")).default;     // @ts-ignore
+    const Checklist = (await import("@editorjs/checklist")).default;     // @ts-ignore
+    const CodeBox = (await import("@bomdi/codebox")).default;     // @ts-ignore
 
     if (!editorRef.current) {
       const editor = new EditorJS({
@@ -38,6 +40,7 @@ const Editor = ({ editorRef, initialData }: UpdateEditorProps) => {
         data: initialData || { blocks: [] },
         tools: {
           header: {
+            // @ts-ignore
             class: Header,
             config: {
               placeholder: "Enter a header",

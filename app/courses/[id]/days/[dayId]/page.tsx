@@ -2,17 +2,16 @@ import React from 'react'
 import MainDayTabClient from '../../_components/main-day-tab-client'
 import { getDayWiseDataWithWorkshopId } from '@/action/workshop'
 
-const DaysIdPage = async(
-  {params}: {params: {id: string , dayId: string}}
-) => {
+const DaysIdPage = async (props: {params: Promise<{id: string , dayId: string}>}) => {
+  const params = await props.params;
 
-const WorkdDayData = await getDayWiseDataWithWorkshopId(params.id,params.dayId)
+  const WorkdDayData = await getDayWiseDataWithWorkshopId(params.id,params.dayId)
 
-if(!WorkdDayData){
-  return <div>Day not found</div>
-}
+  if(!WorkdDayData){
+    return <div>Day not found</div>
+  }
 
-const isMarkasDone = WorkdDayData?.userProgress.length > 0 ? WorkdDayData?.userProgress[0].markedAsDone : false
+  const isMarkasDone = WorkdDayData?.userProgress.length > 0 ? WorkdDayData?.userProgress[0].markedAsDone : false
 
 
 

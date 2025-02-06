@@ -6,7 +6,8 @@ import React from "react";
 import { DsaStepCard } from "./step/_components/dsa-step-card";
 import { DsaSheetById, AllProgress } from "@/action/content/dsa/dsaProgress";
 
-const DsaSheetIdPage = async ({ params }: { params: { id: string } }) => {
+const DsaSheetIdPage = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const user = await currentUser();
 
   if (!user) {

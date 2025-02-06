@@ -16,8 +16,6 @@ interface RefferalClientProps {
 export const RefferalClient: React.FC<RefferalClientProps> = ({
   data
 }) => {
-  const params = useParams();
-  const router = useRouter();
 
   return (
     <> 

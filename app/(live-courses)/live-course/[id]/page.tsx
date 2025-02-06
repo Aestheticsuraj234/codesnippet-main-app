@@ -5,24 +5,26 @@ import { redirect } from 'next/navigation'
 
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-const LiveCourseIdPage = async({params}:Props) => {
+const LiveCourseIdPage = async (props:Props) => {
+  const params = await props.params;
 
   const course = await getCourseById(params.id);
 
 
- if(!course) {
-  return redirect("/dashboard/courses");
- }
+  if(!course) {
+   return redirect("/dashboard/courses");
+  }
 
 
 
   return (
     <LiveCourseLandingPage
+    // @ts-ignore
       course={course}
     />
   )

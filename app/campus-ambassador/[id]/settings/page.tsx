@@ -2,7 +2,8 @@ import React from "react";
 import { db } from "@/lib/db/db";
 import SettingsForm from "./_components/settings-form";
 
-const Settings = async ({ params }: { params: { id: string } }) => {
+const Settings = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const ambassador = await db.campusAmbassador.findUnique({
     where: {
       id: params.id,

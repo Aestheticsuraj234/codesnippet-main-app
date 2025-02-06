@@ -112,6 +112,7 @@ export const GetDoubtsBySubTopicId = async (subTopicId: string) => {
   });
 
   // Calculate `isLikedByCurrentUser` and `isUnLikedByCurrentUser` for each doubt
+  // @ts-ignore
   const doubtsWithUserLikeStatus: Doubt[] = doubts.map((doubt) => {
     const isLikedByCurrentUser = doubt.likes.some((like) => like.userId === user.id);
     const isUnLikedByCurrentUser = doubt.unlikes.some((unlike) => unlike.userId === user.id);

@@ -3,10 +3,8 @@ import { db } from "@/lib/db/db";
 import { NextResponse } from "next/server";
 
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { memberId: string } }
-) {
+export async function DELETE(req: Request, props: { params: Promise<{ memberId: string }> }) {
+  const params = await props.params;
   try {
     const user = await currentUser();
     const { searchParams } = new URL(req.url);
@@ -59,10 +57,8 @@ export async function DELETE(
   }
 }
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { memberId: string } }
-) {
+export async function PATCH(req: Request, props: { params: Promise<{ memberId: string }> }) {
+  const params = await props.params;
   try {
     const user = await currentUser();
     const { searchParams } = new URL(req.url);

@@ -16,13 +16,14 @@ import { EmptyStateComponent } from "@/components/Global/empty-state";
 
 const REDEEM_AMOUNT = 200;
 
-export default async function PointsAndEarnings({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default async function PointsAndEarnings(
+  props: {
+    params: Promise<{
+      id: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const ambassador = await db.campusAmbassador.findUnique({
     where: {
       id: params.id,

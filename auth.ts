@@ -6,11 +6,6 @@ import authConfig from "@/auth.config";
 import { getUserById } from "@/lib/auth/data/user";
 import { getTwoFactorConfirmationByUserId } from "@/lib/auth/two-factor-confirmation";
 import { getAccountByUserId } from "@/lib/auth/data/account";
-import { cookies } from "next/headers";
-import {
-  create_referral,
-  getCampusAmbassadorByUniqueCode,
-} from "./action/campus-ambassador";
 
 export const {
   handlers: { GET, POST },

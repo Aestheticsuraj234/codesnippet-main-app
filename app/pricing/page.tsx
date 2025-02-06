@@ -1,4 +1,4 @@
-import { ArrowBigLeft, ArrowLeft, Check, Gift } from "lucide-react";
+import {  ArrowLeft, Gift } from "lucide-react";
 import React from "react";
 
 import { FeatureDataPopular } from "@/constants/FeatureData";
@@ -12,8 +12,7 @@ import DigitalClock from "./_components/DigitalClock";
 import Link from "next/link";
 import { Boxes } from "@/components/ui/background-boxes";
 import { Button } from "@/components/ui/button";
-import { Loader } from "@/components/Global/loader";
-import { redirect } from "next/navigation";
+
 import UpcomingV2Features from "@/components/Global/Cards/UpcomingFeatures";
 import { Hint } from "@/components/Global/hint";
 
@@ -138,6 +137,7 @@ const Pricing = async () => {
           title="Premium"
           actualPrice="₹2299"
           discountedPrice="₹999"
+          // @ts-ignore
           features={FeatureDataPopular}
           isPopular={true}
         />

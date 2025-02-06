@@ -12,13 +12,18 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
 });
 
-const CourseLayout = async ({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { id: string };
-}) => {
+const CourseLayout = async (
+  props: {
+    children: React.ReactNode;
+    params: Promise<{ id: string }>;
+  }
+) => {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const user = await currentUser();
 
   if (!user) {

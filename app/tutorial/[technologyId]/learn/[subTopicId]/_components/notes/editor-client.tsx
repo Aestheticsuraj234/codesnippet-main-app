@@ -46,7 +46,7 @@ const EditorClient = ({ data }: EditorClientProps) => {
     async function fetchData() {
       setIsPending(true);
       try {
-        const response = await getNotesBySubTopicId(params.subTopicId as string);
+        const response = await getNotesBySubTopicId(params?.subTopicId as string);
         setFormData(response);
       } catch (error) {
         console.error("Error fetching subtopic data:", error);
@@ -57,7 +57,7 @@ const EditorClient = ({ data }: EditorClientProps) => {
     }
 
     fetchData();
-  }, [params.subTopicId]);
+  }, [params?.subTopicId]);
 
   const methods = useForm<z.infer<typeof NotesSchema>>({
     resolver: zodResolver(NotesSchema),

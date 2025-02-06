@@ -9,11 +9,12 @@ import React from "react";
 import { DsaProblemClient } from "./_components/client";
 import Link from "next/link";
 
-const StepPageId = async ({
-  params,
-}: {
-  params: { stepId: string; id: string };
-}) => {
+const StepPageId = async (
+  props: {
+    params: Promise<{ stepId: string; id: string }>;
+  }
+) => {
+  const params = await props.params;
   const user = await currentUser();
 
   console.log({
