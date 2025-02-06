@@ -27,7 +27,7 @@ export const columns: ColumnDef<ProblemColumn>[] = [
         ),
         cell: ({ row }) => (
             // TODO: MAKE IT A CHECK OR UNCHECK COMPONENT TO SAVE INTO DB
-            <ProblemCheckbox checked={row.original.isSolved}  Probid={row.original.id}  />
+            (<ProblemCheckbox checked={row.original.isSolved}  Probid={row.original.id}  />)
         ),
       },
   {
@@ -79,7 +79,7 @@ export const columns: ColumnDef<ProblemColumn>[] = [
     ),
     cell: ({ row }) => (
     //   TODO: ADD TOGGLE BUTTON TO MARK FOR REVISION
-      <MarkedToggleButton markedForRevision={row.original.markedForRevision} id={row.original.id} />
+      (<MarkedToggleButton markedForRevision={row.original.markedForRevision} id={row.original.id} />)
     ),
   },
 ];

@@ -365,7 +365,7 @@ export const getPointsOfUser = async (technologyId: string) => {
   const maxPoints = totalSubTopics * 150;
 
   // Calculate the total points earned by the user
-  const earnedPoints = await db.markAsDone.count({
+  const earnedPoints = (await db.markAsDone.count({
     where: {
       userId: user.id,
       subTopic: {
@@ -374,7 +374,7 @@ export const getPointsOfUser = async (technologyId: string) => {
         },
       },
     },
-  }) * 150;
+  })) * 150;
   
 
 

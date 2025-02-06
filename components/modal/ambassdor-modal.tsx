@@ -85,7 +85,7 @@ const AmbassadorModal = () => {
   };
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleClose}>
+    (<Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-[#F3F4F6] dark:bg-[#27272A] text-black dark:text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
@@ -95,14 +95,14 @@ const AmbassadorModal = () => {
         {
           isSuccess ? (
             // create a success message here with a button to go to the dashboard
-            <div className="p-6 flex flex-col justify-center items-center gap-4">
-             <Image
-              src={"/campus-ambassador.svg"}
-              alt="Campus Ambassador"
-              width={200}
-              height={200}
-              className={"object-contain  mx-auto "}
-             />
+            (<div className="p-6 flex flex-col justify-center items-center gap-4">
+              <Image
+               src={"/campus-ambassador.svg"}
+               alt="Campus Ambassador"
+               width={200}
+               height={200}
+               className={"object-contain  mx-auto "}
+              />
               <div className="flex justify-center mt-4">
                 <Link href={`/campus-ambassador/${data?.id}`}>
                 <Button variant="brand" className="flex flex-row justify-center items-center gap-2">
@@ -112,7 +112,7 @@ const AmbassadorModal = () => {
                 </Link>
                 
               </div>
-              </div>
+            </div>)
           ):(
             <Form {...form}>
             <form
@@ -229,7 +229,7 @@ const AmbassadorModal = () => {
         }
        
       </DialogContent>
-    </Dialog>
+    </Dialog>)
   );
 };
 

@@ -38,15 +38,15 @@ const NotesTabClient = ({ notes }: props) => {
   };
 
   return (
-    <div className="prose dark:prose-invert max-w-none mt-4">
+    (<div className="prose dark:prose-invert max-w-none mt-4">
       {isJson && parsedContent ? (
         // Render parsed JSON content with custom renderers
-        <Output data={parsedContent} renderers={renderers} />
+        (<Output data={parsedContent} renderers={renderers} />)
       ) : (
         // Render plain text content in a paragraph
-        <p>{notes}</p>
+        (<p>{notes}</p>)
       )}
-    </div>
+    </div>)
   );
 }
 

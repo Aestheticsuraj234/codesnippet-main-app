@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import crypto from 'crypto';
 import { db } from '@/lib/db/db'; // Ensure this points to your db client instance
 import { BookingStatus, PaymentStatus } from '@prisma/client';
