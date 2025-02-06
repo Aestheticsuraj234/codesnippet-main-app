@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Sigma Coders",
-  description: "Sigma Coders is a community of developers",
+  description: "Sigma Coders is a community of developers"
 };
 
 export default async function RootLayout({
