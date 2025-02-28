@@ -26,4 +26,4 @@ export async function GET() {
 
 // Add this to ensure only cron jobs can access this route
 export const dynamic = 'force-dynamic';
-export const maxDuration = 300; // 5 minutes timeout
+export const maxDuration = 60; 
