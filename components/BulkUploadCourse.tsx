@@ -34,7 +34,7 @@ const BulkUploadCourses = () => {
 
       setUploadStatus("Upload successful!");
     } catch (error) {
-      setUploadStatus(`Error: ${error.message}`);
+      setUploadStatus(`Error: ${(error as Error).message}`);
     }
   };
 

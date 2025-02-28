@@ -49,6 +49,7 @@ const Pricing = async () => {
         <GlareCard className="flex flex-col items-start justify-start px-4 py-4">
           <div className="flex flex-row justify-start items-center gap-2">
             <img
+            // @ts-ignore
               src={user?.image}
               alt="UserImage"
               height={80}

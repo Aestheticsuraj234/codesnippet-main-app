@@ -31,6 +31,10 @@ export const DsaStepCard = ({
 }: DsaStepCardInterface) => {
   const Params = useParams();
 
+  if(!Params){
+    return;
+  }
+  
   return (
     <Link href={`/dashboard/dsa/${Params.id}/step/${id}`}>
       <Card className="cursor-pointer">

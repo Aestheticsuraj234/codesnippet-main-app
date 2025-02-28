@@ -73,7 +73,9 @@ export const ChatMessages = ({
   useChatSocket({ queryKey, addKey, updateKey });
   
   useChatScroll({
+    // @ts-ignore
     chatRef,
+     // @ts-ignore
     bottomRef,
     loadMore: fetchNextPage,
     shouldLoadMore: !isFetchingNextPage && !!hasNextPage,

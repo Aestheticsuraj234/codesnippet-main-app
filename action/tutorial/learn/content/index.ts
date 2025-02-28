@@ -52,7 +52,6 @@ export const getSubTopicById = async (subTopicId: string) => {
     };
   }
 
-  revalidatePath("/tutorial");
 
   return subTopic;
 };
@@ -64,7 +63,7 @@ export const likeCount = async (subTopicId: string) => {
     },
   });
 
-  revalidatePath("/tutorial");
+
   return likes;
 }
 
@@ -120,7 +119,7 @@ export const toggleDone = async (
     });
   }
 
-  revalidatePath("/tutorial");
+
 
   return { success: true, isDone: isCompleted };
 };
@@ -158,7 +157,7 @@ export const toggleLike = async (
     });
   }
 
-  revalidatePath("/tutorial");
+
 
   return { success: true, isLiked: isLiked };
 }
@@ -196,7 +195,7 @@ export const toggleUnLike = async (
     });
   }
 
-  revalidatePath("/tutorial");
+
 
   return { success: true, isUnliked: isUnliked };
 }
@@ -235,7 +234,7 @@ export const toggleSave = async (
     });
   }
 
-  revalidatePath("/tutorial");
+
 
   return { success: true, isSaved: isSaved };
 }

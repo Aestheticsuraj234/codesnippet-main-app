@@ -17,7 +17,7 @@ export const getVideoBySubTopicId = async (subTopicId: string) => {
         }
     })
 
-    revalidatePath(`/tutorial`)
+
     return video;
 
 }

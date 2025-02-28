@@ -2,7 +2,6 @@
 import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
 import { TechnologyStatus } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 
 export const GetAllTopicsByTechnologyId = async (technologyId: string) => {
   const user = await currentUser();
@@ -38,7 +37,7 @@ export const GetAllTopicsByTechnologyId = async (technologyId: string) => {
     })),
   }));
 
-  revalidatePath("/tutorial");
+ 
   return modifiedTopics;
 };
 
@@ -93,7 +92,7 @@ export const GetTechnologyById = async (technologyId: string) => {
     throw new Error("Technology not found")
   }
 
-  revalidatePath("/tutorial");
+ 
   return technology;
 };
 
@@ -156,7 +155,6 @@ export const AddDayAssingToTopic = async (
     })
   );
 
-  revalidatePath("/tutorial");
   return updatedTopics;
 };
 
@@ -200,7 +198,7 @@ export const ADDNumberOfDaysInTopic = async (
     },
   });
 
-  revalidatePath("/tutorial");
+ 
 
   return updatedUserTopicAssignment;
 };
@@ -244,7 +242,7 @@ export const RemoveNumberOfDaysInTopic = async (
     },
   });
 
-  revalidatePath("/tutorial");
+ 
 
   return updatedUserTopicAssignment;
 };
@@ -303,7 +301,6 @@ export const getProgressOfsubTopic = async (technologyId: string) => {
     },
   });
 
-  revalidatePath("/tutorial" , "page");
 
   return {
     totalNumberOfSubTopics,
@@ -385,7 +382,7 @@ export const getPointsOfUser = async (technologyId: string) => {
     }
   )
 
-  revalidatePath("/tutorial");
+ 
 
   return { maxPoints, earnedPoints };
 };
@@ -451,5 +448,5 @@ export const updateTopicCompletionStatus = async (technologyId: string) => {
     })
   );
 
-  revalidatePath("/tutorial");
+ 
 };

@@ -79,7 +79,7 @@ export const getCampusAmbassadorRefferalsById = async (id:string) => {
     }
   })
 
-  revalidatePath("/campus-ambassador");
+  // revalidatePath("/campus-ambassador");
   return ambassdor;
 
 

@@ -30,7 +30,7 @@ export const getNotesBySubTopicId = async (subTopicId: string) => {
     })),
   };
 
-  revalidatePath(`/tutorial`);
+
   return formattedNotes;
 };
 
@@ -54,7 +54,7 @@ const user = await currentUser();
     },
   })
   
-  revalidatePath(`/tutorial`);
+
 
   return notes;
 }
@@ -89,6 +89,6 @@ export const updateNotes = async (noteId: string, note: string) => {
     },
   });
 
-  revalidatePath(`/tutorial`);
+
   return notes;
 }

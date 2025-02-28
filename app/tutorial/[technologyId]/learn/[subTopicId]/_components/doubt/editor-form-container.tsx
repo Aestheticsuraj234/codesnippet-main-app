@@ -32,11 +32,14 @@ const RichEditorFormContainer = () => {
     },
   });
 
+  if(!params){
+    return;
+  }
   const onSubmit = async (values: z.infer<typeof DoubtSchema>) => {
     console.log(values);
     try {
       setIsPending(true);
-      await PostDoubt(values.doubt, params.subTopicId as string);
+      await PostDoubt(values.doubt, params?.subTopicId as string);
       toast.success("Doubt posted successfully.");
     } catch (error) {
       console.error("Error posting doubt:", error);

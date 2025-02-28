@@ -15,7 +15,7 @@ export const PostDoubt = async (doubt: string, subTopicId: string) => {
      }
     })
     
-    revalidatePath(`/tutorial`  , "page")
+
     
     return doubtPost;
 }
@@ -32,7 +32,7 @@ export const PostReply = async (reply: string, doubtId: string) => {
      }
     })
     
-    revalidatePath(`/tutorial`  , "page")
+
     
     return replyPost;
 }
@@ -211,8 +211,7 @@ export const GetDoubtsBySubTopicId = async (subTopicId: string) => {
       throw new Error("Failed to toggle like status.");
     }
   
-    // Revalidate the cache or path after the operation
-    revalidatePath(`/tutorial`, "page");
+  
   
     return { success: true, isLiked };
   };
@@ -297,9 +296,9 @@ export const GetDoubtsBySubTopicId = async (subTopicId: string) => {
       throw new Error("Failed to toggle unlike status.");
     }
   
-    // Revalidate the cache or path after the operation
-    revalidatePath(`/tutorial`, "page");
+
   
     return { success: true, isUnLiked };
   };
+  
   

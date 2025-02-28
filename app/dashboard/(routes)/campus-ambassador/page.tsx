@@ -4,23 +4,25 @@ import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
 import { redirect } from "next/navigation";
 
-
-
-const CampusAmbassador = async() => {
+const CampusAmbassador = async () => {
   const user = await currentUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
 
   const isAmbassador = await db.campusAmbassador.findFirst({
     where: {
       user: {
-        id: user?.id!,
+        id: user.id,
       },
     },
-    select:{
+    select: {
       id: true,
-    }
-  })
+    },
+  });
 
-  if(isAmbassador && user?.role === "PREMIUM_USER"){
+  if (isAmbassador && user.role === "PREMIUM_USER") {
     return redirect(`/campus-ambassador/${isAmbassador.id}`);
   }
 
@@ -30,7 +32,7 @@ const CampusAmbassador = async() => {
         title="Campus Ambassador"
         description="Campus Ambassador is a great way to earn money and learn new skills. Find the right course for you and refer to your friends and start earning today."
       />
-     <MainSection/>
+      <MainSection />
     </main>
   );
 };

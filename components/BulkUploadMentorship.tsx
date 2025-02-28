@@ -48,7 +48,7 @@ export default function MentorshipBulkUpload() {
       setUploadStatus("Upload successful!")
     } catch (error) {
         // @ts-ignore
-      setUploadStatus(`Error: ${error.message}`)
+      setUploadStatus(`Error: ${(error as Error).message}`)
     }
   }
 

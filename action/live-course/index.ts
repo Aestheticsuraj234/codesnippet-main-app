@@ -101,7 +101,7 @@ export const getChapterWiseDataWithCourseId = async (courseId:string,chapterId:s
     })
 
 
-    revalidatePath(`/live/${courseId}/chapters/${chapterId}`)
+
 
     return liveCourse?.chapters[0]
 
@@ -141,5 +141,4 @@ await db.chapterProgress.create({
     })
   }
 
-    revalidatePath(`/live`)
 }

@@ -9,13 +9,13 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
+
   DropdownMenuItem,
-  DropdownMenuLabel,
+
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuSub,
@@ -64,6 +64,7 @@ const SidebarNestedItem = ({
               type="button"
               className={cn(
                 "flex items-center gap-x-2 text-slate-500 dark:text-slate-100 text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
+                // @ts-ignore
                 isActive &&
                   "text-zinc-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-zinc-700"
               )}
@@ -73,6 +74,7 @@ const SidebarNestedItem = ({
                   size={22}
                   className={cn(
                     "text-slate-500 dark:text-slate-100 transition-all",
+                     // @ts-ignore
                     isActive && "text-zinc-900"
                   )}
                 />
@@ -81,6 +83,7 @@ const SidebarNestedItem = ({
               <div
                 className={cn(
                   "ml-auto opacity-0 border-2 border-black dark:border-white  h-full transition-all",
+                   // @ts-ignore
                   isActive && "opacity-100"
                 )}
               />

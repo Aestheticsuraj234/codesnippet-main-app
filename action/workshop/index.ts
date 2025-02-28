@@ -2,7 +2,6 @@
 
 import { currentUser } from "@/lib/auth/data/auth"
 import { db } from "@/lib/db/db";
-import { revalidatePath } from "next/cache";
 
 
 
@@ -41,7 +40,6 @@ export const getDayWiseDataWithWorkshopId = async (workshopId: string , dayId:st
     })
 
 
-    revalidatePath(`courses/${workshopId}/days/${dayId}`)
 
     return workshop?.days[0];
 
@@ -80,5 +78,5 @@ await db.workshopDayProgress.create({
     })
   }
 
-    revalidatePath(`/courses`)
+
 }

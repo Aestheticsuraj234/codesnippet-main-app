@@ -15,7 +15,7 @@ export const getAllMentorshipSession = async () => {
     },
   });
 
-  revalidatePath("/dashboard/mentorship");
+
 
   return mentorshipSessions;
 };
@@ -49,6 +49,6 @@ export const getBookingDataForCurrentUser = async () => {
     },
   });
 
-  revalidatePath("/dashboard/mentorship");
+
   return bookingData;
 };

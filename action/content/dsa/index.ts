@@ -2,7 +2,6 @@
 
 import { db } from "@/lib/db/db";
 import { ContentStatus, ContentType } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 
 // Get statistics for DSA content
 export const getDSAContentStatistics = async () => {
@@ -138,7 +137,7 @@ export const toggleSolver = async (Probid: string, userId: string | undefined, i
       });
     }
 
-    revalidatePath(`/dsa`);
+    
     return { success: true, isSolved: isChecked };
   } catch (error) {
     console.error("Error updating problem:", error);
@@ -171,7 +170,7 @@ export const toggleMarked = async (Probid: string, userId: string | undefined, i
       });
     }
 
-    revalidatePath(`/dsa`);
+    
     return { success: true, isMarked: isChecked };
   } catch (error) {
     console.error("Error updating problem:", error);

@@ -1,3 +1,4 @@
+
 import { GetTechnologyById } from "@/action/tutorial";
 import { InitialModal } from "@/components/modal/initial-setup-technology";
 import { ContentLayout } from "@/components/tutorial/content-layout";

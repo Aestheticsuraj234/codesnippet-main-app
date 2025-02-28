@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress"
 import { BookOpen, MessageSquare, CheckCircle, Users, ThumbsUp, CalendarDays, Star } from "lucide-react"
 import Link from 'next/link'
 
+// @ts-ignore
 const ProgressOverview = ({ user }) => {
   const coursesCompleted =  34
   const totalCourses =  50 // Assume there are 50 total courses
@@ -34,6 +35,7 @@ const ProgressOverview = ({ user }) => {
     </Card>
   )
 }
+// @ts-ignore
 
 const RecentActivity = ({ user }) => {
   const activities = [
@@ -64,6 +66,7 @@ const RecentActivity = ({ user }) => {
   )
 }
 
+// @ts-ignore
 const CommunityEngagement = ({ user }) => {
   return (
     <Card>
@@ -91,6 +94,7 @@ const CommunityEngagement = ({ user }) => {
   )
 }
 
+// @ts-ignore
 const UpcomingWorkshops = ({ user }) => {
   const workshops = [
     { workshopDay: { title: "React Workshop", date: "2022-06-10" } },
@@ -120,6 +124,8 @@ const UpcomingWorkshops = ({ user }) => {
   )
 }
 
+// @ts-ignore
+
 const PointsOverview = ({ user }) => {
   const totalPoints = 90
   return (
@@ -137,6 +143,7 @@ const PointsOverview = ({ user }) => {
     </Card>
   )
 }
+// @ts-ignore
 
 export default function DashboardHome({ user }) {
   return (
@@ -160,7 +167,11 @@ export default function DashboardHome({ user }) {
               </Button>
             </CardHeader>
             <CardContent>
-              {user.coursePurchase.slice(0, 3).map((course, index) => (
+           
+        
+              {user.coursePurchase.slice(0, 3).map(
+                // @ts-ignore
+                (course, index) => (
                 <div key={index} className="mb-4 last:mb-0">
                   <div className="flex justify-between mb-1">
                     <span className="font-medium">{course.course.title}</span>

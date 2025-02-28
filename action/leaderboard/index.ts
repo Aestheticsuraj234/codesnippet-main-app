@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/lib/db/db";
-import { revalidatePath } from "next/cache";
+
 
 export const getLeaderboardData = async () => {
   // Fetch tutorial data
@@ -126,8 +126,6 @@ export const getLeaderboardData = async () => {
     });
   });
 
-  // Revalidate path to update the leaderboard cache
-  revalidatePath("/dashboard/leaderboard");
 
   // Convert maps to arrays and return the structured data
   const tutorialLeaderboard = Array.from(tutorialPointsMap.values());
