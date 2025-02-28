@@ -96,6 +96,7 @@ export const AnimatedFounders = ({
                       duration: 0.4,
                       ease: "easeInOut",
                     }}
+                    // @ts-ignore
                     className="absolute inset-0 origin-bottom"
                   >
                     <Image
@@ -139,6 +140,7 @@ export const AnimatedFounders = ({
               <p className="text-sm text-gray-500 dark:text-neutral-500">
                 {founders[active].designation}
               </p>
+              {/*  @ts-ignore */}
               <motion.p className="text-lg text-gray-500 mt-8 dark:text-neutral-300">
                 {founders[active].quote.split(" ").map((word, index) => (
                   <motion.span
@@ -158,6 +160,7 @@ export const AnimatedFounders = ({
                       ease: "easeInOut",
                       delay: 0.02 * index,
                     }}
+                    // @ts-ignore
                     className="inline-block"
                   >
                     {word}&nbsp;

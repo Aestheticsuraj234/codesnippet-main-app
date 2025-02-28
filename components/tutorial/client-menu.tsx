@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Ellipsis } from "lucide-react";
-import { usePathname } from "next/navigation";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";

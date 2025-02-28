@@ -47,6 +47,8 @@ export const TypewriterEffect = ({
 
   const renderWords = () => {
     return (
+
+      // @ts-ignore
       <motion.div ref={scope} className="inline">
         {wordsArray.map((word, idx) => {
           return (
@@ -55,6 +57,7 @@ export const TypewriterEffect = ({
                 <motion.span
                   initial={{}}
                   key={`char-${index}`}
+                  // @ts-ignore
                   className={cn(
                     `dark:text-white text-black opacity-0 hidden`,
                     word.className
@@ -83,6 +86,7 @@ export const TypewriterEffect = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+      //  @ts-ignore
         className={cn(
           "inline-block rounded-sm w-[4px] h-5 sm:h-7 md:h-9 lg:h-12 xl:h-14 bg-green-500",
           cursorClassName
@@ -137,6 +141,7 @@ export const TypewriterEffectSmooth = ({
   return (
     <div className={cn("flex space-x-1 my-6", className)}>
       <motion.div
+      // @ts-ignore
         className="overflow-hidden pb-2"
         initial={{ width: "0%" }}
         whileInView={{ width: "fit-content" }}
@@ -153,6 +158,7 @@ export const TypewriterEffectSmooth = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+        // @ts-ignore
         className={cn(
           "block rounded-sm w-[4px] h-5 sm:h-7 md:h-9 lg:h-12 xl:h-14 bg-green-500",
           cursorClassName

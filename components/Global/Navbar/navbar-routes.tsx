@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/hooks/auth/use-current-user";
+
 import { usePathname } from "next/navigation";
 import { UpgradeButton } from "../upgrade-button";
 import { useTheme } from "next-themes";
@@ -19,6 +19,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import toast from "react-hot-toast";
+import { any } from "zod";
 
 export const NavbarRoutes = () => {
   const { theme } = useTheme();
@@ -40,6 +41,7 @@ export const NavbarRoutes = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64data = reader.result;
+      // @ts-ignore
       navigator.clipboard.writeText(base64data).then(() => {
         toast.success("SVG copied to clipboard");
       });

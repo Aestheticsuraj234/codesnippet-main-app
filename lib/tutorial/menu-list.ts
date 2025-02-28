@@ -1,8 +1,7 @@
 import { GetAllTopicsByTechnologyId } from "@/action/tutorial";
-import exp from "constants";
+
 import {
-  Users,
-  Settings,
+
   LayoutGrid,
   LucideIcon,
   Folder,

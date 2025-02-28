@@ -33,15 +33,15 @@ export function Menu({ isOpen }: MenuProps) {
   useEffect(() => {
     async function fetchMenu() {
       setIsLoading(true);
-      const menu = await getMenuList(pathname, params.technologyId);
+      const menu = await getMenuList(pathname!, params?.technologyId);
       setMenuList(menu);
       setIsLoading(false);
     }
 
-    if (params.technologyId) {
+    if (params?.technologyId) {
       fetchMenu();
     }
-  }, [params.technologyId]); // Added setMenuList to dependency array
+  }, [params?.technologyId]); // Added setMenuList to dependency array
 
   // Memoize menuList and dynamically compute 'active' state based on 'pathname' and 'done' status
   const memoizedMenuList = useMemo(() => {
@@ -49,7 +49,7 @@ export function Menu({ isOpen }: MenuProps) {
       ...group,
       menus: group.menus.map((menu) => ({
         ...menu,
-        active: pathname.includes(menu.href), // Dynamically update active state
+        active: pathname?.includes(menu.href), // Dynamically update active state
         submenus: menu.submenus.map((submenu) => ({
           ...submenu,
           active: pathname === submenu.href, // Dynamically update active state
@@ -97,7 +97,7 @@ export function Menu({ isOpen }: MenuProps) {
                         key={index}
                         icon={Icon}
                         label={label}
-                        active={active}
+                        active={active!}
                         submenus={submenus}
                         isOpen={isOpen}
                       />

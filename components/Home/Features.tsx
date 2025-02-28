@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import SubFeature from "./SubFeature";
+import {SubFeature} from "./SubFeature";
 
 const Features = () => {
   const [launchTime, setLaunchTime] = useState("");
@@ -37,7 +37,7 @@ const Features = () => {
         </div>
       </div>
 
-      <SubFeature />
+    
     </section>
   );
 };

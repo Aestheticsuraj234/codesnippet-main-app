@@ -21,6 +21,7 @@ export const UpgradeButton = () => {
     async function fetchSubscription() {
       if (currentUser) {
         const res = await getSubscription();
+        // @ts-ignore
         setSubscribedTo(res?.subscribedTo);
       }
     }

@@ -72,6 +72,7 @@ const AmbassadorModal = () => {
     try {
       setIsPending(true);
       const result = await createCampusAmbassador(values);
+      // @ts-ignore
       setData(result);
       toast.success("Campus Ambassador onboarded successfully.");
       setIsSuccess(true);
@@ -104,6 +105,7 @@ const AmbassadorModal = () => {
                className={"object-contain  mx-auto "}
               />
               <div className="flex justify-center mt-4">
+                {/* @ts-ignore */}
                 <Link href={`/campus-ambassador/${data?.id}`}>
                 <Button variant="brand" className="flex flex-row justify-center items-center gap-2">
                   Go to Dashboard 

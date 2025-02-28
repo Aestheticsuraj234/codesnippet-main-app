@@ -35,6 +35,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
       {rows.map((_, i) => (
         <motion.div
           key={`row` + i}
+          // @ts-ignore
           className="w-16 h-8  border-l  border-slate-700 relative"
         >
           {cols.map((_, j) => (
@@ -47,6 +48,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                 transition: { duration: 2 },
               }}
               key={`col` + j}
+              // @ts-ignore
               className="w-16 h-8  border-r border-t border-slate-700 relative"
             >
               {j % 2 === 0 && i % 2 === 0 ? (

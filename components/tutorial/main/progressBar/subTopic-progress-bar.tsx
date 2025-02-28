@@ -25,7 +25,9 @@ const SubTopicProgressBar: React.FC<SubTopicProgressBarProps> = ({ completedSubT
             </span>
             <span className="font-semibold text-sm text-yellow-600">{completedSubTopics}/{totalSubTopics}</span>
           </div>
-          <Progress value={progress} className="w-full h-2" indicatorClassName="bg-yellow-500" />
+         
+          <Progress value={progress} className="w-full
+           h-2" indicatorClassName="bg-yellow-500" />
         </div>
       </div>
     )

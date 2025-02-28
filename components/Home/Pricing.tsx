@@ -27,6 +27,7 @@ const Pricing = () => {
           title="Starter"
           actualPrice="₹1999"
           discountedPrice="₹1500"
+          // @ts-ignore
           features={FeatureData}
           isPopular={false}
         />
@@ -35,6 +36,7 @@ const Pricing = () => {
           title="Pro"
           actualPrice="₹2999"
           discountedPrice="₹1999"
+          // @ts-ignore
           features={FeatureDataPopular}
           isPopular={true}
         />

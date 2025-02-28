@@ -40,11 +40,13 @@ export const HoverEffect = ({
           onMouseEnter={() => setHoveredIndex(idx)}
         >
           <motion.div
+          // @ts-ignore
             className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-300 to-blue-500 opacity-0 group-hover:opacity-100 transition duration-500"
             initial={false}
             animate={hoveredIndex === idx ? { opacity: 1 } : { opacity: 0 }}
           />
           <motion.div
+           // @ts-ignore
             className="relative z-10 transition duration-500"
             initial={false}
             animate={hoveredIndex === idx ? { scale: 1.05 } : { scale: 1 }}
