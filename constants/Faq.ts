@@ -1,40 +1,93 @@
-// ***simply add your questions and answers here
+// ***Simply add your questions and answers here***
 
 export const FrequentlyAskedQuestions = [
   {
-    question: "What do I get with Sigma-Coders?",
-    answer: `1/ Access to a comprehensive platform designed for freshers, working professionals, and students to learn and practice DSA, coding skills, and project management.
+    question: "What is CodeSnippet, and who is it for?",
+    answer: `CodeSnippet is a **modern learning platform** designed for:
+    
+    - **Students & Freshers**: Build strong coding skills through live courses, mentorship, and structured tutorials.  
+    - **Working Professionals**: Upgrade your expertise, work on real-world projects, and get mentorship.  
+    - **Tech Enthusiasts & Developers**: Participate in workshops, debug challenges, and access AI-powered coding tools.`,
+  },
+  {
+    question: "What features does CodeSnippet currently offer?",
+    answer: `Our platform provides:
+    
+    ✅ **Live Courses** – Learn directly from experts in real-time.  
+    ✅ **On-Demand Tutorials (Subscription)** – Access structured learning content anytime.  
+    ✅ **Workshops** – Hands-on learning experiences covering various topics.  
+    ✅ **1:1 Mentorship** – Get personalized guidance from industry professionals.  
+    ✅ **Campus Ambassador Program** – Exclusive for subscribed users, offering career growth & leadership opportunities.  
+    ✅ **Real-Time Community Support** – Get instant help from peers, mentors, and industry professionals.`,
+  },
+  {
+    question: "What are the upcoming AI-powered features?",
+    answer: `We’re bringing cutting-edge AI tools to enhance your learning:
+    
+    🔥 **AI-Powered Reverse Engineering & Project Rebuilding**  
+    - Paste a GitHub repo, and AI will analyze the architecture, explain the logic, and help you rebuild it step-by-step.  
 
-    2/ Resources including workshops, project source codes, and structured learning paths across various computer science topics.
+    🔥 **AI-Powered Bug Hunt (Gamified Debugging Challenges)**  
+    - AI injects real-world coding bugs into projects. Your goal? Find and fix them to rank on the leaderboard!  
 
-    3/ Support from an active community, mentorship opportunities, and access to experienced instructors.`,
+    🔥 **AI-Powered DSA Visualization & Problem-Solving**  
+    - Learn Data Structures & Algorithms with real-time visual animations, AI-powered explanations, and problem-solving challenges.`,
   },
   {
-    question: "Are the workshops live or recorded?",
-    answer: `Our workshops include both live sessions for real-time interaction and recorded sessions for flexible learning at your own pace.`,
+    question: "How does the 1:1 mentorship work?",
+    answer: `Our mentorship program pairs you with industry experts who will:
+    
+    - Provide **career guidance** and **resume reviews**.  
+    - Help you **crack coding interviews** with mock tests.  
+    - Offer **technical deep dives** into programming, system design, and DSA.  
+    - Assist in **project building & debugging**.`,
   },
   {
-    question: "What is the focus of the platform?",
-    answer: `Sigma-Coders focuses on practical skills in software development, including Data Structures and Algorithms (DSA), system design, and project-based learning to ensure you gain hands-on experience.`,
+    question: "What do I get with a subscription?",
+    answer: `A subscription grants you access to:
+    
+    - **Exclusive Tutorials** covering DSA, system design, and full-stack development.  
+    - **Live & Recorded Workshops** to master coding skills at your own pace.  
+    - **Priority 1:1 Mentorship Sessions** for career and technical growth.  
+    - **Campus Ambassador Program** access with additional perks.`,
   },
   {
-    question: "Is there a subscription fee?",
-    answer: `Yes, Sigma-Coders operates on a subscription model. This fee grants you full access to all resources, workshops, and community support available on the platform.`,
+    question: "Is there a free trial available?",
+    answer: `We do not offer a free trial, but you can:
+    
+    - Access **free learning materials** before subscribing.  
+    - Join **live community events & workshops** to experience the platform.`,
   },
   {
-    question: "Can I access the content anytime?",
-    answer: `Yes! All content is available on-demand, allowing you to learn at your own pace and revisit materials whenever you need to.`,
+    question: "How does the Campus Ambassador program work?",
+    answer: `The **Campus Ambassador Program** is an exclusive opportunity for **subscribed users** to:
+    
+    - Represent CodeSnippet at their college/university.  
+    - Get **certifications & internship opportunities**.  
+    - **Host workshops & coding challenges** at their institution.  
+    - Earn **referral bonuses & community leadership roles**.`,
   },
   {
-    question: "Is it For  team or organization's training?",
-    answer: `Yes! Sigma-Coders can be utilized for team training and development, providing valuable resources for organizations looking to enhance their team's technical skills.`,
+    question: "How can I get help if I’m stuck on a coding problem?",
+    answer: `You can get **real-time support** through:
+    
+    - **Our active Discord & WhatsApp community** for instant help.  
+    - **1:1 mentorship sessions** for personalized guidance.  
+    - **Live workshops & Q&A sessions** with industry experts.`,
   },
   {
-    question: "What if I have more questions?",
-    answer: `You can reach out for support through our dedicated community channels, including our Discord server and WhatsApp group, where you can connect with instructors and fellow learners.`,
+    question: "What is the refund policy?",
+    answer: `Unfortunately, we **do not offer refunds** once a subscription is processed. However:
+    
+    - Our team is available for **assistance & support**.  
+    - We encourage users to **explore free content** before subscribing.`,
   },
   {
-    question: "Is there a refund policy?",
-    answer: `Unfortunately, we do not offer refunds once the subscription has been processed. However, we encourage you to try our platform and reach out if you have any concerns.`,
+    question: "How can I contact support?",
+    answer: `For any queries or technical support, you can:
+    
+    - **Join our Discord & WhatsApp communities**.  
+    - **Email our support team** at codesnippet003@gmail.com.  
+    - **Reach out on social media** for quick responses.`,
   },
 ];

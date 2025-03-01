@@ -58,8 +58,12 @@ export function HowItWorks() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="howitworks" className="h-screen w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center">
-    <div className="absolute inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none"></div>
+    <section 
+      ref={sectionRef} 
+      id="howitworks" 
+      className="min-h-screen py-16 md:py-0 w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center"
+    >
+      <div className="absolute inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none"></div>
       <h1 ref={titleRef} className="text-5xl font-bold text-[#1A1818] dark:text-[#ffffff] text-center mb-10">
         How It <Cover>Works</Cover>
       </h1>
