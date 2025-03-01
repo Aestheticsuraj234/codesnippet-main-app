@@ -14,52 +14,37 @@ import {
 } from '@/components/ui/tooltip'
 
 const upcomingFeatures = [
+  // Upcoming AI-Powered Features
   {
-    name: 'AI-Powered Code Review',
-    description: 'Get instant feedback on your code quality and suggestions for improvements',
-    comingSoon: true,
+    name: 'AI-Powered Reverse Engineering & Project Rebuilding',
+    description:
+      'Paste a GitHub repo, and AI will analyze the architecture, explain the logic, and help you rebuild it step-by-step.',
+      comingsoon:true
   },
   {
-    name: 'Advanced Project Management',
-    description: 'Integrated tools for task tracking, timelines, and team collaboration',
-    comingSoon: true,
+    name: 'AI-Powered Bug Hunt (Gamified Debugging Challenges)',
+    description:
+      'AI injects real-world coding bugs into projects. Find and fix them to rank on the leaderboard!',
+      comingsoon:true
   },
   {
-    name: 'Code Snippets Marketplace',
-    description: 'Share and discover reusable code snippets from the community',
-    comingSoon: false,
+    name: 'AI-Powered DSA Visualization & Problem-Solving',
+    description:
+      'Learn Data Structures & Algorithms with real-time visual animations, AI-powered explanations, and problem-solving challenges.',
+      comingsoon:true
   },
   {
-    name: 'Multi-Language Support',
-    description: 'Expand your coding capabilities with support for additional programming languages',
-    comingSoon: true,
-  },
-  {
-    name: 'Interactive Coding Tutorials',
-    description: 'Learn new concepts with hands-on, interactive coding lessons',
-    comingSoon: false,
-  },
-  {
-    name: 'Advanced Performance Profiling',
-    description: 'Identify and optimize performance bottlenecks in your code',
-    comingSoon: true,
-  },
-  {
-    name: 'Customizable Workflow Automation',
-    description: 'Create and share automated workflows to streamline your development process',
-    comingSoon: false,
-  },
-  {
-    name: 'Integrated CI/CD Pipeline',
-    description: 'Seamlessly deploy your projects with built-in continuous integration and delivery',
-    comingSoon: true,
+    name: 'AI-Based Personalized Learning Path',
+    description:
+      'AI creates a customized learning plan based on your skills, goals, and progress, guiding you through tutorials and projects.',
+      comingsoon:true
   },
 ]
 
-function FeatureRow({ feature, index }: { feature: typeof upcomingFeatures[0], index: number }) {
+// @ts-ignore
+function FeatureRow({ feature, index }) {
   return (
     <motion.tr
-     
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -78,7 +63,7 @@ function FeatureRow({ feature, index }: { feature: typeof upcomingFeatures[0], i
           </Badge>
         ) : (
           <Badge variant="outline" className="text-zinc-500 border-zinc-500">
-           Development
+            Development
           </Badge>
         )}
       </td>
@@ -94,7 +79,7 @@ export default function UpcomingV2Features() {
           <div>
             <CardTitle className="text-2xl font-bold text-white">Upcoming V2 Features</CardTitle>
             <CardDescription className="text-zinc-400">
-              Exciting new capabilities coming to Sigma-Coders
+              Exciting new capabilities coming to CortexAI
             </CardDescription>
           </div>
           <TooltipProvider>
@@ -129,7 +114,6 @@ export default function UpcomingV2Features() {
             </tbody>
           </table>
         </div>
-      
       </CardContent>
     </Card>
   )
