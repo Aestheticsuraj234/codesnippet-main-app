@@ -20,15 +20,34 @@ declare global {
 }
 
 const features = [
-  { name: 'AI-Powered Code Generation', description: 'Generate code snippets using advanced AI' },
-  { name: 'Real-time Collaboration', description: 'Work together with team members in real-time' },
-  { name: 'Advanced Code Analytics', description: 'Get insights into your code quality and performance' },
-  { name: 'Custom Themes', description: 'Personalize your coding environment' },
-  { name: 'Priority Support', description: '24/7 dedicated support for your needs' },
-  { name: 'Offline Mode', description: 'Work without an internet connection' },
-  { name: 'Unlimited Projects', description: 'No restrictions on the number of projects' },
-  { name: 'API Access', description: 'Integrate our services into your workflow' },
-]
+  // Current Features
+  {
+    name: 'Live Classes',
+    description: 'Learn directly from experts in real-time through interactive live sessions.',
+  },
+  {
+    name: 'Workshops (Live & Recorded)',
+    description: 'Participate in hands-on workshops covering various topics, available live or on-demand.',
+  },
+  {
+    name: 'Tutorials (Topic-Based)',
+    description: 'Access structured learning content tailored to specific topics and skill levels.',
+  },
+  {
+    name: 'Real-Time Community Support',
+    description: 'Get instant help from peers, mentors, and industry professionals via our active community.',
+  },
+  {
+    name: '1:1 Mentorship',
+    description: 'Receive personalized guidance from industry experts for career growth and technical deep dives.',
+  },
+  {
+    name: 'Campus Ambassador Program',
+    description: 'Represent CodeSnippet at your college/university and gain certifications, leadership roles, and internship opportunities.',
+  },
+
+  
+];
 
 const platforms = [
   { name: 'Code-Snippet', price: '₹999', features: [true, true, true, true, true, true, true, true] },

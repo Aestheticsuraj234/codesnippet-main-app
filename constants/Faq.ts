@@ -90,4 +90,14 @@ export const FrequentlyAskedQuestions = [
     - **Email our support team** at codesnippet003@gmail.com.  
     - **Reach out on social media** for quick responses.`,
   },
+  {
+    question: "Will there be personalized learning paths?",
+    answer: `Yes! We are introducing **AI-Based Personalized Learning Paths** to tailor your learning experience:
+    
+    - AI analyzes your current skill level, goals, and progress.  
+    - It creates a **custom roadmap** through tutorials, projects, and workshops.  
+    - You will receive **step-by-step guidance** to master specific topics like DSA, system design, or full-stack development.  
+  
+    This ensures you learn efficiently and stay motivated throughout your journey.`,
+  },
 ];
