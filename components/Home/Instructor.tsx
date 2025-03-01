@@ -56,16 +56,25 @@ export const AnimatedFounders = ({
   };
 
   return (
-    <div className="min-h-screen w-full py-12 md:py-0 dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center">
+    <section
+      id="founders"
+      className="min-h-screen w-full py-16 sm:py-20 md:py-24 dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center z-0" // Added z-0
+      style={{ zIndex: 0 }} // Explicitly set z-index
+    >
+      {/* Background decorative elements */}
       <div className="absolute inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none"></div>
-      <h1 className="text-center font-extrabold text-2xl md:text-4xl lg:text-6xl px-4 py-4">
+
+      {/* Title */}
+      <h2 className="text-center font-extrabold text-2xl md:text-4xl lg:text-6xl px-4 py-4 mb-8 sm:mb-12">
         Meet Our <Cover>Founders</Cover>
-      </h1>
-      <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-8 md:py-20">
+      </h2>
+
+      {/* Content */}
+      <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-4 md:py-8 relative z-10"> {/* Added relative and z-10 */}
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
           {/* Image Section */}
-          <div>
-            <div className="relative h-64 sm:h-80 w-full">
+          <div className="flex items-center justify-center">
+            <div className="relative h-64 sm:h-80 w-full max-w-xs mx-auto overflow-hidden"> {/* Added overflow-hidden */}
               <AnimatePresence>
                 {founders.map((founder, index) => (
                   <motion.div
@@ -105,7 +114,7 @@ export const AnimatedFounders = ({
                       width={500}
                       height={500}
                       draggable={false}
-                      className="h-full w-full rounded-3xl object-cover object-center"
+                      className="h-full w-full rounded-3xl object-cover object-center shadow-lg"
                     />
                   </motion.div>
                 ))}
@@ -140,8 +149,8 @@ export const AnimatedFounders = ({
               <p className="text-xs md:text-sm text-gray-500 dark:text-neutral-500">
                 {founders[active].designation}
               </p>
-              
-              {/* @ts-ignore */}
+
+{/* @ts-ignore */}
               <motion.p className="text-base md:text-lg text-gray-500 mt-4 md:mt-8 dark:text-neutral-300">
                 {founders[active].quote.split(" ").map((word, index) => (
                   <motion.span
@@ -161,7 +170,6 @@ export const AnimatedFounders = ({
                       ease: "easeInOut",
                       delay: 0.02 * index,
                     }}
-                    
                     // @ts-ignore
                     className="inline-block"
                   >
@@ -182,7 +190,26 @@ export const AnimatedFounders = ({
                     <IconBrandLinkedin className="h-5 w-5 md:h-6 md:w-6" />
                   </a>
                 )}
-                {/* Other social links remain the same */}
+                {founders[active].socialLinks.twitter && (
+                  <a
+                    href={founders[active].socialLinks.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    <IconBrandTwitter className="h-5 w-5 md:h-6 md:w-6" />
+                  </a>
+                )}
+                {founders[active].socialLinks.github && (
+                  <a
+                    href={founders[active].socialLinks.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-gray-700 transition-colors"
+                  >
+                    <IconBrandGithub className="h-5 w-5 md:h-6 md:w-6" />
+                  </a>
+                )}
               </div>
 
               {/* Technical Skills */}
@@ -216,6 +243,6 @@ export const AnimatedFounders = ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

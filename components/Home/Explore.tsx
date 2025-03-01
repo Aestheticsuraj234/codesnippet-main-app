@@ -47,13 +47,15 @@ const features = [
 
 export function Explore() {
   return (
-    <div className="h-screen w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center">
-       <div className="absolute inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none"></div>
-      <div className="container mx-auto px-4">
+    <div className="w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none"></div>
+
+      <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
         <h2 className="text-4xl font-bold text-center mb-12 text-neutral-800 dark:text-neutral-100">
-          Explore<Cover> Our Offerings</Cover> 
+          Explore<Cover> Our Offerings</Cover>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative z-10 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10 max-w-7xl mx-auto pb-16">
           {features.map((feature, index) => (
             <Feature key={feature.title} {...feature} index={index} />
           ))}
@@ -87,8 +89,7 @@ const Feature = ({
       >
         <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-t from-neutral-100 dark:from-neutral-800 to-transparent pointer-events-none" />
         <div className="mb-4 relative z-10 px-10 text-neutral-600 dark:text-neutral-400">
-         
-         {/* @ts-ignore */}
+          {/* @ts-ignore */}
           <Icon size={24} />
         </div>
         <div className="text-lg font-bold mb-2 relative z-10 px-10">
@@ -102,4 +103,3 @@ const Feature = ({
     </Link>
   )
 }
-
