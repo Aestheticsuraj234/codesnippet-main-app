@@ -148,7 +148,7 @@ export const TypewriterEffectSmooth = ({
         transition={{ duration: 2, ease: "linear", delay: 1 }}
       >
         <div
-          className="text-lg sm:text-2xl md:text-4xl lg:text-6xl xl:text-7xl font-bold"
+          className="text-2xl  md:text-4xl lg:text-6xl xl:text-7xl font-bold"
           style={{ whiteSpace: "nowrap" }}
         >
           {renderWords()} {" "}
