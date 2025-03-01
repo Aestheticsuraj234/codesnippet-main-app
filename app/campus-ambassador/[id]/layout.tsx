@@ -8,10 +8,10 @@ import { redirect } from "next/navigation";
 
 const CampusAmbassadorDashboardLayout = async({
   children,
-  params,
+ 
 }: {
   children: React.ReactNode;
-  params: { id: string };
+  
 }) => {
 
   const user = await currentUser();
