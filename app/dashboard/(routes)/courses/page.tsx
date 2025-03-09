@@ -1,11 +1,9 @@
 import { getAllCourses } from "@/action/live-course";
 import { Header } from "@/components/Global/header";
 import React from "react";
-import { UpcomingWorkshops } from "../../_components/home/upcoming-workshops";
-import Link from "next/link";
+
 import CourseCard from "@/components/live-course/course-card";
-import { currentUser } from "@/lib/auth/data/auth";
-import { db } from "@/lib/db/db";
+
 import { EmptyStateComponent } from "@/components/Global/empty-state";
 
 const CoursesMainPage = async () => {

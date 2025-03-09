@@ -121,6 +121,7 @@ export default async function RootLayout({
           <link rel="icon" href="/favicon.ico" />
           <link rel="canonical" href="https://codesnipet.dev" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        
         </head>
         <body className={cn(inter.className, "min-h-screen bg-[#F5F5F5] dark:bg-[#141413]")}>
           <ReactQueryProvider>

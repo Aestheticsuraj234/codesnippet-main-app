@@ -2,6 +2,18 @@ import { newPassword } from "@/action/auth/new-password";
 import { UserRole } from "@prisma/client";
 import * as z from "zod";
 
+export const ProfileUpdateFormSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  campusName: z.string().min(2, { message: "Campus name is required" }),
+  fullName: z.string().min(2, { message: "Full name is required" }),
+  mobileNumber: z
+    .string()
+    .min(10, { message: "Mobile number must be at least 10 digits" }),
+  upiId: z.string().min(2, { message: "UPI ID is required" }),
+});
+
+
 export const SettingSchema = z
   .object({
     name: z.optional(z.string()),

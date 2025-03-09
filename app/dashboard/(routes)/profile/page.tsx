@@ -31,19 +31,7 @@ const Profile = async () => {
           points: true,
         },
       },
-      members: {
-        select: {
-          createdAt: true,
-          role: true,
-          community: {
-            select: {
-              id: true,
-              name: true,
-              imageUrl: true,
-            },
-          },
-        },
-      },
+  
     },
   });
 
@@ -89,7 +77,6 @@ const Profile = async () => {
     orderBy: { createdAt: "desc" },
   });
 
-  console.log(workshopProgressData);
 
   // Fetch chapter progress data
   const chapterProgressData = await db.chapterProgress.findMany({
@@ -102,7 +89,7 @@ const Profile = async () => {
     orderBy: { createdAt: "desc" },
   });
 
-  console.log(chapterProgressData);
+  
 
   // Prepare contribution data for the past 365 days
   const contributionData = Array.from({ length: 365 }, (_, i) => {
@@ -124,7 +111,7 @@ const Profile = async () => {
     };
   });
 
-  console.log(contributionData);
+ 
 
 
 

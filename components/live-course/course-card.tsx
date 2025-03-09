@@ -1,21 +1,22 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Unlock, Lock } from "lucide-react";
-import { Button } from "../ui/button";
-import { formatDate } from "@/lib/utils";
-import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Unlock, Calendar, Tag, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { formatDate } from "@/lib/utils"
+import Link from "next/link"
 
 export interface CourseCardProps {
-  id: string;
-  date: Date;
-  imageSrc: string;
-  price: number;
-  discountedPrice: number;
-  isPurchased: boolean;
-  title: string;
-  description: string;
+  id: string
+  date: Date
+  imageSrc: string
+  price: number
+  discountedPrice: number
+  isPurchased: boolean
+  title: string
+  description: string
 }
 
-const CourseCard = async ({
+const CourseCard = ({
   id,
   date,
   imageSrc,
@@ -25,65 +26,98 @@ const CourseCard = async ({
   title,
   description,
 }: CourseCardProps) => {
+  const hasDiscount = discountedPrice !== price
+  const discountPercentage = hasDiscount ? Math.round(((price - discountedPrice) / price) * 100) : 0
+
   return (
-    <Card className="cursor-pointer bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="text-sm font-medium text-muted-foreground">
-            {formatDate(date)}
-          </div>
-          <div className="flex items-center gap-2">
-            {isPurchased ? (
-              <div className="flex items-center justify-center rounded-full dark:bg-[#676ECC] bg-[#8188EC]  p-2 text-white">
-                <Unlock className="h-4 w-4" />
-              </div>
-            ) : (
-              <>
-                {discountedPrice !== price && (
-                  <span className="text-sm line-through text-muted-foreground">
-                    ₹{price.toLocaleString("en-IN")}
-                  </span>
-                )}
-                <div className="flex justify-center items-center rounded-full bg-green-500 px-2 py-1 text-sm font-medium text-primary-foreground">
-                  ₹{discountedPrice.toLocaleString("en-IN")}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-        <main className="flex flex-col items-start justify-center mt-3">
-          <div className="aspect-video relative overflow-hidden border dark:border-[#3F3F46] border-[#E5E7EB] rounded-md shadow-md hover:shadow-xl">
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
+      <CardContent className="p-0">
+        {/* Image container with overlay */}
+        <div className="relative">
+          <div className="aspect-video overflow-hidden">
             <img
-              src={imageSrc}
-              className="object-cover w-full h-full rounded-md"
+              src={imageSrc || "/placeholder.svg"}
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
               alt={title}
             />
           </div>
-          <div className="flex flex-col items-start justify-start mt-2 w-full">
-            <h3 className="text-lg font-bold truncate w-full" title={title}>
+
+          {/* Status badge */}
+          <div className="absolute top-3 right-3">
+            {isPurchased ? (
+              <Badge className="bg-[#676ECC] hover:bg-[#5258B0] text-white">
+                <Unlock className="h-3.5 w-3.5 mr-1" />
+                Purchased
+              </Badge>
+            ) : hasDiscount ? (
+              <Badge className="bg-green-500 hover:bg-green-600 text-white">
+                <Tag className="h-3.5 w-3.5 mr-1" />
+                {discountPercentage}% OFF
+              </Badge>
+            ) : null}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-5">
+          {/* Date */}
+          <div className="flex items-center text-sm text-muted-foreground mb-3">
+            <Calendar className="h-3.5 w-3.5 mr-1.5" />
+            {formatDate(date)}
+          </div>
+
+          {/* Title and description */}
+          <div className="space-y-2 mb-4">
+            <h3 className="text-lg font-bold line-clamp-1 group-hover:text-[#676ECC] transition-colors" title={title}>
               {title}
             </h3>
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
           </div>
-        </main>
-        <div className="mt-4">
-          {isPurchased ? (
-            <Link href={`/live/${id}`}>
-              <Button variant={"outline"} size={"default"} className="w-full">
-                Start Course
-              </Button>
-            </Link>
-          ) : (
-            <Link href={`/live-course/${id}`}>
-              <Button variant={"brand"} size={"default"} className="w-full">
-                Buy Course
-              </Button>
-            </Link>
-          )}
+
+          {/* Price and action */}
+          <div className="flex items-center justify-between mt-4 pt-4 border-t dark:border-[#3F3F46] border-[#E5E7EB]">
+            <div className="flex items-center gap-2">
+              {isPurchased ? (
+                <div className="flex items-center text-[#676ECC] font-medium">
+                  <Unlock className="h-4 w-4 mr-1" />
+                  Unlocked
+                </div>
+              ) : (
+                <div className="flex flex-col">
+                  {hasDiscount && (
+                    <span className="text-sm line-through text-muted-foreground">₹{price.toLocaleString("en-IN")}</span>
+                  )}
+                  <span className="text-lg font-bold text-green-600 dark:text-green-500">
+                    ₹{discountedPrice.toLocaleString("en-IN")}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {isPurchased ? (
+              <Link href={`/live/${id}`}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="group-hover:bg-[#676ECC] group-hover:text-white transition-colors"
+                >
+                  Start Course
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href={`/live-course/${id}`}>
+                <Button variant="brand" size="sm" className="bg-[#676ECC] hover:bg-[#5258B0] text-white">
+                  Buy Course
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default CourseCard;
+export default CourseCard
+
