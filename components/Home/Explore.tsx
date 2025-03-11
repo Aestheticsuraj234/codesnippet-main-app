@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { Briefcase, GraduationCap, Handshake, MessageCircle, School, Youtube } from "lucide-react"
+import { Briefcase, GraduationCap, Handshake, School, Youtube } from "lucide-react"
 import Link from "next/link"
 import type React from "react"
 import { Cover } from "../ui/cover"
@@ -24,12 +24,6 @@ const features = [
     description: "Access a wide range of tutorials to enhance your skills",
     href: "/dashboard/tutorials",
     icon: Youtube,
-  },
-  {
-    title: "Community Support",
-    description: "Connect with peers and experts in our vibrant community",
-    href: "/discussion",
-    icon: MessageCircle,
   },
   {
     title: "Campus Ambassador",

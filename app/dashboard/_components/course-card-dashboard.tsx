@@ -1,95 +1,83 @@
-import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
+import Link from "next/link"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Unlock, Lock } from "lucide-react"
-import Link from "next/link"
+import { Calendar, CheckCircle, ArrowRight } from "lucide-react"
 import { formatDate } from "@/lib/utils"
 
-interface CourseSectionProps {
+interface CourseCardDashboardProps {
   id: string
-  date: Date
-  imageSrc: string
-  price: number
-  discountedPrice: number
-  isPurchased: boolean
   title: string
   description: string
-  progress?: number
+  date: Date
+  price: number
+  discountedPrice: number
+  imageSrc: string
+  isPurchased: boolean
+  progress: number
 }
 
-export default function CourseSection({
+const CourseCardDashboard = ({
   id,
-  date,
-  imageSrc,
-  price,
-  discountedPrice,
-  isPurchased,
   title,
   description,
-  progress = 0,
-}: CourseSectionProps) {
+  date,
+  price,
+  discountedPrice,
+  imageSrc,
+  isPurchased,
+  progress,
+}: CourseCardDashboardProps) => {
   return (
-    <Card className="cursor-pointer bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
-      <CardContent className="p-4 flex flex-col h-full">
-        <div className="flex items-center justify-between mb-3">
-          <div className="text-sm font-medium text-muted-foreground">
-            {formatDate(date)}
+    <Card className="overflow-hidden transition-all duration-200 hover:shadow-md">
+      <div className="relative h-40 w-full">
+        <Image src={imageSrc || "/placeholder.svg"} alt={title} fill className="object-cover" />
+        {isPurchased && (
+          <div className="absolute top-2 right-2 bg-green-500/90 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+            <CheckCircle className="h-3 w-3" />
+            Enrolled
           </div>
-          <div className="flex items-center gap-2">
-            {isPurchased ? (
-              <div className="flex items-center justify-center rounded-full dark:bg-[#676ECC] bg-[#8188EC] p-2 text-white">
-                <Unlock className="h-4 w-4" />
-              </div>
-            ) : (
-              <>
-                {discountedPrice !== price && (
-                  <span className="text-sm line-through text-muted-foreground">
-                    ₹{price.toLocaleString("en-IN")}
-                  </span>
-                )}
-                <div className="flex justify-center items-center rounded-full bg-green-500 px-2 py-1 text-sm font-medium text-primary-foreground">
-                  ₹{discountedPrice.toLocaleString("en-IN")}
-                </div>
-              </>
-            )}
-          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+      </div>
+
+      <CardContent className="pt-4">
+        <div className="flex items-center gap-2 mb-2">
+          <Calendar className="h-4 w-4 text-primary" />
+          <p className="text-xs text-muted-foreground">{formatDate(date)}</p>
         </div>
-        <div className="flex-grow">
-          <div className="aspect-video relative overflow-hidden border dark:border-[#3F3F46] border-[#E5E7EB] rounded-md shadow-md hover:shadow-xl mb-3">
-            <img
-              src={imageSrc}
-              className="object-cover w-full h-full rounded-md"
-              alt={title}
-            />
-          </div>
-          <h3 className="text-lg font-bold truncate w-full mb-1" title={title}>
-            {title}
-          </h3>
-          <p className="text-sm text-muted-foreground mb-4">{description}</p>
-        </div>
-        <div className="mt-auto">
-          {isPurchased ? (
-            <div className="space-y-2">
-              <Progress value={progress} className="w-full" />
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Progress</span>
-                <span>{progress}%</span>
-              </div>
-              <Link href={`/live/${id}`} className="block w-full">
-                <Button variant="brand" className="w-full">
-                  Continue Course
-                </Button>
-              </Link>
+
+        <h3 className="font-bold text-lg mb-1 line-clamp-1">{title}</h3>
+        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+
+        {isPurchased ? (
+          <div className="mt-4 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium">Progress</span>
+              <span className="text-xs font-medium">{progress || 0}%</span>
             </div>
-          ) : (
-            <Link href={`/live-course/${id}`} className="block w-full">
-              <Button variant="brand" className="w-full">
-                Buy Course
-              </Button>
-            </Link>
-          )}
-        </div>
+            <Progress value={progress || 0} className="h-1.5" />
+          </div>
+        ) : (
+          <div className="mt-4 flex items-center gap-2">
+            <span className="text-lg font-bold"> ₹{discountedPrice}</span>
+            {price !== discountedPrice && <span className="text-sm text-muted-foreground line-through"> ₹{price}</span>}
+          </div>
+        )}
       </CardContent>
+
+      <CardFooter className="pt-0">
+        <Link href={isPurchased ?`/dashboard/courses/${id}` :`/live-course/${id}`} className="w-full">
+          <Button variant={isPurchased ? "outline" : "default"} className="w-full gap-1 mt-2">
+            {isPurchased ? "Continue Learning" : "View Course"}
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </Link>
+      </CardFooter>
     </Card>
   )
 }
+
+export default CourseCardDashboard
+
