@@ -42,10 +42,9 @@ const Feedback = async () => {
         </Link>
       </div>
 
-   
-        {feedbackData.length > 0 ? (
-          feedbackData.map((feedback) => (
-            <div key={feedback.id} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10 container">
+      {feedbackData.length > 0 ? (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10 container">
+          {feedbackData.map((feedback) => (
             <FeedbackCard
               key={feedback.id}
               category={feedback.category}
@@ -56,19 +55,17 @@ const Feedback = async () => {
               email={feedback.email}
               createdAt={feedback.createdAt}
             />
-            </div>
-          ))
-        ) : (
-          <div className="flex flex-col justify-center items-center w-full ">
-   <EmptyStateComponent
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center w-full">
+          <EmptyStateComponent
             description="You have not added any feedback yet."
             imageUrl="/empty-feedback.svg"
             title="No Feedback Added"
           />
-          </div>
-       
-        )}
-      
+        </div>
+      )}
     </section>
   );
 };
