@@ -80,7 +80,7 @@ const router = useRouter()
       const options = {
         amount: course?.discount! * 100,
         currency: "INR",
-        name: "Sigma Coders",
+        name: "CodeSnippet",
         description: `Payment for ${course.title}`,
         order_id: orderId,
         handler: async function (response: any) {
@@ -148,7 +148,7 @@ const router = useRouter()
 
   const currentCourseData = courseData.find((data) => data.id === params?.id);
 
-  console.log(currentCourseData);
+
 
 
   if(isPaymentSuccessful) {
@@ -174,7 +174,8 @@ const router = useRouter()
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-900">
       <Navbar />
-      <Hint label="Go Back❤️"  side="right" align="center">
+      <Hint label="Go Back
+      "  side="right" align="center">
           <Button onClick={onBack} variant={"outline"} size={"icon"} className="mx-4 my-4">
               <ArrowLeft size={24} />
           </Button>

@@ -2,6 +2,7 @@
 import {
   Bell,
   CircleDollarSign,
+  Feather,
   GraduationCap,
   Handshake,
   Home,
@@ -52,12 +53,17 @@ const Routes = [
     label: "Leaderboard",
     href: "/dashboard/leaderboard",
   },
- 
   {
     icon:User,
     label: "Profile",
     href: "/dashboard/profile",
   },
+ {
+  icon:Feather,
+  label:"Feedback",
+  href: "/dashboard/feedback",
+ },
+ 
 
 ];
 

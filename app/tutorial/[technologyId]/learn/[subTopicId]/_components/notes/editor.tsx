@@ -28,7 +28,7 @@ const Editor = ({ editorRef, initialData }: UpdateEditorProps) => {
     const SimpleImage = (await import("@editorjs/simple-image")).default;     // @ts-ignore
     const Checklist = (await import("@editorjs/checklist")).default;     // @ts-ignore
     const CodeBox = (await import("@bomdi/codebox")).default;     // @ts-ignore
-
+const ImageTool = (await import("@editorjs/image")).default;
     if (!editorRef.current) {
       const editor = new EditorJS({
         holder: "editorjs",
@@ -71,7 +71,16 @@ const Editor = ({ editorRef, initialData }: UpdateEditorProps) => {
           raw: RawTool,
           delimiter: Delimiter,
           inlineCode: InlineCode,
-          simpleImage: SimpleImage,
+          image: {
+            // @ts-ignore
+            class: ImageTool,
+            config: {
+              endpoints: {
+                byFile: "/api/upload-image", // Uploads to Cloudinary
+                byUrl: "/api/fetchUrl", // Your backend endpoint that provides URL uploading
+              },
+            },
+          },
           checklist: Checklist,
         },
       });

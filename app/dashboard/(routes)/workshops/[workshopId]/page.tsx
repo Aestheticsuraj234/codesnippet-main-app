@@ -75,15 +75,7 @@ const WorkshopIdPage = async (props: WorkshopIdPageProps) => {
     return acc + day.userProgress.length;
   }, 0);
 
-  const communityJoinInviteLink = await db.community.findFirst({
-    where:{
-        name:process.env.NEXT_PUBLIC_COMMUNITY_WORKSHOP_NAME
-    },
-    select:{
-        inviteCode:true
-    }
 
-  })
 
   return (
     <section className="container px-4 py-4 mx-auto my-auto">
@@ -165,7 +157,7 @@ const WorkshopIdPage = async (props: WorkshopIdPageProps) => {
                       Start watching
                     </Link>
                   ) : (
-                    <Link href={`/discussion/invite/${communityJoinInviteLink?.inviteCode}`} className="flex flex-row  items-center justify-center ">
+                    <Link href={`https://discord.gg/z3fWhFQrKR`}  target="_blank" className="flex flex-row  items-center justify-center ">
                       <Tv className="h-4 w-4 mr-2" />
                       Join live session
                     </Link>

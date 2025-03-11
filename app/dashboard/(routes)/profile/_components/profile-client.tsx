@@ -29,17 +29,7 @@ interface Props {
         points: number;
       }
     ];
-    members: [
-      {
-        createdAt: Date;
-        role: string;
-        community: {
-          id: string;
-          name: string;
-          imageUrl: string;
-        };
-      }
-    ];
+
     notes: string[]; // Assuming notes are a list of strings
   };
 }
@@ -60,6 +50,7 @@ const ProfileClient = ({ user }: Props) => {
                   .join("")}
               </AvatarFallback>
             </Avatar>
+            <Link href={`/dashboard/profile/edit/${user.id}`}>
             <Hint
               label="Edit Profile"
               align="center"
@@ -75,6 +66,8 @@ const ProfileClient = ({ user }: Props) => {
                 <Pencil size={18} />
               </Button>
             </Hint>
+            </Link>
+            
           </div>
           <div className="pt-20 px-6 pb-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-6">
@@ -139,58 +132,6 @@ const ProfileClient = ({ user }: Props) => {
         </CardContent>
       </Card>
 
-      {/* Conditionally render Community Memberships section */}
-      {user.members && user.members.length > 0 && (
-        <Card className="overflow-hidden bg-[#F3F4F6] border-[#E5E7EB] dark:bg-[#27272A] dark:border-[#3F3F46] shadow-lg transition-all duration-300 hover:shadow-xl">
-          <CardContent className="p-6">
-            <h3 className="text-2xl font-bold mb-4 flex items-center">
-              <Users
-                size={24}
-                className="mr-2 text-gray-800 dark:text-gray-100"
-              />
-              Community Memberships
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {user.members.map((membership) => (
-                <Link
-                  href={`/discussion/community/${membership.community.id}`}
-                  key={membership.community.id}
-                >
-                  <div className="dark:bg-[#18181B] bg-[#FFFFFF] dark:border-[#3F3F46] border-[#E5E7EB] rounded-lg p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer">
-                    <div className="flex items-center space-x-4 mb-3">
-                      <Avatar className="h-12 w-12">
-                        <AvatarImage
-                          src={membership.community.imageUrl}
-                          alt={membership.community.name}
-                        />
-                        <AvatarFallback>
-                          {membership.community.name.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h4 className="font-semibold">
-                          {membership.community.name}
-                        </h4>
-                        <Badge variant="outline" className="mt-1">
-                          {membership.role}
-                        </Badge>
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Joined{" "}
-                      {membership.createdAt.toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
 
       {/* Conditionally render Notes section */}
       {user.notes && user.notes.length > 0 && (

@@ -65,11 +65,47 @@ model User {
   referrals        Referral[]
 
   meetings  Booking[]
-
+  feedback Feedback[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+enum FeedbackCategory {
+  EDITORIAL
+  TOPICS
+  TECH
+  VIDEO
+  OTHER
+}
+
+enum FeedbackPriority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum FeedbackStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
+}
+
+
+model Feedback {
+    id               String        @id @default(cuid()) @map("_id")
+  userId      String           @map("user_id")
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    FeedbackCategory
+  priority    FeedbackPriority
+   status      FeedbackStatus  @default(PENDING) 
+  description String
+  email       String                  
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([userId])
+}
 model Account {
   id                String  @id @default(cuid()) @map("_id")
   userId            String  @map("user_id")

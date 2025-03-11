@@ -116,6 +116,7 @@ export const TypewriterEffectSmooth = ({
     };
   });
 
+
   const renderWords = () => {
     return (
       <div>

@@ -42,18 +42,12 @@ const LiveIdPage = async (props: { params: Promise<{ id: string }> }) => {
   // Now here check that is there any chapter in the course or not if not then findThe COMMUNITY GROUP and redirect to that page ELSE redirect to the first chapter of the course
 
   if(liveCourse.chapters.length === 0 ){
-      const community = await db.community.findFirst({
-          where:{
-            name:process.env.NEXT_PUBLIC_COMMUNITY_LIVE_COURSE_NAME
-          },
-          select:{
-              id:true,
-              inviteCode:true,
+    
+// redirect to the community group https://discord.gg/YN4QMk6  into the new tab
 
-          }
-      });
 
-      return redirect(`/discussion/invite/${community?.inviteCode}`);
+    return redirect(`https://discord.gg/z3fWhFQrKR`);
+    
 
 
   }

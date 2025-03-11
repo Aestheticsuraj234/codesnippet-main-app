@@ -65,13 +65,6 @@ export async function getMenuList(
           icon: LayoutGrid,
           submenus: [],
         },
-        {
-          href: "/discussion",
-          label: "Discussion",
-          active: pathname.includes("/discussion"),
-          icon: Boxes,
-          submenus: [],
-        }
       ],
     },
     {

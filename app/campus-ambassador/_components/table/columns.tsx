@@ -1,4 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
+import Image from "next/image";
 
 export type RefferalColumn = {
   name: string;
@@ -14,7 +15,7 @@ export const columns: ColumnDef<RefferalColumn>[] = [
     header: "Name",
     cell: ({ row }) => (
         <div className="flex flex-row justify-start items-center  gap-3">
-        <img
+        <Image
           src={
             row.original.image ||
             `https://avatar.iran.liara.run/username?username=${row.original.name}`

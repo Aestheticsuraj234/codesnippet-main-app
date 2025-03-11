@@ -1,5 +1,6 @@
 import { Logo } from '@/app/dashboard/_components/logo'
 import { LoginForm } from '@/components/Auth/LoginForm'
+import Image from 'next/image'
 
 import React from 'react'
 
@@ -17,7 +18,7 @@ const LoginPage = () => {
       </div>
     </div>
     <div className=" hidden bg-muted lg:flex  lg:flex-col items-center justify-center">
-      <img
+      <Image
         src="/login.svg"
         alt="Image"
         className=""

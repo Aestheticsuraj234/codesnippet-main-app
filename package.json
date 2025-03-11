@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-     "postinstall": "prisma generate"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.1.0",
@@ -18,7 +18,7 @@
     "@editorjs/editorjs": "^2.30.2",
     "@editorjs/embed": "^2.7.4",
     "@editorjs/header": "^2.8.7",
-    "@editorjs/image": "^2.9.3",
+    "@editorjs/image": "^2.10.2",
     "@editorjs/inline-code": "^1.5.1",
     "@editorjs/link": "^2.6.2",
     "@editorjs/list": "^1.10.0",
@@ -70,6 +70,7 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "cobe": "^0.6.3",
@@ -102,6 +103,7 @@
     "react-icons": "^5.2.1",
     "react-resizable-panels": "^2.1.1",
     "react-spinners": "^0.13.8",
+    "recharts": "^2.15.1",
     "resend": "^3.2.0",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",

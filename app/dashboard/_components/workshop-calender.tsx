@@ -1,124 +1,126 @@
-"use client"
-
-import { useState } from "react"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { CalendarIcon, Clock, Trophy, Lock, Unlock } from "lucide-react"
-import Image from "next/image"
-import { Progress } from "@/components/ui/progress"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+import { Calendar, Clock, Video, ExternalLink } from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
 
-type Workshop = {
+interface Workshop {
   id: string
   title: string
   description: string
-  startDate: Date
   image: string
+  startDate: Date
   isRecorded: boolean
-  progress: number
   isPurchased: boolean
-
+  progress?: number
 }
-
-type Event = {
-  id: string
-  title: string
-  date: Date
-}
-
-
 
 interface WorkshopCalendarProps {
   workshops: Workshop[]
 }
 
-export default function WorkshopCalendar({ workshops }: WorkshopCalendarProps) {
-  
+const WorkshopCalendar = ({ workshops }: WorkshopCalendarProps) => {
+  // Format date to readable format
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    })
+  }
+
+  // Format time to readable format
+  const formatTime = (date: Date) => {
+    return new Date(date).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
+  }
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="flex flex-row justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-primary text-[#1A1818] dark:text-[#ffffff]">Workshops</h2>
-        <Link href="/dashboard/workshops">
-          <Button variant="link" className="text-lg font-semibold">
-            View All
-          </Button>
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {workshops.map((workshop) => (
-          <Card key={workshop.id} className="mb-4  cursor-pointer bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
-            <CardHeader className="p-4 pb-0">
-              <div className="flex justify-between items-center">
-                <Badge variant={workshop.isPurchased ? "secondary" : "outline"} className="mb-2">
-                  {workshop.isPurchased ? (
-                    <Unlock className="h-4 w-4 mr-1" />
-                  ) : (
-                    <Lock className="h-4 w-4 mr-1" />
-                  )}
-                  {workshop.isPurchased ? "Unlocked" : "Locked"}
-                </Badge>
-               
+    <Card className="w-full">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-primary" />
+            <CardTitle className="text-2xl font-bold">Upcoming Workshops</CardTitle>
+          </div>
+          <Link href="/dashboard/workshops">
+            <Button variant="outline" size="sm">
+              View All
+            </Button>
+          </Link>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {workshops.map((workshop) => (
+            <div
+              key={workshop.id}
+              className="flex flex-col md:flex-row gap-4 p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
+            >
+              <div className="relative h-32 md:h-auto md:w-48 rounded-md overflow-hidden">
+                <Image src={workshop.image || "/placeholder.svg"} alt={workshop.title} fill className="object-cover" />
+                {workshop.isRecorded && (
+                  <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-1">
+                    <Video className="h-3 w-3" />
+                    Recorded
+                  </Badge>
+                )}
               </div>
-            </CardHeader>
-            <CardContent className="p-4">
-              <div className="flex flex-col items-start space-y-4">
-                <div className="aspect-video relative w-full">
-                  <Image
-                    src={workshop.image}
-                    alt={workshop.title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-md"
-                  />
-                </div>
+
+              <div className="flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="font-semibold text-lg">{workshop.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    {workshop.description}
-                  </p>
-                  <div className="flex items-center text-gray-600 dark:text-gray-400 mt-2">
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {workshop.startDate.toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                  <h3 className="font-bold text-lg mb-1">{workshop.title}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{workshop.description}</p>
+
+                  <div className="flex flex-wrap gap-3 mt-2">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {formatDate(workshop.startDate)}
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="h-3.5 w-3.5" />
+                      {formatTime(workshop.startDate)}
+                    </div>
                   </div>
+
+                  {workshop.isPurchased && workshop.progress !== undefined && (
+                    <div className="mt-3 space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-medium">Progress</span>
+                        <span className="text-xs font-medium">{workshop.progress}%</span>
+                      </div>
+                      <Progress value={workshop.progress} className="h-1.5" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-3">
+                  <Link href={`/dashboard/workshops/${workshop.id}`}>
+                    <Button variant={workshop.isPurchased ? "default" : "outline"} size="sm" className="gap-1">
+                      {workshop.isPurchased ? "Continue" : "View Details"}
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
-            </CardContent>
-            <CardFooter className="flex flex-col items-start justify-center p-4">
-              {workshop.isPurchased ? (
-                <>
-                  <Progress
-                    value={workshop.progress}
-                    className="h-2 w-full bg-zinc-200 dark:bg-zinc-700"
-                  />
-                  <div className="flex items-center space-x-2 mt-3">
-                    <Trophy size={16} className="text-yellow-500" />
-                    <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                      {workshop.progress}% Complete
-                    </span>
-                  </div>
-                </>
-              ) : (
-                <Button className="w-full" variant="brand">
-                  Subscribe
-                </Button>
-              )}
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
-    </div>
+            </div>
+          ))}
+
+          {workshops.length === 0 && (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">No upcoming workshops</p>
+            </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   )
 }
+
+export default WorkshopCalendar
+

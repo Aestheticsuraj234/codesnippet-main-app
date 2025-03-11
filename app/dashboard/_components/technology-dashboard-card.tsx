@@ -1,84 +1,82 @@
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { trimDescription } from "@/lib/utils"
-import { BookOpen, ChevronRight, Trophy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Progress } from "@/components/ui/progress"
+import { Layers, Lock, ArrowRight } from "lucide-react"
 
-interface TechnologyCardProps {
+interface TechnologyDashboardCardProps {
+  id: string
   imageUrl: string
   name: string
-  id: string
   description: string
   numberOfTopics: number
   isPremiumUser: boolean
   progress: number
 }
 
-export default function TechnologyDashboardCard({
+const TechnologyDashboardCard = ({
+  id,
   imageUrl,
   name,
-  id,
   description,
   numberOfTopics,
   isPremiumUser,
   progress,
-}: TechnologyCardProps) {
+}: TechnologyDashboardCardProps) => {
   return (
-    <Card className="overflow-hidden bg-[#F3F4F6] dark:bg-[#27272A] border dark:border-[#3F3F46] border-[#E5E7EB]">
-      <CardContent className="p-6 dark:bg-[#18181B] bg-[#fff]">
-        <div className="flex items-center space-x-4 mb-4">
-          <div className="relative h-16 w-16 flex-shrink-0">
-            <Image
-              alt={`${name} logo`}
-              className="object-cover rounded-full"
-              src={imageUrl}
-              fill
-              sizes="(max-width: 64px) 100vw, 64px"
-            />
+    <Card className="overflow-hidden transition-all duration-200 hover:shadow-md">
+      <div className="relative h-40 w-full">
+        <Image src={imageUrl || "/placeholder.svg"} alt={name} fill className="object-cover" />
+        {!isPremiumUser && (
+          <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm p-1.5 rounded-full">
+            <Lock className="h-4 w-4 text-primary" />
           </div>
-          <div>
-            <h3 className="text-2xl font-bold text-zinc-800 dark:text-zinc-100">
-              {name}
-            </h3>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-              {trimDescription(description, 13)}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center justify-between mb-4">
-          <Badge variant="secondary" className="flex items-center space-x-1">
-            <BookOpen size={14} />
-            <span>{numberOfTopics} Topics</span>
-          </Badge>
-          <div className="flex items-center space-x-2">
-            <Trophy size={16} className="text-yellow-500" />
-            <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-              {progress}% Complete
-            </span>
-          </div>
-        </div>
-        <Progress value={progress} className="h-2 w-full bg-zinc-200 dark:bg-zinc-700" />
-      </CardContent>
-      <CardFooter className="dark:bg-[#18181B] bg-[#fff]">
-        {isPremiumUser ? (
-          <Link href={`/tutorial/${id}`} className="w-full">
-            <Button variant="brand" size="lg" className="w-full">
-              Continue Learning
-              <ChevronRight size={16} className="ml-2" />
-            </Button>
-          </Link>
-        ) : (
-          <Link href="/pricing" className="w-full">
-            <Button variant="default" size="lg" className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white hover:from-purple-600 hover:to-indigo-600">
-              Subscribe to Unlock
-              <ChevronRight size={16} className="ml-2" />
-            </Button>
-          </Link>
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
+      </div>
+
+      <CardContent className="pt-4">
+        <div className="flex items-center gap-2 mb-2">
+          <Layers className="h-4 w-4 text-primary" />
+          <p className="text-xs text-muted-foreground">{numberOfTopics} Topics</p>
+        </div>
+
+        <h3 className="font-bold text-lg mb-1">{name}</h3>
+        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
+
+        <div className="mt-4 space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-medium">Progress</span>
+            <span className="text-xs font-medium">{progress || 0}%</span>
+          </div>
+          <Progress value={progress || 0} className="h-1.5" />
+        </div>
+      </CardContent>
+
+      <CardFooter className="pt-0">
+     
+        {
+          isPremiumUser ? (
+            <Link href={`/dashboard/tutorials/${id}`} className="w-full">
+            <Button variant="outline" className="w-full gap-1 mt-2">
+              Continue Learning <ArrowRight className="h-4 w-4" />
+            </Button>
+            </Link>
+          ) : (
+            <Link href={`/pricing`} className="w-full">
+            <Button variant="outline" className="w-full gap-1 mt-2">
+              Unlock <ArrowRight className="h-4 w-4" />
+            </Button>
+            </Link>
+          )
+        }
+          
+    
       </CardFooter>
     </Card>
   )
 }
+
+export default TechnologyDashboardCard
+
