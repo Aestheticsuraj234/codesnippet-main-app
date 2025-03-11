@@ -11,7 +11,7 @@ const CampusAmbassadorDashboardLayout = async({
  
 }: {
   children: React.ReactNode;
-  
+
 }) => {
 
   const user = await currentUser();
