@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { User, UserRound, Mail, Phone, CreditCard, Save } from "lucide-react";
+import {  UserRound, Mail, Phone, CreditCard, Save } from "lucide-react";
 import { ProfileUpdateFormSchema } from "@/schema";
 import { updateUserProfileById } from "@/action/profile";
 import { useRouter } from "next/navigation";
@@ -50,6 +50,19 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  // Initialize form with default values
+  const form = useForm<z.infer<typeof ProfileUpdateFormSchema>>({
+    resolver: zodResolver(ProfileUpdateFormSchema),
+    defaultValues: {
+      name: data?.name || "",
+      email: data?.email || "",
+      campusName: data?.campusAmbassador[0]?.campusName || "",
+      fullName: data?.campusAmbassador[0]?.fullName || "",
+      mobileNumber: data?.campusAmbassador[0]?.mobileNumber || "",
+      upiId: data?.campusAmbassador[0]?.upiId || "",
+    },
+  });
+
   // Handle missing or invalid data
   if (!data) {
     return (
@@ -67,25 +80,11 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
     upiId: "",
   };
 
-  // Initialize form with default values
-  const form = useForm<z.infer<typeof ProfileUpdateFormSchema>>({
-    resolver: zodResolver(ProfileUpdateFormSchema),
-    defaultValues: {
-      name: data.name || "",
-      email: data.email || "",
-      campusName: campusData.campusName || "",
-      fullName: campusData.fullName || "",
-      mobileNumber: campusData.mobileNumber || "",
-      upiId: campusData.upiId || "",
-    },
-  });
+ 
 
   // Handle form submission
   async function onSubmit(values: z.infer<typeof ProfileUpdateFormSchema>) {
-   
-
-
-
+  
     try {
       setIsLoading(true);
       let response;

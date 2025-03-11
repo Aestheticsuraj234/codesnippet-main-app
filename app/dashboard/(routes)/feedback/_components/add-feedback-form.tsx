@@ -150,7 +150,7 @@ export default function AddFeedbackForm() {
                   <FormControl>
                     <Input placeholder="your.email@example.com" {...field} disabled />
                   </FormControl>
-                  <FormDescription>We'll use this to follow up on your feedback</FormDescription>
+                  <FormDescription>We will use this to follow up on your feedback</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

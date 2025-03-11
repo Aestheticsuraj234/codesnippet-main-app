@@ -45,7 +45,7 @@ const Feedback = async () => {
    
         {feedbackData.length > 0 ? (
           feedbackData.map((feedback) => (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10 container">
+            <div key={feedback.id} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10 container">
             <FeedbackCard
               key={feedback.id}
               category={feedback.category}
