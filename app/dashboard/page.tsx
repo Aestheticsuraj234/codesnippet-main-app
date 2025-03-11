@@ -147,7 +147,7 @@ const Home = async () => {
         </div>
 
         {/* Progress Overview Chart */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mt-8">
           <Card className="col-span-2">
             <CardContent className="pt-6">
               <div className="flex items-center justify-between mb-4">
@@ -164,7 +164,7 @@ const Home = async () => {
             </CardContent>
           </Card>
 
-          <RecentActivity />
+          {/* <RecentActivity /> */}
         </div>
 
         {/* Technologies Section */}

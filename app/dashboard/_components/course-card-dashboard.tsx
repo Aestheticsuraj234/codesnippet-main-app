@@ -68,7 +68,7 @@ const CourseCardDashboard = ({
       </CardContent>
 
       <CardFooter className="pt-0">
-        <Link href={isPurchased ?`/dashboard/courses/${id}` :`/live-course/${id}`} className="w-full">
+        <Link href={isPurchased ?`/live/${id}` :`/live-course/${id}`} className="w-full">
           <Button variant={isPurchased ? "outline" : "default"} className="w-full gap-1 mt-2">
             {isPurchased ? "Continue Learning" : "View Course"}
             <ArrowRight className="h-4 w-4" />

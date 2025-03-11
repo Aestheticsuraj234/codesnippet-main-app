@@ -1,6 +1,5 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
@@ -15,22 +14,32 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
-        brand:"bg-[#eed43c] text-[#1e201f]  border-[#eed43c]",
+        brand: "bg-[#eed43c] text-[#1e201f] border-[#eed43c]",
         ACTIVE: "bg-[#05ab37] text-white border-[#05ab37]",
         INACTIVE: "bg-red-500 text-white border-red-500",
-        PUBLISHED:"bg-[#03DC7A] text-[#fff]",
-        ARCHIVED:"bg-[#FF6347] text-[#fff]",
-        UNPUBLISHED:"bg-[#FF0000] text-[#fff]",
-        EASY:"bg-[#03DC7A] text-[#fff]",
-        MEDIUM:"bg-[#FFC000] text-[#fff]",
-        HARD:"bg-[#FF0000] text-[#fff]",
-        PENDING:"bg-[#FFC000] text-[#fff]",
-        DONE:"bg-[#03DC7A] text-[#fff]",
-        MISSED:"bg-[#FF0000] text-[#fff]",
-        COMPLETED:"bg-[#03DC7A] text-[#fff]",
-        FAILED:"bg-[#FF0000] text-[#fff]",
-
-
+        PUBLISHED: "bg-[#03DC7A] text-[#fff]",
+        ARCHIVED: "bg-[#FF6347] text-[#fff]",
+        UNPUBLISHED: "bg-[#FF0000] text-[#fff]",
+        EASY: "bg-[#03DC7A] text-[#fff]",
+        MEDIUM: "bg-[#FFC000] text-[#fff]",
+        HARD: "bg-[#FF0000] text-[#fff]",
+        PENDING: "bg-[#FFC000] text-[#fff]",
+        DONE: "bg-[#03DC7A] text-[#fff]",
+        MISSED: "bg-[#FF0000] text-[#fff]",
+        COMPLETED: "bg-[#03DC7A] text-[#fff]",
+        FAILED: "bg-[#FF0000] text-[#fff]",
+        // Feedback Category Colors
+        EDITORIAL: "bg-[#3B82F6] text-white border-[#3B82F6]",
+        TOPICS: "bg-[#8B5CF6] text-white border-[#8B5CF6]",
+        TECH: "bg-[#10B981] text-white border-[#10B981]",
+        VIDEO: "bg-[#F59E0B] text-white border-[#F59E0B]",
+        OTHER: "bg-[#6B7280] text-white border-[#6B7280]",
+        // Feedback Priority Colors
+        HIGH: "bg-[#EF4444] text-white border-[#EF4444]",
+        LOW: "bg-[#10B981] text-white border-[#10B981]",
+        // Feedback Status Colors
+        IN_PROGRESS: "bg-[#3B82F6] text-white border-[#3B82F6]",
+        REJECTED: "bg-[#DC2626] text-white border-[#DC2626]",
       },
     },
     defaultVariants: {
