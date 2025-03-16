@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import ProgressChart from "./_components/progress-chart"
 import DashboardStats from "./_components/dashboard-stats"
 import RecentActivity from "./_components/recent-activity"
+import { BannerDisplay } from "@/features/banner/components/banner-display"
 
 const Home = async () => {
   const user = await currentUser()
@@ -109,7 +110,8 @@ const Home = async () => {
         <Header
           title={`Welcome back, ${user?.name} 👋`}
           description="Track your learning journey and progress across all technologies and courses"
-        />
+          />
+        
 
         {/* Dashboard Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">

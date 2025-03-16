@@ -945,3 +945,22 @@ enum PaymentStatus {
   COMPLETED
   CANCELLED
 }
+
+
+enum BannerStatus {
+  LIVE
+  ARCHIVED
+}
+
+model Banner {
+   id               String        @id @default(cuid()) @map("_id")
+  title       String
+  description String
+  endDate     DateTime
+  status      BannerStatus   @default(LIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([endDate])
+}

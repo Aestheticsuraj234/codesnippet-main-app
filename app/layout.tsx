@@ -10,6 +10,7 @@ import { ModalProvider } from "@/providers/modal-provider";
 import ReactQueryProvider from "./ReactQueryProvider";
 import { SocketProvider } from "@/providers/socket-provider";
 import Script from "next/script";
+import { BannerDisplay } from "@/features/banner/components/banner-display";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -132,6 +133,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <SocketProvider>
+             
                 <ToastProvider />
                 <ModalProvider />
                 {children}
