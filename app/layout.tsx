@@ -11,6 +11,7 @@ import ReactQueryProvider from "./ReactQueryProvider";
 import { SocketProvider } from "@/providers/socket-provider";
 import Script from "next/script";
 import { BannerDisplay } from "@/features/banner/components/banner-display";
+import Analytics from "@/components/analytics";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -108,6 +109,8 @@ export const metadata: Metadata = {
  
 };
 
+const GA_TRACKING_ID = "G-4PGPMBZYKE"
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -136,6 +139,7 @@ export default async function RootLayout({
              
                 <ToastProvider />
                 <ModalProvider />
+                <Analytics  />
                 {children}
                 <Script
                   id="razorpay-checkout-js"
@@ -168,6 +172,21 @@ export default async function RootLayout({
                     })
                   }}
                 />
+                
+                <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
               </SocketProvider>
             </ThemeProvider>
           </ReactQueryProvider>
