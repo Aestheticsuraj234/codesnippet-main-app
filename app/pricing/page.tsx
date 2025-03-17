@@ -122,7 +122,7 @@ const Pricing = async () => {
       </div>
     <section
       id="pricing"
-      className="flex px-2  flex-col justify-center items-center gap-11 rounded-md pb-10"
+      className="flex px-2  flex-col justify-center items-center gap-11 rounded-md pb-10 "
     >
      
       <h4 className="items-center pt-10 justify-center uppercase flex text-center font-semibold text-md text-[#08BD80]">

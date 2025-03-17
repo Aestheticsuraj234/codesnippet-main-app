@@ -5,6 +5,7 @@ import { X } from "lucide-react"
 import { CountdownTimer } from "./countdown-timer"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useRouter } from "next/navigation"
 
 export interface BannerProps {
   id: string
@@ -15,6 +16,7 @@ export interface BannerProps {
 
 export function Banner({ id, title, description, endDate }: BannerProps) {
   const [isVisible, setIsVisible] = useState(true)
+  const router = useRouter()
 
   // Check if the banner is already dismissed in localStorage
   useState(() => {
@@ -39,6 +41,10 @@ export function Banner({ id, title, description, endDate }: BannerProps) {
 
   if (!isVisible) return null
 
+  const handleCTA = ()=>{
+    router.push("/pricing")
+  }
+
   return (
     <div
       className={cn(
@@ -61,11 +67,8 @@ export function Banner({ id, title, description, endDate }: BannerProps) {
 
           <Button
             variant="brand"
-            className="whitespace-nowrap"
-            onClick={() => {
-              // You can add a link or action here
-              console.log("Banner CTA clicked")
-            }}
+            className="whitespace-nowrap cursor-pointer"
+            onClick={handleCTA}
           >
             Learn More
           </Button>

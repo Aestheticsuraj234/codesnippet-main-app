@@ -67,7 +67,7 @@ export function CountdownTimer({ endDate, onExpire, className }: CountdownTimerP
     <div
       className={cn(
         "flex items-center gap-2 text-sm font-medium",
-        isUrgent ? "text-red-500 dark:text-red-400" : "",
+        isUrgent ? "text-red-500 dark:text-red-500" : "",
         className,
       )}
     >
@@ -78,7 +78,7 @@ export function CountdownTimer({ endDate, onExpire, className }: CountdownTimerP
             <div
               className={cn(
                 "flex items-center justify-center rounded-md px-2 py-1 min-w-[40px]",
-                isUrgent ? "bg-red-100 dark:bg-red-950/50" : "bg-primary/10 dark:bg-primary/20",
+                isUrgent ? "bg-red-500 dark:bg-black" : "bg-primary/10 dark:bg-primary/20",
               )}
             >
               <span className="tabular-nums">{unit.value.toString().padStart(2, "0")}</span>
