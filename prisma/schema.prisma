@@ -964,3 +964,22 @@ model Banner {
   @@index([status])
   @@index([endDate])
 }
+
+enum CouponType {
+  PLATFORM_SUBSCRIPTION
+  LIVE_COURSE
+}
+
+model Coupon {
+ 
+   id               String        @id @default(cuid()) @map("_id")
+  code               String   @unique
+  discountPercentage Int
+  type               CouponType  @default(PLATFORM_SUBSCRIPTION)  
+  endDate            DateTime
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([type])
+  @@index([endDate])
+}

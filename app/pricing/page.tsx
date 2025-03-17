@@ -40,6 +40,14 @@ const Pricing = async () => {
 
   const isPremiumActiveUser = (plan === "PREMIUM" && role === "PREMIUM_USER") || role === "ADMIN";
 
+  const activeCouponCode = await db.coupon.findFirst({
+    where: {
+      endDate: {
+        gt: new Date()
+      }
+    }
+  })
+
 
   if (isPremiumActiveUser) {
     return (
@@ -114,14 +122,14 @@ const Pricing = async () => {
       </div>
     <section
       id="pricing"
-      className="flex px-2  flex-col justify-center items-center gap-11 rounded-md pb-10"
+      className="flex px-2  flex-col justify-center items-center gap-11 rounded-md pb-10 "
     >
      
       <h4 className="items-center pt-10 justify-center uppercase flex text-center font-semibold text-md text-[#08BD80]">
         Pricing that makes 🌟Code-Snippet🌟 affordable
       </h4>
 
-      <h1 className="font-extrabold text-[#E5ECEA] text-2xl lg:text-5xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center lg:items-start">
+      <h1 className="font-extrabold dark:text-[#E5ECEA] text-2xl lg:text-5xl tracking-tight md:-mb-4 flex flex-col gap-3 items-center lg:items-start">
         Unlock Your Full Potential with CodeSnippet!
       </h1>
       <div className="text-white flex">
@@ -136,8 +144,9 @@ const Pricing = async () => {
         <PricingCard
           id="premium"
           title="Premium"
-          actualPrice="₹2299"
-          discountedPrice="₹999"
+          couponCode={activeCouponCode!}
+          actualPrice="₹6999"
+          discountedPrice="₹4999"
           // @ts-ignore
           features={FeatureDataPopular}
           isPopular={true}
