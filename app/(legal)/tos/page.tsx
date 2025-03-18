@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export const metadata = {
   title: "Terms of Service | CodeSnippet",
-  description: "Learn about CodeSnippet's terms and conditions for using our services.",
+  description: "Learn about CodeSnippet terms and conditions for using our services.",
 }
 
 export default function TermsOfService() {
@@ -124,7 +124,7 @@ export default function TermsOfService() {
             Certain products or services may be available exclusively online through the website. These products or
             services may have limited quantities and are subject to return or exchange only according to our Return
             Policy. We have made every effort to display as accurately as possible the colors and images of our products
-            that appear at the store. We cannot guarantee that your computer monitor's display of any color will be
+            that appear at the store. We cannot guarantee that your computer monitor display of any color will be
             accurate.
           </p>
           <p>
@@ -190,7 +190,7 @@ export default function TermsOfService() {
           <p>
             We are not liable for any harm or damages related to the purchase or use of goods, services, resources,
             content, or any other transactions made in connection with any third-party websites. Please review carefully
-            the third-party's policies and practices and make sure you understand them before you engage in any
+            the third-party policies and practices and make sure you understand them before you engage in any
             transaction. Complaints, claims, concerns, or questions regarding third-party products should be directed to
             the third-party.
           </p>
@@ -201,7 +201,7 @@ export default function TermsOfService() {
           <p>
             If, at our request, you send certain specific submissions (for example contest entries) or without a request
             from us you send creative ideas, suggestions, proposals, plans, or other materials, whether online, by
-            email, by postal mail, or otherwise (collectively, 'comments'), you agree that we may, at any time, without
+            email, by postal mail, or otherwise (collectively, comments), you agree that we may, at any time, without
             restriction, edit, copy, publish, distribute, translate, and otherwise use in any medium any comments that
             you forward to us. We are and shall be under no obligation (1) to maintain any comments in confidence; (2)
             to pay compensation for any comments; or (3) to respond to any comments.
@@ -209,7 +209,7 @@ export default function TermsOfService() {
           <p>
             We may, but have no obligation to, monitor, edit, or remove content that we determine in our sole discretion
             are unlawful, offensive, threatening, libelous, defamatory, pornographic, obscene, or otherwise
-            objectionable or violates any party's intellectual property or these Terms of Service.
+            objectionable or violates any party intellectual property or these Terms of Service.
           </p>
           <p>
             You agree that your comments will not violate any right of any third-party, including copyright, trademark,
@@ -275,7 +275,7 @@ export default function TermsOfService() {
           <p>
             You expressly agree that your use of, or inability to use, the service is at your sole risk. The service and
             all products and services delivered to you through the service are (except as expressly stated by us)
-            provided 'as is' and 'as available' for your use, without any representation, warranties, or conditions of
+            provided as is and as available for your use, without any representation, warranties, or conditions of
             any kind, either express or implied, including all implied warranties or conditions of merchantability,
             merchantable quality, fitness for a particular purpose, durability, title, and non-infringement.
           </p>
@@ -300,7 +300,7 @@ export default function TermsOfService() {
           <p>
             You agree to indemnify, defend, and hold harmless CodeSnippet and our parent, subsidiaries, affiliates,
             partners, officers, directors, agents, contractors, licensors, service providers, subcontractors, suppliers,
-            interns, and employees, harmless from any claim or demand, including reasonable attorneys' fees, made by any
+            interns, and employees, harmless from any claim or demand, including reasonable attorneys fees, made by any
             third-party due to or arising out of your breach of these Terms of Service or the documents they incorporate
             by reference, or your violation of any law or the rights of a third-party.
           </p>

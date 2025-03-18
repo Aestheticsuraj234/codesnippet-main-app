@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export const metadata = {
   title: "Refund Policy | CodeSnippet",
-  description: "Learn about CodeSnippet's cancellation and refund policies.",
+  description: "Learn about CodeSnippet  cancellation and refund policies.",
 }
 
 export default function RefundPolicy() {
