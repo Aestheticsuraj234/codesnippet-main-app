@@ -1,12 +1,16 @@
 "use client";
+
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Instagram, Youtube, ArrowUp, Mail, MessageCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   const { theme } = useTheme();
   const [imagePath, setImagePath] = useState("/code-snippet2ss.svg");
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -16,80 +20,205 @@ const Footer = () => {
     }
   }, [theme]);
 
-  const year  = new Date().getFullYear();
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="dark:bg-[#212121] border-t border-[#212121]/10">
-      <div className="max-w-7xl mx-auto px-8 py-24">
-        <div className="flex lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-          <div className="w-80 max-w-full flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <Link aria-current="page" className="flex gap-2 justify-center md:justify-start items-center" href="/#">
+    <footer className="relative dark:bg-[#212121] border-t border-[#212121]/10">
+      {/* Decorative element */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-3xl opacity-30" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-gradient-to-tr from-primary/10 to-transparent blur-3xl opacity-30" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {/* Logo and info section */}
+          <div className="space-y-6">
+            <Link href="/" className="inline-block">
               <Image
-                alt="Sigma-Coders logo"
+                alt="CodeSnippet Logo"
                 fetchPriority="high"
                 width={160}
                 height={160}
                 style={{ color: 'transparent' }}
-                src={imagePath}
+                src={imagePath || "/placeholder.svg"}
+                className="transition-all duration-300 hover:scale-105"
               />
             </Link>
-            <p className="mt-3 text-sm text-zinc-700 dark:text-[#E5ECEA]/80 leading-relaxed">
-              Build Skills , Break Limits
-              <br />
-              Copyright © {year} - All rights reserved
+            <p className="text-sm text-zinc-700 dark:text-[#E5ECEA]/80 leading-relaxed">
+              Crack Code - Not Your Brain💡
             </p>
-            <Link className="inline-block mt-4 text-sm border dark:border-[#e5ecea]/20 dark:hover:bg-[#212121] duration-200 cursor-pointer rounded text-zinc-700 dark:text-[#e5ecea]/80 px-2 py-1" href="https://nextjs.org/">
-              <div className="flex gap-2 items-center">
-                <span>Built with</span>
-                <span className="font-bold text-[#E5ECEA]/40 flex gap-0.5 items-center tracking-tight">
-                  <Image
-                    alt="Sigma-Coders logo"
-                    fetchPriority="high"
-                    width={30}
-                    height={30}
-                    decoding="async"
-                    data-nimg="1"
-                    className="w-50 h-50"
-                    style={{ color: 'transparent' }}
-                    src="/logo-new.svg"
-                  />
-                </span>
-              </div>
+            
+            {/* Newsletter signup */}
+        
+            
+            <Link className="inline-flex items-center gap-2 text-sm border dark:border-[#e5ecea]/20 rounded-full px-4 py-2 text-zinc-700 dark:text-[#e5ecea]/80 hover:bg-zinc-100 dark:hover:bg-[#2A2A2A] transition-all duration-200" href="https://nextjs.org/">
+              <span>Built with</span>
+              <Image
+                alt="Sigma-Coders logo"
+                width={24}
+                height={24}
+                className="w-6 h-6"
+                style={{ color: 'transparent' }}
+                src="/logo-new.svg"
+              />
             </Link>
           </div>
-          <div className="flex-grow flex flex-wrap md:pl-24 -mb-10 md:mt-0 mt-10 text-center md:text-left">
-            <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-              <div className="footer-title font-semibold text-zinc-700 dark:text-[#E5ECEA]/60 tracking-widest text-sm md:text-left mb-3">LINKS</div>
-              <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/#pricing">Pricing</Link>
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/leaderboard">Leaderboard</Link>
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/docs">Documentation</Link>
-                <Link href="mailto:support@sigmacoders.com" target="_blank" className="text-zinc-600 dark:text-[#E5ECEA]">Support</Link>
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/affiliates">Affiliates — Earn up to $99 per sale</Link>
-              </div>
-            </div>
-            <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-              <div className="footer-title font-semibold text-zinc-700 dark:text-[#E5ECEA]/60 tracking-widest text-sm md:text-left mb-3">LEGAL</div>
-              <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/tos">Terms of Services</Link>
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/privacy-policy">Privacy Policy</Link>
-                <Link className="text-zinc-600 dark:text-[#E5ECEA]" href="/license">Licenses</Link>
-              </div>
-            </div>
-            <div className="lg:w-1/3 md:w-1/2 w-full px-4">
-              <div className="footer-title font-semibold text-zinc-700 dark:text-[#E5ECEA]/40 tracking-widest text-sm md:text-left mb-3">RESOURCES</div>
-              <div className="flex flex-col justify-center items-center md:items-start gap-2 mb-10 text-sm">
-                <Link href="/workshops" className="text-zinc-600 dark:text-[#E5ECEA]">Workshops</Link>
-                <Link href="/projects" className="text-zinc-600 dark:text-[#E5ECEA]">Projects</Link>
-                <Link href="/notes" className="text-zinc-600 dark:text-[#E5ECEA]">Notes</Link>
-                <Link href="/e-book" className="text-zinc-600 dark:text-[#E5ECEA]">E-Book</Link>
-                <Link href="/dsa" className="text-zinc-600 dark:text-[#E5ECEA]">DSA Practice</Link>
-                <Link href="/community" className="text-zinc-600 dark:text-[#E5ECEA]">Community</Link>
+
+          {/* Platform links */}
+          <div className="space-y-6">
+            <h3 className="text-sm font-bold text-zinc-800 dark:text-[#E5ECEA] uppercase tracking-wider">
+              Platform
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { name: "Pricing", href: "/pricing" },
+                { name: "Tutorials", href: "/dashboard/tutorials" },
+                { name: "Live Courses", href: "/dashboard/" },
+                { name: "Workshops", href: "/dashboard/workshops" },
+                { name: "Campus Ambassador", href: "/dashboard/campus-ambassador" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    href={item.href} 
+                    className="text-zinc-600 dark:text-[#E5ECEA]/80 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center group"
+                  >
+                    <span className="inline-block w-0 group-hover:w-2 transition-all duration-200 h-0.5 bg-primary mr-0 group-hover:mr-2"></span>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal links */}
+          <div className="space-y-6">
+            <h3 className="text-sm font-bold text-zinc-800 dark:text-[#E5ECEA] uppercase tracking-wider">
+              Legal
+            </h3>
+            <ul className="space-y-3">
+              {[
+                { name: "Terms of Services", href: "/tos" },
+                { name: "Privacy Policy", href: "/privacy-policy" },
+                { name: "Refund Policy", href: "/refund-policy" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    href={item.href} 
+                    className="text-zinc-600 dark:text-[#E5ECEA]/80 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center group"
+                  >
+                    <span className="inline-block w-0 group-hover:w-2 transition-all duration-200 h-0.5 bg-primary mr-0 group-hover:mr-2"></span>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact links */}
+          <div className="space-y-6">
+            <h3 className="text-sm font-bold text-zinc-800 dark:text-[#E5ECEA] uppercase tracking-wider">
+              Connect With Us
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <Link 
+                  href="https://api.whatsapp.com/send/?phone=918700169570&text=Hi+CodeSnippet%21&type=phone_number&app_absent=0" 
+                  target="_blank"
+                  className="text-zinc-600 dark:text-[#E5ECEA]/80 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  <span>WhatsApp</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="https://www.instagram.com/codesnippet3/" 
+                  target="_blank"
+                  className="text-zinc-600 dark:text-[#E5ECEA]/80 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <Instagram className="h-4 w-4" />
+                  <span>Instagram</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="https://www.youtube.com/@CODESNIPPET003" 
+                  target="_blank"
+                  className="text-zinc-600 dark:text-[#E5ECEA]/80 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <Youtube className="h-4 w-4" />
+                  <span>YouTube</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="mailto:codesnippet003@gmail.com"
+                  className="text-zinc-600 dark:text-[#E5ECEA]/80 hover:text-primary dark:hover:text-primary transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  <span>Email Us</span>
+                </Link>
+              </li>
+            </ul>
+            
+            <div className="pt-4">
+              <div className="flex space-x-4">
+                {[
+                  { icon: Instagram, href: "https://www.instagram.com/codesnippet3/" },
+                  { icon: Youtube, href: "https://www.youtube.com/@CODESNIPPET003" },
+                  { icon: MessageCircle, href: "https://api.whatsapp.com/send/?phone=918700169570&text=Hi+CodeSnippet%21&type=phone_number&app_absent=0" },
+                ].map((item, index) => (
+                  <Link 
+                    key={index}
+                    href={item.href}
+                    target="_blank"
+                    className="bg-zinc-100 border dark:bg-[#2A2A2A] dark:text-[#E5ECEA]/80 p-2 rounded-full transition-all duration-200 "
+                  >
+                    <item.icon className="h-4 w-4 hover:text-emerald-500" />
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </div>
+        
+        {/* Bottom bar */}
+        <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-[#2A2A2A] flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-zinc-600 dark:text-[#E5ECEA]/60">
+            Copyright © {year} CodeSnippet - All rights reserved
+          </p>
+          
+          <div className="mt-4 md:mt-0 flex items-center space-x-4">
+            <span className="text-sm text-zinc-600 dark:text-[#E5ECEA]/60">
+              Made with ❤️ in India
+            </span>
+          </div>
+        </div>
       </div>
+      
+      {/* Scroll to top button */}
+   <Button
+   onClick={scrollToTop}
+    variant={"outline"}
+    size={"icon"}
+   className='absolute bottom-5 right-4 z-10  rounded-full p-2 shadow-lg hover:scale-110 transition-transform duration-300'
+   >
+    <ArrowUp className="h-6 w-6" />
+   </Button>
     </footer>
   );
 };
