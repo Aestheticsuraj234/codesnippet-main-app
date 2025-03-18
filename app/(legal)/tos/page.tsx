@@ -1,11 +1,11 @@
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Terms of Service | CodeSnippet",
   description: "Learn about CodeSnippet terms and conditions for using our services.",
-}
+};
 
 export default function TermsOfService() {
   return (
@@ -18,7 +18,6 @@ export default function TermsOfService() {
           </Link>
         </Button>
       </div>
-
       <div className="space-y-8">
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Terms and Conditions</h1>
@@ -26,7 +25,6 @@ export default function TermsOfService() {
             Last updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
           </p>
         </div>
-
         <section id="introduction" className="space-y-4">
           <p>
             This website is operated by CodeSnippet. Throughout the site, the terms "we", "us" and "our" refer to
@@ -56,7 +54,6 @@ export default function TermsOfService() {
             those changes.
           </p>
         </section>
-
         <section id="online-store-terms" className="space-y-4">
           <h2 className="text-2xl font-semibold">1. Online Store Terms</h2>
           <p>
@@ -71,7 +68,6 @@ export default function TermsOfService() {
           <p>You must not transmit any worms or viruses or any code of a destructive nature.</p>
           <p>A breach or violation of any of the Terms will result in an immediate termination of your Services.</p>
         </section>
-
         <section id="general-conditions" className="space-y-4">
           <h2 className="text-2xl font-semibold">2. General Conditions</h2>
           <p>We reserve the right to refuse service to anyone for any reason at any time.</p>
@@ -91,7 +87,6 @@ export default function TermsOfService() {
             these Terms.
           </p>
         </section>
-
         <section id="accuracy" className="space-y-4">
           <h2 className="text-2xl font-semibold">3. Accuracy, Completeness, and Timeliness of Information</h2>
           <p>
@@ -107,7 +102,6 @@ export default function TermsOfService() {
             responsibility to monitor changes to our site.
           </p>
         </section>
-
         <section id="modifications" className="space-y-4">
           <h2 className="text-2xl font-semibold">4. Modifications to the Service and Prices</h2>
           <p>
@@ -117,7 +111,6 @@ export default function TermsOfService() {
             Service.
           </p>
         </section>
-
         <section id="products" className="space-y-4">
           <h2 className="text-2xl font-semibold">5. Products or Services</h2>
           <p>
@@ -140,7 +133,6 @@ export default function TermsOfService() {
             obtained by you will meet your expectations, or that any errors in the Service will be corrected.
           </p>
         </section>
-
         <section id="billing" className="space-y-4">
           <h2 className="text-2xl font-semibold">6. Accuracy of Billing and Account Information</h2>
           <p>
@@ -160,7 +152,6 @@ export default function TermsOfService() {
           </p>
           <p>For more detail, please review our Returns Policy.</p>
         </section>
-
         <section id="tools" className="space-y-4">
           <h2 className="text-2xl font-semibold">7. Optional Tools</h2>
           <p>
@@ -177,7 +168,6 @@ export default function TermsOfService() {
             subject to these Terms of Service.
           </p>
         </section>
-
         <section id="third-party" className="space-y-4">
           <h2 className="text-2xl font-semibold">8. Third-Party Links</h2>
           <p>
@@ -195,7 +185,6 @@ export default function TermsOfService() {
             the third-party.
           </p>
         </section>
-
         <section id="user-comments" className="space-y-4">
           <h2 className="text-2xl font-semibold">9. User Comments, Feedback, and Other Submissions</h2>
           <p>
@@ -221,12 +210,10 @@ export default function TermsOfService() {
             take no responsibility and assume no liability for any comments posted by you or any third-party.
           </p>
         </section>
-
         <section id="personal-info" className="space-y-4">
           <h2 className="text-2xl font-semibold">10. Personal Information</h2>
           <p>Your submission of personal information through the store is governed by our Privacy Policy.</p>
         </section>
-
         <section id="errors" className="space-y-4">
           <h2 className="text-2xl font-semibold">11. Errors, Inaccuracies, and Omissions</h2>
           <p>
@@ -244,7 +231,6 @@ export default function TermsOfService() {
             information in the Service or on any related website has been modified or updated.
           </p>
         </section>
-
         <section id="prohibited" className="space-y-4">
           <h2 className="text-2xl font-semibold">12. Prohibited Uses</h2>
           <p>
@@ -263,7 +249,6 @@ export default function TermsOfService() {
             Service or any related website for violating any of the prohibited uses.
           </p>
         </section>
-
         <section id="disclaimer" className="space-y-4">
           <h2 className="text-2xl font-semibold">13. Disclaimer of Warranties; Limitation of Liability</h2>
           <p>
@@ -294,7 +279,6 @@ export default function TermsOfService() {
             maximum extent permitted by law.
           </p>
         </section>
-
         <section id="indemnification" className="space-y-4">
           <h2 className="text-2xl font-semibold">14. Indemnification</h2>
           <p>
@@ -305,7 +289,6 @@ export default function TermsOfService() {
             by reference, or your violation of any law or the rights of a third-party.
           </p>
         </section>
-
         <section id="severability" className="space-y-4">
           <h2 className="text-2xl font-semibold">15. Severability</h2>
           <p>
@@ -315,7 +298,6 @@ export default function TermsOfService() {
             determination shall not affect the validity and enforceability of any other remaining provisions.
           </p>
         </section>
-
         <section id="termination" className="space-y-4">
           <h2 className="text-2xl font-semibold">16. Termination</h2>
           <p>
@@ -331,7 +313,6 @@ export default function TermsOfService() {
             you access to our Services (or any part thereof).
           </p>
         </section>
-
         <section id="entire-agreement" className="space-y-4">
           <h2 className="text-2xl font-semibold">17. Entire Agreement</h2>
           <p>
@@ -344,7 +325,6 @@ export default function TermsOfService() {
             shall not be construed against the drafting party.
           </p>
         </section>
-
         <section id="governing-law" className="space-y-4">
           <h2 className="text-2xl font-semibold">18. Governing Law</h2>
           <p>
@@ -352,7 +332,6 @@ export default function TermsOfService() {
             construed in accordance with the laws of India and jurisdiction of Jaipur, Rajasthan.
           </p>
         </section>
-
         <section id="changes" className="space-y-4">
           <h2 className="text-2xl font-semibold">19. Changes to Terms of Service</h2>
           <p>
@@ -363,7 +342,6 @@ export default function TermsOfService() {
             Terms of Service constitutes acceptance of those changes.
           </p>
         </section>
-
         <section id="contact" className="space-y-4">
           <h2 className="text-2xl font-semibold">20. Contact Information</h2>
           <p>
@@ -375,7 +353,6 @@ export default function TermsOfService() {
             .
           </p>
         </section>
-
         <div className="mt-12 pt-8 border-t">
           <p className="text-center text-muted-foreground">
             By using CodeSnippet services, you acknowledge that you have read and understand these Terms of Service.
@@ -383,6 +360,5 @@ export default function TermsOfService() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
