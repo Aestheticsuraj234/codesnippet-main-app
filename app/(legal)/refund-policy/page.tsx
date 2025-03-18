@@ -94,7 +94,7 @@ export default function RefundPolicy() {
         {/* Contact Information */}
         <div className="mt-12 pt-8 border-t">
           <p className="text-center text-muted-foreground">
-            For any questions regarding our refund policy, please contact us at{" "}
+            For any questions regarding our refund policy, please contact us at&nbsp;
             <Link
               href="mailto:codesnippet003@gmail.com"
               className="text-primary hover:underline"

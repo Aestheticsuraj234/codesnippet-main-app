@@ -27,14 +27,14 @@ export default function TermsOfService() {
         </div>
         <section id="introduction" className="space-y-4">
           <p>
-            This website is operated by CodeSnippet. Throughout the site, the terms "we", "us" and "our" refer to
+            This website is operated by CodeSnippet. Throughout the site, the terms we, us and our refer to
             CodeSnippet. CodeSnippet offers this website, including all information, tools and services available from
             this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices
             stated here.
           </p>
           <p>
-            By visiting our site and/or purchasing something from us, you engage in our "Service" and agree to be bound
-            by the following terms and conditions ("Terms of Service", "Terms"), including those additional terms and
+            By visiting our site and/or purchasing something from us, you engage in our Service and agree to be bound
+            by the following terms and conditions (Terms of Service, Terms), including those additional terms and
             conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all
             users of the site, including without limitation users who are browsers, vendors, customers, merchants,
             and/or contributors of content.
@@ -156,7 +156,7 @@ export default function TermsOfService() {
           <h2 className="text-2xl font-semibold">7. Optional Tools</h2>
           <p>
             We may provide you with access to third-party tools over which we neither monitor nor have any control nor
-            input. You acknowledge and agree that we provide access to such tools "as is" and "as available" without any
+            input. You acknowledge and agree that we provide access to such tools as is and as available without any
             warranties, representations, or conditions of any kind and without any endorsement. We shall have no
             liability whatsoever arising from or relating to your use of optional third-party tools.
           </p>
