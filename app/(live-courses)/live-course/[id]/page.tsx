@@ -2,6 +2,7 @@ import React from 'react'
 import LiveCourseLandingPage from './_components/landing-page'
 import { getCourseById } from '@/action/live-course'
 import { redirect } from 'next/navigation'
+import { db } from '@/lib/db/db'
 
 
 interface Props {
@@ -19,6 +20,21 @@ const LiveCourseIdPage = async (props:Props) => {
   if(!course) {
    return redirect("/dashboard/courses");
   }
+  const couponCode = await db.coupon.findFirst({
+    where:{
+      type:"LIVE_COURSE"
+    },
+    select:{
+      id:true,
+      code:true,
+      discountPercentage:true,
+      type:true,
+      endDate:true,
+      
+    }
+   
+  })
+
 
 
 
@@ -26,6 +42,7 @@ const LiveCourseIdPage = async (props:Props) => {
     <LiveCourseLandingPage
     // @ts-ignore
       course={course}
+      couponCode={couponCode!}
     />
   )
 }

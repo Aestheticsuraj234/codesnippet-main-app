@@ -51,7 +51,7 @@ export const NavbarRoutes = () => {
 
   return (
     <div className="flex justify-between items-center w-full">
-      {!pathname?.includes("/dashboard") && !pathname?.includes("/campus-ambassador")  && !pathname?.includes("/live-course") && (
+      {!pathname?.includes("/dashboard") && !pathname?.includes("/campus-ambassador")   && (
         <div className="flex justify-center items-end p-3 hover:cursor-pointer">
           <ContextMenu>
             <Link href="/" className="flex items-center gap-2 mt-4">

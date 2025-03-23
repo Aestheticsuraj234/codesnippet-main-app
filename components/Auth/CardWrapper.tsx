@@ -40,9 +40,7 @@ export const CardWrapper = ({
           <Social redirectUrl={redirectUrl}/>
         </CardFooter>
       )}
-      <CardFooter>
-        <BackButton href={backButtonHref!} label={backButtonLabel!} />
-      </CardFooter>
+     
     </Card>
   );
 };
