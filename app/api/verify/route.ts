@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
           plan: plan,
           status: 'ACTIVE',
           startDate: new Date(),
-          endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+          endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 3)), // 3 years from now
         },
       });
       if(referalCode){

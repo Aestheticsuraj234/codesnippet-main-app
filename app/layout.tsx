@@ -12,6 +12,7 @@ import { SocketProvider } from "@/providers/socket-provider";
 import Script from "next/script";
 import { BannerDisplay } from "@/features/banner/components/banner-display";
 import Analytics from "@/components/analytics";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -138,6 +139,7 @@ export default async function RootLayout({
               <SocketProvider>
              
                 <ToastProvider />
+                <Toaster  />
                 <ModalProvider />
                 <Analytics  />
                 {children}

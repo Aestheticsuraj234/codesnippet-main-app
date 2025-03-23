@@ -20,23 +20,21 @@ export default function AuthModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Welcome
           </DialogTitle>
         </DialogHeader>
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "login" | "register")} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-1">
             <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
+         
           </TabsList>
           <TabsContent value="login" className="px-6 py-4">
             <LoginForm redirectUrl={`${pathname}`} />
           </TabsContent>
-          <TabsContent value="register" className="px-6 py-4">
-            <RegisterForm redirectUrl={`${pathname}`} />
-          </TabsContent>
+        
         </Tabs>
       </DialogContent>
     </Dialog>
