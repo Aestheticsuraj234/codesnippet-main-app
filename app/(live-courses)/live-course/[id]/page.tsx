@@ -6,14 +6,15 @@ import { db } from '@/lib/db/db';
 import { currentUser } from '@/lib/auth/data/auth';
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 const LiveCourseIdPage = async ({ params }: Props) => {
+  const id = await (params as any).id;
   const user = await currentUser();
-  const course = await getCourseById(params.id);
+  const course = await getCourseById(id);
 
   if (!course) {
     return redirect('/dashboard/courses');
@@ -41,6 +42,7 @@ const LiveCourseIdPage = async ({ params }: Props) => {
     },
   });
 
+  // @ts-ignore
   return <LiveCourseLandingPage course={course} couponCode={couponCode!} />;
 };
 
