@@ -1,65 +1,74 @@
-"use client";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import {
-  IconBrandLinkedin,
-  IconBrandTwitter,
-  IconBrandGithub,
-} from "@tabler/icons-react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Cover } from "../ui/cover";
+"use client"
+import { IconBrandLinkedin, IconBrandTwitter, IconBrandGithub } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import Image from "next/image"
+import { Cover } from "../ui/cover"
 
 type Founder = {
-  quote: string;
-  name: string;
-  designation: string;
-  src: string;
+  quote: string
+  name: string
+  designation: string
+  src: string
   socialLinks: {
-    linkedin?: string;
-    twitter?: string;
-    github?: string;
-  };
-  skills: string[];
-};
+    linkedin?: string
+    twitter?: string
+    github?: string
+  }
+  skills: string[]
+}
 
-export const AnimatedFounders = ({
+export const FoundersGrid = ({
   founders,
-  autoplay = false,
 }: {
-  founders: Founder[];
-  autoplay?: boolean;
+  founders: Founder[]
 }) => {
-  const [active, setActive] = useState(0);
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
 
-  const handleNext = () => {
-    setActive((prev) => (prev + 1) % founders.length);
-  };
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  }
 
-  const handlePrev = () => {
-    setActive((prev) => (prev - 1 + founders.length) % founders.length);
-  };
-
-  const isActive = (index: number) => {
-    return index === active;
-  };
-
-  useEffect(() => {
-    if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [autoplay , handleNext]);
-
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
+  const imageVariants = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      y: -10,
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    },
+  }
 
   return (
     <section
       id="founders"
-      className="min-h-screen w-full py-16 sm:py-20 md:py-24 dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center z-0" // Added z-0
-      style={{ zIndex: 0 }} // Explicitly set z-index
+      className="min-h-screen w-full py-16 sm:py-20 md:py-24 dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none"></div>
@@ -69,180 +78,104 @@ export const AnimatedFounders = ({
         Meet Our <Cover>Founders</Cover>
       </h2>
 
-      {/* Content */}
-      <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-4 md:py-8 relative z-10"> {/* Added relative and z-10 */}
-        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-20">
-          {/* Image Section */}
-          <div className="flex items-center justify-center">
-            <div className="relative h-64 sm:h-80 w-full max-w-xs mx-auto overflow-hidden"> {/* Added overflow-hidden */}
-              <AnimatePresence>
-                {founders.map((founder, index) => (
-                  <motion.div
-                    key={founder.src}
-                    initial={{
-                      opacity: 0,
-                      scale: 0.9,
-                      z: -100,
-                      rotate: randomRotateY(),
-                    }}
-                    animate={{
-                      opacity: isActive(index) ? 1 : 0.7,
-                      scale: isActive(index) ? 1 : 0.95,
-                      z: isActive(index) ? 0 : -100,
-                      rotate: isActive(index) ? 0 : randomRotateY(),
-                      zIndex: isActive(index)
-                        ? 999
-                        : founders.length + 2 - index,
-                      y: isActive(index) ? [0, -80, 0] : 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      scale: 0.9,
-                      z: 100,
-                      rotate: randomRotateY(),
-                    }}
-                    transition={{
-                      duration: 0.4,
-                      ease: "easeInOut",
-                    }}
-                    // @ts-ignore
-                    className="absolute inset-0 origin-bottom"
-                  >
-                    <Image
-                      src={founder.src}
-                      alt={founder.name}
-                      width={500}
-                      height={500}
-                      draggable={false}
-                      className="h-full w-full rounded-3xl object-cover object-center shadow-lg"
-                    />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Content Section */}
-          <div className="flex justify-between flex-col py-4">
+      {/* Founders Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+        // @ts-ignore
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {founders.map((founder, index) => (
             <motion.div
-              key={active}
-              initial={{
-                y: 20,
-                opacity: 0,
-              }}
-              animate={{
-                y: 0,
-                opacity: 1,
-              }}
-              exit={{
-                y: -20,
-                opacity: 0,
-              }}
-              transition={{
-                duration: 0.2,
-                ease: "easeInOut",
-              }}
+              key={founder.name}
+              // @ts-ignore
+              className="bg-white/5 backdrop-blur-sm dark:bg-black/20 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
+              variants={itemVariants}
             >
-              <h3 className="text-xl md:text-2xl font-bold dark:text-white text-black">
-                {founders[active].name}
-              </h3>
-              <p className="text-xs md:text-sm text-gray-500 dark:text-neutral-500">
-                {founders[active].designation}
-              </p>
+              {/* Founder Image */}
+              {/* @ts-ignore */}
+              <motion.div className="relative h-80 w-full overflow-hidden" variants={imageVariants} whileHover="hover">
+                <Image
+                  src={founder.src || "/placeholder.svg"}
+                  alt={founder.name}
+                  width={500}
+                  height={500}
+                  className="h-full w-full  object-scale-down"
+                />
+              </motion.div>
 
-{/* @ts-ignore */}
-              <motion.p className="text-base md:text-lg text-gray-500 mt-4 md:mt-8 dark:text-neutral-300">
-                {founders[active].quote.split(" ").map((word, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{
-                      filter: "blur(10px)",
-                      opacity: 0,
-                      y: 5,
-                    }}
-                    animate={{
-                      filter: "blur(0px)",
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    transition={{
-                      duration: 0.2,
-                      ease: "easeInOut",
-                      delay: 0.02 * index,
-                    }}
-                    // @ts-ignore
-                    className="inline-block"
-                  >
-                    {word}&nbsp;
-                  </motion.span>
-                ))}
-              </motion.p>
+              {/* Founder Info */}
+              <div className="p-6 flex-1 flex flex-col">
+                <div>
+                  <h3 className="text-xl font-bold dark:text-white text-black">{founder.name}</h3>
+                  <p className="text-sm text-gray-500 dark:text-neutral-400">{founder.designation}</p>
+                </div>
 
-              {/* Social Links */}
-              <div className="flex gap-4 mt-4 md:mt-6">
-                {founders[active].socialLinks.linkedin && (
-                  <a
-                    href={founders[active].socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-blue-500 transition-colors"
-                  >
-                    <IconBrandLinkedin className="h-5 w-5 md:h-6 md:w-6" />
-                  </a>
-                )}
-                {founders[active].socialLinks.twitter && (
-                  <a
-                    href={founders[active].socialLinks.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-blue-400 transition-colors"
-                  >
-                    <IconBrandTwitter className="h-5 w-5 md:h-6 md:w-6" />
-                  </a>
-                )}
-                {founders[active].socialLinks.github && (
-                  <a
-                    href={founders[active].socialLinks.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-gray-700 transition-colors"
-                  >
-                    <IconBrandGithub className="h-5 w-5 md:h-6 md:w-6" />
-                  </a>
-                )}
-              </div>
+                {/* Quote - truncated for card view */}
+                <p className="text-sm text-gray-600 dark:text-neutral-300 mt-4 line-clamp-3">{founder.quote}</p>
 
-              {/* Technical Skills */}
-              <div className="mt-4 md:mt-6 flex flex-wrap gap-2">
-                {founders[active].skills.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="bg-gray-200 dark:bg-neutral-700 text-gray-700 dark:text-neutral-300 px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
+                {/* Skills */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {founder.skills.slice(0, 3).map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-gray-200 dark:bg-neutral-700 text-gray-700 dark:text-neutral-300 px-2 py-1 rounded-full text-xs font-medium"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                  {founder.skills.length > 3 && (
+                    <span className="bg-gray-200 dark:bg-neutral-700 text-gray-700 dark:text-neutral-300 px-2 py-1 rounded-full text-xs font-medium">
+                      +{founder.skills.length - 3}
+                    </span>
+                  )}
+                </div>
+
+                {/* Social Links */}
+                <div className="flex gap-4 mt-auto pt-4">
+                  {founder.socialLinks.linkedin && (
+                    <a
+                      href={founder.socialLinks.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-[#08BD80] transition-colors"
+                      aria-label={`${founder.name}'s LinkedIn`}
+                    >
+                      <IconBrandLinkedin className="h-5 w-5" />
+                    </a>
+                  )}
+                  {founder.socialLinks.twitter && (
+                    <a
+                      href={founder.socialLinks.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-[#08BD80] transition-colors"
+                      aria-label={`${founder.name}'s Twitter`}
+                    >
+                      <IconBrandTwitter className="h-5 w-5" />
+                    </a>
+                  )}
+                  {founder.socialLinks.github && (
+                    <a
+                      href={founder.socialLinks.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-[#08BD80] transition-colors"
+                      aria-label={`${founder.name}'s GitHub`}
+                    >
+                      <IconBrandGithub className="h-5 w-5" />
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
-
-            {/* Navigation Buttons */}
-            <div className="flex gap-4 pt-6 md:pt-12 mt-4">
-              <button
-                onClick={handlePrev}
-                className="h-6 w-6 md:h-7 md:w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
-              >
-                <IconArrowLeft className="h-4 w-4 md:h-5 md:w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="h-6 w-6 md:h-7 md:w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
-              >
-                <IconArrowRight className="h-4 w-4 md:h-5 md:w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
-              </button>
-            </div>
-          </div>
-        </div>
+          ))}
+        </motion.div>
       </div>
     </section>
-  );
-};
+  )
+}
+

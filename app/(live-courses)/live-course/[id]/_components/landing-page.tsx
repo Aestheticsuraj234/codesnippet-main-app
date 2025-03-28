@@ -18,6 +18,8 @@ import { ArrowLeft, Star } from "lucide-react"
 import { Hint } from "@/components/Global/hint"
 import { CoursesCouponInput } from "@/features/live-course/components/coupon-input"
 import { CoursePriceBreakdown } from "@/features/live-course/components/price-breakdown"
+import CourseModules from "./course-moudle"
+import PaymentSuccess from "./payment-success"
 
 
 interface Props {
@@ -190,19 +192,7 @@ export default function LiveCourseLandingPage({ course, couponCode }: Props) {
     // show the loading bar with payment is successful and with the messsage of redirecting to the dashboard
     return (
       <>
-       <div className="h-[80px]  fixed inset-y-0 w-full z-50">
-        <Navbar />
-      </div>
-      <div className="min-h-screen bg-white dark:bg-zinc-900 h-screen">
-       
-        <section className="relative py-20 text-center text-white">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-90"></div>
-          <div className="relative container mx-auto px-4">
-            <h1 className="mb-4 text-5xl font-extrabold">Payment Successful</h1>
-            <p className="mb-8 text-xl">Redirecting to the dashboard...</p>
-          </div>
-        </section>
-      </div>
+       <PaymentSuccess />
       </>
     )
   }
@@ -356,45 +346,22 @@ export default function LiveCourseLandingPage({ course, couponCode }: Props) {
         <section className="mb-20">
           <h2 className="mb-8 text-center text-3xl font-semibold">Course Curriculum</h2>
 
-          {/* Desktop view */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentCourseData?.modules.map((module, index) => (
-              <Card key={index} className="flex flex-col">
-                <CardHeader>
-                  <CardTitle className="text-lg">{module.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p>{module.content}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Mobile view */}
-          <Accordion type="single" collapsible className="md:hidden">
-            {currentCourseData?.modules.map((module, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger>{module.title}</AccordionTrigger>
-                <AccordionContent>{module.content}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          {currentCourseData?.modules && <CourseModules modules={currentCourseData.modules} />}
         </section>
-
         <section className="mb-20">
           <h2 className="mb-8 text-center text-3xl font-semibold">Meet Your Instructor</h2>
           <div className="flex flex-col items-center md:flex-row md:items-start md:space-x-8">
             <Avatar className="h-32 w-32">
               <AvatarImage src="https://avatars.githubusercontent.com/u/107530887?v=4" alt="Instructor" />
-              <AvatarFallback>JD</AvatarFallback>
+              <AvatarFallback>SJ</AvatarFallback>
             </Avatar>
             <div>
               <h3 className="mb-2 text-2xl font-semibold">Suraj Jha</h3>
               <p className="mb-4 text-muted-foreground">Full-Stack Developer and Instructor</p>
               <p className="mb-4">
-                Suraj has been working as a full-stack software engineer as a freelancer for the past three years and
+                Suraj has been working as a full-stack software engineer as a freelancer for the past 5 years and
                 has completed more than three internships at Indias biggest tech companies while in college. He has
-                helped over 4,000 students start their web development journey, and he is still in his 3rd year of
+                helped over 10,000 students start their web development journey, and he is still in his 3rd year of
                 college.
               </p>
               <div className="flex items-center space-x-1">
@@ -408,28 +375,9 @@ export default function LiveCourseLandingPage({ course, couponCode }: Props) {
         </section>
 
         <section className="mb-20">
-          <h2 className="mb-8 text-center text-3xl font-semibold">What Our Students Say</h2>
+        <h2 className="mb-8 text-center text-3xl font-semibold">Student Reviews on Our Courses</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Sarah L.",
-                role: "Frontend Developer",
-                content:
-                  "This course was a game-changer for my career. I went from knowing basic HTML to building full-stack applications in just 12 weeks!",
-              },
-              {
-                name: "Michael R.",
-                role: "Startup Founder",
-                content:
-                  "The practical projects and coding challenges in this course prepared me well for real-world development. Highly recommended!",
-              },
-              {
-                name: "Emily T.",
-                role: "Software Engineer",
-                content:
-                  "The instructor's expertise and the comprehensive curriculum make this course stand out. It's intense, but worth every minute and penny.",
-              },
-            ].map((testimonial, index) => (
+            {currentCourseData?.testimonials.map((testimonial, index) => (
               <Card key={index}>
                 <CardContent className="p-6">
                   <p className="mb-4 italic">{testimonial.content}</p>

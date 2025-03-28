@@ -3,7 +3,8 @@ import { Explore } from "@/components/Home/Explore";
 import FAQ from "@/components/Home/FAQ";
 import HeroSection from "@/components/Home/HeroSection";
 import { HowItWorks } from "@/components/Home/HowItWorks";
-import { AnimatedFounders } from "@/components/Home/Instructor";
+import { FoundersGrid } from "@/components/Home/Instructor";
+
 import { SubFeature } from "@/components/Home/SubFeature";
 import { useEffect, useState } from "react";
 
@@ -49,27 +50,27 @@ const Home = () => {
       },
       skills: ["Cloud Architecture", "DevOps", "Backend Development"],
     },
-    {
-      quote:
-        "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
-      name: "Emily Watson",
-      designation: "Operations Director at CloudScale",
-      src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      socialLinks: {
-        linkedin: "https://linkedin.com/in/emilywatson",
-        twitter: "https://twitter.com/emilywatson",
-      },
-      skills: ["Operations Management", "Process Optimization", "Leadership"],
-    },
+    // {
+    //   quote:
+    //     "This solution has significantly improved our team's productivity. The intuitive interface makes complex tasks simple.",
+    //   name: "Ashutosh Jha",
+    //   designation: "MD & Co-Founder at CodeSnippet",
+    //   src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    //   socialLinks: {
+    //     linkedin: "https://linkedin.com/in/emilywatson",
+    //     twitter: "https://twitter.com/emilywatson",
+    //   },
+    //   skills: ["Operations Management", "Process Optimization", "Leadership"],
+    // },
   ];
 
   return (
     <>
       <HeroSection />
-      <HowItWorks />
+      {/* <HowItWorks /> */}
       <Explore />
       {/* <SubFeature /> */}
-      <AnimatedFounders founders={Founder} />
+      <FoundersGrid founders={Founder} />
       <FAQ />
     </>
   );
