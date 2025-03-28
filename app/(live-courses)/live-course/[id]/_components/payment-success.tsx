@@ -96,7 +96,7 @@ export default function PaymentSuccess() {
             </div>
 
             <p className="text-gray-800 dark:text-gray-200 mb-6 text-center">
-              Thank you for your purchase! We're redirecting you to the dashboard where you can access your new content.
+              Thank you for your purchase! We are redirecting you to the dashboard where you can access your new content.
             </p>
 
             <div className="flex justify-between">
