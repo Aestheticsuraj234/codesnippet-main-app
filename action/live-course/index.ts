@@ -44,7 +44,8 @@ export const getAllCourses = async ()=>{
 
 export const getCourseById = async (id:string)=>{
 
-    const course = await db.courses.findUnique({
+  
+const course = await db.courses.findUnique({
         where:{
             id
         },
@@ -58,6 +59,7 @@ export const getCourseById = async (id:string)=>{
              startDate:true,
              price:true,
              discount:true,
+             purchaseByUser:true
         }
     })
 
