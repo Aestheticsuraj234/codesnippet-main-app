@@ -1,4 +1,4 @@
-"use client";
+import React from "react";
 import { Crown, LockKeyhole, ShieldEllipsis } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -6,6 +6,7 @@ import { useCurrentUser } from "@/hooks/auth/use-current-user";
 import { UserRole } from "@prisma/client";
 import { useEffect, useMemo, useState } from "react";
 import { getSubscription } from "@/action/subscription";
+import { cn } from "@/lib/utils";
 
 type SubscriptionData = {
   endDate: string;
@@ -13,23 +14,45 @@ type SubscriptionData = {
   plan: string;
 };
 
-export const UpgradeButton = () => {
+export const UpgradeButton = React.memo(() => {
   const [subscribedTo, setSubscribedTo] = useState<SubscriptionData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const currentUser = useCurrentUser();
 
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchSubscription() {
-      if (currentUser) {
+      // Only fetch if there's a valid currentUser and no existing subscription data
+      if (!currentUser || subscribedTo) return;
+
+      setIsLoading(true);
+      try {
         const res = await getSubscription();
-        // @ts-ignore
-        setSubscribedTo(res?.subscribedTo);
+        if (isMounted && res?.subscribedTo) {
+          setSubscribedTo({
+            ...res.subscribedTo,
+            endDate: res.subscribedTo.endDate ? res.subscribedTo.endDate.toString() : "",
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch subscription:", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
 
-    if (currentUser) {
+    // Fetch subscription only if currentUser is available and no subscription data exists
+    if (currentUser && !subscribedTo) {
       fetchSubscription();
     }
-  }, [currentUser]); // Only run when `currentUser` changes
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentUser, subscribedTo]); // Add `subscribedTo` to prevent unnecessary re-fetching
 
   const isPremiumActiveUser = useMemo(
     () =>
@@ -39,61 +62,79 @@ export const UpgradeButton = () => {
     [subscribedTo, currentUser]
   );
 
-  const ButtonText = isPremiumActiveUser ? "Premium User" : "Upgrade to Pro";
-  const ButtonIcon = isPremiumActiveUser ? <Crown size={20} /> : <LockKeyhole size={20} />;
-  const ButtonVariant = isPremiumActiveUser ? "premium" : "brand";
-
-  // Memoize the admin check to prevent unnecessary calculations
   const isAdmin = useMemo(() => currentUser?.role === UserRole.ADMIN, [currentUser]);
-  // Memoize the premium user check to prevent unnecessary calculations
   const isProUser = useMemo(() => currentUser?.role === UserRole.PREMIUM_USER, [currentUser]);
-  // Memoize the free user check to prevent unnecessary calculations
   const isFreeUser = useMemo(() => currentUser?.role === UserRole.USER, [currentUser]);
 
+  const buttonConfig = useMemo(() => {
+    if (isAdmin) {
+      return {
+        href: "https://admin.codesnipet.dev",
+        variant: "destructive",
+        icon: <ShieldEllipsis size={20} />,
+        text: "Admin Dashboard",
+        external: true,
+      };
+    }
 
-  if (isAdmin) {
+    if (isProUser) {
+      return {
+        href: "/pricing",
+        variant: isPremiumActiveUser ? "premium" : "brand",
+        icon: <Crown size={20} />,
+        text: "Premium User",
+        external: false,
+      };
+    }
+
+    return {
+      href: "/pricing",
+      variant: "brand",
+      icon: <LockKeyhole size={20} />,
+      text: "Upgrade to Pro",
+      external: false,
+    };
+  }, [isAdmin, isProUser, isPremiumActiveUser]);
+
+  if (isLoading) {
     return (
-      <Link href={"#"} passHref>
-        <Button
-          variant={"destructive"}
-          size={"default"}
-          className="flex flex-1 justify-center items-center gap-2"
+      <Button
+        variant="outline"
+        size="default"
+        className="flex flex-1 justify-center items-center gap-2 animate-pulse"
+        disabled
+      >
+        <span className="h-5 w-5 rounded-full bg-muted"></span>
+        <span className="h-4 w-20 rounded bg-muted sm:inline-block hidden"></span>
+      </Button>
+    );
+  }
+
+  return (
+    <Link href={buttonConfig.href} passHref target={buttonConfig.external ? "_blank" : undefined} className="flex-1">
+      <Button
+        variant={buttonConfig.variant as any}
+        size="default"
+        className={cn(
+          "flex justify-center items-center gap-2 w-full transition-all duration-300 hover:shadow-md",
+          "group overflow-hidden"
+        )}
+      >
+        <span className={cn("transition-transform duration-300 group-hover:scale-110")}>
+          {buttonConfig.icon}
+        </span>
+        <span
+          className={cn(
+            "font-bold transition-opacity duration-300",
+            "hidden sm:inline-block" // Hide text on small screens, show on sm and above
+          )}
         >
-          <ShieldEllipsis size={20} />
-          <span className="font-bold">Admin Dashboard</span>
-        </Button>
-      </Link>
-    );
-  }
-
-  if(isProUser){
-    return (
-      <Link href={"/pricing"}>
-      <Button
-        variant={ButtonVariant}
-        size={"default"}
-        className="flex flex-1 justify-center items-center gap-2"
-      >
-        {ButtonIcon}
-        <span className="font-bold">{ButtonText}</span>
+          {buttonConfig.text}
+        </span>
       </Button>
     </Link>
-    );
-  }
+  );
+});
 
-  if(isFreeUser){
-    return (
-      <Link href={"/pricing"}>
-      <Button
-        variant={ButtonVariant}
-        size={"default"}
-        className="flex flex-1 justify-center items-center gap-2"
-      >
-        {ButtonIcon}
-        <span className="font-bold">{ButtonText}</span>
-      </Button>
-    </Link>
-    );
-  }
-  
-};
+// Add display name for better debugging
+UpgradeButton.displayName = "UpgradeButton";
