@@ -10,13 +10,11 @@ const Profile = async () => {
   // Fetch current user
   const currentUserData = await currentUser();
 
-  if (!currentUserData?.id) {
-    throw new Error("User not found");
-  }
+  
 
   // Fetch user profile data
   const user = await db.user.findUnique({
-    where: { id: currentUserData.id },
+    where: { id: currentUserData?.id },
     select: {
       id: true,
       name: true,
