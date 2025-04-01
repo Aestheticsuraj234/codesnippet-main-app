@@ -44,7 +44,7 @@ const Profile = async () => {
 
   // Fetch user notes
   const notes = await db.note.findMany({
-    where: { userId: currentUserData.id },
+    where: { userId: currentUserData?.id },
     select: {
       note: true,
       createdAt: true,
@@ -70,7 +70,7 @@ const Profile = async () => {
   // Fetch workshop progress data
   const workshopProgressData = await db.workshopDayProgress.findMany({
     where: {
-      userId: currentUserData.id,
+      userId: currentUserData?.id,
       createdAt: { gte: startDate, lte: endDate },
       markedAsDone: true,
     },
@@ -81,7 +81,7 @@ const Profile = async () => {
   // Fetch chapter progress data
   const chapterProgressData = await db.chapterProgress.findMany({
     where: {
-      userId: currentUserData.id,
+      userId: currentUserData?.id,
       createdAt: { gte: startDate, lte: endDate },
       markedAsDone: true,
     },
