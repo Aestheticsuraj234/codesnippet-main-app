@@ -32,15 +32,15 @@ const Profile = async () => {
     },
   });
 
-  if (!user) {
-    throw new Error("User data not found");
-  }
+
 
   // Normalize campusAmbassador to ensure it's always an array
-  const normalizedUser = {
-    ...user,
-    campusAmbassador: Array.isArray(user.campusAmbassador) ? user.campusAmbassador : [],
-  };
+  const normalizedUser = user
+    ? {
+        ...user,
+        campusAmbassador: Array.isArray(user.campusAmbassador) ? user.campusAmbassador : [],
+      }
+    : null;
 
   // Fetch user notes
   const notes = await db.note.findMany({
