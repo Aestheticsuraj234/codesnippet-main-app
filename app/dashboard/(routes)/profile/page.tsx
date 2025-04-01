@@ -4,33 +4,15 @@ import { currentUser } from "@/lib/auth/data/auth";
 import { db } from "@/lib/db/db";
 import NotesClient from "./_components/notes-client";
 import ContributionGraph from "./_components/contribution-graph";
-import { subDays, startOfDay, endOfDay } from "date-fns";
+import { subDays, startOfDay } from "date-fns";
+import { getChapterProgressData, getNotes, getUserDataWithAmbassador, getworkshopProgressData } from "@/action/profile";
 
 const Profile = async () => {
   // Fetch current user
   const currentUserData = await currentUser();
 
   
-
-  // Fetch user profile data
-  const user = await db.user.findUnique({
-    where: { id: currentUserData?.id },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      createdAt: true,
-      image: true,
-      campusAmbassador: {
-        select: {
-          id: true,
-          campusName: true,
-          mobileNumber: true,
-          points: true,
-        },
-      },
-    },
-  });
+const user = await getUserDataWithAmbassador()
 
 
 
@@ -42,57 +24,23 @@ const Profile = async () => {
       }
     : null;
 
-  // Fetch user notes
-  const notes = await db.note.findMany({
-    where: { userId: currentUserData?.id },
-    select: {
-      note: true,
-      createdAt: true,
-      subTopic: {
-        select: {
-          id: true,
-          topic: {
-            select: {
-              technologyId: true,
-              id: true,
-            },
-          },
-          title: true,
-        },
-      },
-    },
-  });
+ const notes = await getNotes()
 
   // Define date range for activity (last 365 days)
   const endDate = new Date();
-  const startDate = subDays(endDate, 364);
+ 
 
   // Fetch workshop progress data
-  const workshopProgressData = await db.workshopDayProgress.findMany({
-    where: {
-      userId: currentUserData?.id,
-      createdAt: { gte: startDate, lte: endDate },
-      markedAsDone: true,
-    },
-    select: { createdAt: true },
-    orderBy: { createdAt: "desc" },
-  });
-
+  const workshopProgressData = await getworkshopProgressData() 
   // Fetch chapter progress data
-  const chapterProgressData = await db.chapterProgress.findMany({
-    where: {
-      userId: currentUserData?.id,
-      createdAt: { gte: startDate, lte: endDate },
-      markedAsDone: true,
-    },
-    select: { createdAt: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const chapterProgressData = await getChapterProgressData()
 
   // Prepare contribution data for the past 365 days
   const contributionData = Array.from({ length: 365 }, (_, i) => {
     const date = startOfDay(subDays(endDate, i));
+    // @ts-ignore
     const workshopProgress = workshopProgressData.filter(
+      // @ts-ignore
       (progress) =>
         startOfDay(progress.createdAt).getTime() === date.getTime()
     ).length;
