@@ -19,12 +19,12 @@ import { SidebarItem } from "./sidebar-items";
 const Routes = [
   {
     icon: Home,
-    label: "Home",
+    label: "My Dashboard",
     href: "/dashboard",
   },
   {
     icon:GraduationCap ,
-    label: "Tutorials",
+    label: "Recorded Tutorials",
     href: "/dashboard/tutorials",
   },
   {
@@ -34,7 +34,7 @@ const Routes = [
   },
   {
     icon:School,
-    label: "Courses",
+    label: "Live Courses",
     href: "/dashboard/courses",
   },
   {

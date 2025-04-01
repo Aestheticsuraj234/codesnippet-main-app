@@ -11,6 +11,31 @@ body {
   pointer-events: auto !important;
 }
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .drop-shadow-glow {
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s infinite;
+  }
+
+  @keyframes pulse-subtle {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  }
+}
 
 
 @layer base {

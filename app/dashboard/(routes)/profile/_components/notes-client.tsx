@@ -39,7 +39,7 @@ const NotesClient = ({ notes }: Props) => {
             <Link href="/dashboard/tutorials" passHref>
               <Button variant="brand" size="sm" className="mt-4">
                 <BookOpen className="mr-2 h-4 w-4" />
-                Explore Tutorial
+                Explore Recorded Tutorial
               </Button>
             </Link>
           </div>

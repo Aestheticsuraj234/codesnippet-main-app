@@ -1,5 +1,5 @@
 "use client";
-import { Crown, LogOut, User } from "lucide-react";
+import { Crown, LogOut, University, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ import LogoutButton from "./LogoutButton";
 import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { getSubscription } from "@/action/subscription";
+import Link from "next/link";
 
 export const UserButton = () => {
   const [subscribedTo, setSubscribedTo] = useState();
@@ -71,13 +72,26 @@ export const UserButton = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <LogoutButton>
-          <DropdownMenuItem>
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </DropdownMenuItem>
-        </LogoutButton>
-      </DropdownMenuContent>
+  <Link href="/dashboard">
+    <DropdownMenuItem>
+      <University className="h-4 w-4 mr-2" />
+      My Dashboard
+    </DropdownMenuItem>
+  </Link>
+  <Link href="/dashboard/profile">
+    <DropdownMenuItem>
+      <User className="h-4 w-4 mr-2" />
+      My Profile
+    </DropdownMenuItem>
+  </Link>
+  <LogoutButton>
+    <DropdownMenuItem>
+      <LogOut className="h-4 w-4 mr-2" />
+      Logout
+    </DropdownMenuItem>
+  </LogoutButton>
+</DropdownMenuContent>
+
     </DropdownMenu>
   );
 };

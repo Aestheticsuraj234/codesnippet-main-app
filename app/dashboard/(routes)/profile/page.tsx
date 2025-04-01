@@ -31,13 +31,18 @@ const Profile = async () => {
           points: true,
         },
       },
-  
     },
   });
 
   if (!user) {
     throw new Error("User data not found");
   }
+
+  // Normalize campusAmbassador to ensure it's always an array
+  const normalizedUser = {
+    ...user,
+    campusAmbassador: Array.isArray(user.campusAmbassador) ? user.campusAmbassador : [],
+  };
 
   // Fetch user notes
   const notes = await db.note.findMany({
@@ -60,8 +65,6 @@ const Profile = async () => {
     },
   });
 
-
-
   // Define date range for activity (last 365 days)
   const endDate = new Date();
   const startDate = subDays(endDate, 364);
@@ -77,7 +80,6 @@ const Profile = async () => {
     orderBy: { createdAt: "desc" },
   });
 
-
   // Fetch chapter progress data
   const chapterProgressData = await db.chapterProgress.findMany({
     where: {
@@ -88,8 +90,6 @@ const Profile = async () => {
     select: { createdAt: true },
     orderBy: { createdAt: "desc" },
   });
-
-  
 
   // Prepare contribution data for the past 365 days
   const contributionData = Array.from({ length: 365 }, (_, i) => {
@@ -103,7 +103,6 @@ const Profile = async () => {
         startOfDay(progress.createdAt).getTime() === date.getTime()
     ).length;
 
-   
     return {
       date,
       count: workshopProgress + chapterProgress,
@@ -111,14 +110,10 @@ const Profile = async () => {
     };
   });
 
- 
-
-
-
   return (
     <main className="flex flex-1 flex-col px-4 py-4">
       {/* @ts-ignore */}
-      <ProfileComponent user={user} />
+      <ProfileComponent user={normalizedUser} />
       <NotesClient notes={notes} />
       <ContributionGraph contributions={contributionData} />
     </main>
