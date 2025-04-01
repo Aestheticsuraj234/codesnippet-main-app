@@ -28,6 +28,7 @@ const ProfileEditPage = async({params}:{params:Promise<{userId:string}>}) => {
         }
     })
 
+    console.log(profileDataById);
 
   return (
     <div className='flex items-center justify-center mt-10'>

@@ -36,14 +36,14 @@ type ProfileUpdateFormProps = {
     name: string;
     email: string;
     image: string;
-    campusAmbassador: {
+    campusAmbassador?: {
       campusName: string;
       fullName: string;
       mobileNumber: string;
       id: string;
       upiId: string;
     }[];
-  } | null;
+  }
 };
 
 const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
@@ -56,13 +56,13 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
     defaultValues: {
       name: data?.name || "",
       email: data?.email || "",
-      campusName: data?.campusAmbassador[0]?.campusName || "",
-      fullName: data?.campusAmbassador[0]?.fullName || "",
-      mobileNumber: data?.campusAmbassador[0]?.mobileNumber || "",
-      upiId: data?.campusAmbassador[0]?.upiId || "",
+      campusName: data?.campusAmbassador?.[0]?.campusName ?? "",
+      fullName: data?.campusAmbassador?.[0]?.fullName ?? "",
+      mobileNumber: data?.campusAmbassador?.[0]?.mobileNumber ?? "",
+      upiId: data?.campusAmbassador?.[0]?.upiId ?? "",
     },
   });
-
+console.log(form.formState.errors);
   // Handle missing or invalid data
   if (!data) {
     return (
@@ -70,41 +70,6 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
         <p>No profile data found</p>
       </div>
     );
-  }
-
-  // Extract campus ambassador data or provide defaults
-  const campusData = data.campusAmbassador[0] || {
-    campusName: "",
-    fullName: "",
-    mobileNumber: "",
-    upiId: "",
-  };
-
- 
-
-  // Handle form submission
-  async function onSubmit(values: z.infer<typeof ProfileUpdateFormSchema>) {
-  
-    try {
-      setIsLoading(true);
-      let response;
-      if (data) {
-        response = await updateUserProfileById(data.id, values, data.campusAmbassador[0]?.id);
-      }
-
-      // Handle success
-      if (response && response.error) {
-        toast.error(response.error);
-      } else {
-        toast.success("Profile updated successfully");
-        router.push("/dashboard/profile");
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      toast.error("Failed to update profile");
-    } finally {
-      setIsLoading(false);
-    }
   }
 
   // Helper function to generate initials
@@ -115,6 +80,41 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
       .join("")
       .toUpperCase();
   };
+
+  // Handle form submission
+  async function onSubmit(values: z.infer<typeof ProfileUpdateFormSchema>) {
+    try {
+        setIsLoading(true);
+
+        // Filter out campusAmbassador data if none exists
+        const filteredValues = {
+            name: values.name,
+            email: values.email,
+            campusName: values.campusName || undefined,
+            fullName: values.fullName || undefined,
+            mobileNumber: values.mobileNumber || undefined,
+            upiId: values.upiId || undefined,
+        };
+
+        let response;
+        if (data) {
+            response = await updateUserProfileById(data.id, filteredValues);
+        }
+
+        // Handle success
+        if (response && response.error) {
+            toast.error(response.error);
+        } else {
+            toast.success("Profile updated successfully");
+            router.push("/dashboard/profile");
+        }
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        toast.error("Failed to update profile");
+    } finally {
+        setIsLoading(false);
+    }
+}
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 animate-fade-in">
@@ -137,7 +137,6 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
             </div>
           </div>
         </CardHeader>
-
         {/* Form */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -182,96 +181,96 @@ const ProfileUpdateForm = ({ data }: ProfileUpdateFormProps) => {
                   />
                 </div>
               </div>
-
               <Separator />
 
-              {/* Campus Ambassador Details Section */}
-              <div className="space-y-4 animate-slide-up" style={{ animationDelay: "200ms" }}>
-                <div className="flex items-center gap-2 mb-4">
-                  <Mail className="w-5 h-5 text-primary" />
-                  <h3 className="text-lg font-medium">Campus Ambassador Details</h3>
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="campusName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Campus Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Your campus name"
-                            {...field}
-                            className="input-transition"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="fullName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Your full name"
-                            {...field}
-                            className="input-transition"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <FormField
-                    control={form.control}
-                    name="mobileNumber"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Mobile Number</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+              {/* Conditionally Render Campus Ambassador Details */}
+              {data.campusAmbassador && data.campusAmbassador.length > 0 && (
+                <div className="space-y-4 animate-slide-up" style={{ animationDelay: "200ms" }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Mail className="w-5 h-5 text-primary" />
+                    <h3 className="text-lg font-medium">Campus Ambassador Details</h3>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="campusName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Campus Name</FormLabel>
+                          <FormControl>
                             <Input
-                              placeholder="Your mobile number"
+                              placeholder="Your campus name"
                               {...field}
-                              className="pl-10 input-transition"
+                              className="input-transition"
                             />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="upiId"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>UPI ID</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            <CreditCard className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="fullName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Full Name</FormLabel>
+                          <FormControl>
                             <Input
-                              placeholder="Your UPI ID"
+                              placeholder="Your full name"
                               {...field}
-                              className="pl-10 input-transition"
+                              className="input-transition"
                             />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="mobileNumber"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Mobile Number</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                              <Input
+                                placeholder="Your mobile number"
+                                {...field}
+                                className="pl-10 input-transition"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="upiId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>UPI ID</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <CreditCard className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                              <Input
+                                placeholder="Your UPI ID"
+                                {...field}
+                                className="pl-10 input-transition"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </CardContent>
-
             {/* Submit Button */}
             <CardFooter className="pt-2 pb-6 animate-slide-up" style={{ animationDelay: "300ms" }}>
               <Button

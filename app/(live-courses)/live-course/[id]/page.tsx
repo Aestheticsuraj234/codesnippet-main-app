@@ -32,7 +32,7 @@ const LiveCourseIdPage = async ({ params }: Props) => {
   }
 
   const couponCode = await db.coupon.findFirst({
-    where: { type: 'LIVE_COURSE' },
+    where: { type: 'LIVE_COURSE' , endDate: { gt: new Date() } },
     select: {
       id: true,
       code: true,

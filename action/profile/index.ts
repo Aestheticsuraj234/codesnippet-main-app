@@ -6,8 +6,7 @@ import { z } from "zod";
 
 export const updateUserProfileById = async (
     userId: string,
-    data: z.infer<typeof ProfileUpdateFormSchema>,
-    campusAmbassadorId: string
+    data: z.infer<typeof ProfileUpdateFormSchema>
 ) => {
     try {
         // Validate user ID
@@ -27,33 +26,57 @@ export const updateUserProfileById = async (
         }
 
         // Check if the user exists
-        const existingUser = await db.user.findUnique({ where: { id: userId } });
+        const existingUser = await db.user.findUnique({
+            where: { id: userId },
+            include: {
+                campusAmbassador: true, // Include campusAmbassador to check if it exists
+            },
+        });
+
         if (!existingUser) {
             return { error: "User not found" };
         }
 
-        
+        // Determine if campusAmbassador data is provided
+        const hasCampusAmbassadorData =
+            data.campusName || data.fullName || data.mobileNumber || data.upiId;
+
+        // Prepare the update payload
+        const updatePayload = {
+            name: data.name,
+            email: data.email,
+            campusAmbassador: hasCampusAmbassadorData
+                ? existingUser.campusAmbassador
+                    ? {
+                          update: {
+                            // @ts-ignore
+                              where: { id: existingUser.campusAmbassador.id },
+                              data: {
+                                  campusName: data.campusName,
+                                  fullName: data.fullName,
+                                  mobileNumber: data.mobileNumber,
+                                  upiId: data.upiId,
+                              },
+                          },
+                      }
+                    : {
+                          create: {
+                              campusName: data.campusName,
+                              fullName: data.fullName,
+                              mobileNumber: data.mobileNumber,
+                              upiId: data.upiId,
+                          },
+                      }
+                : undefined, // Skip campusAmbassador update if no data is provided
+        };
 
         // Update the user's profile
         const updatedUser = await db.user.update({
             where: { id: userId },
-            data: {
-                name:data.name,
-                email:data.email,
-                campusAmbassador: {
-                    update: {
-                        where: { id: campusAmbassadorId }, // Ensure the campusAmbassador ID matches
-                        data: {
-                            campusName: data.campusName,
-                            fullName: data.fullName,
-                            mobileNumber: data.mobileNumber,
-                            upiId: data.upiId,
-                        },
-                    },
-                },
-            },
+            // @ts-ignore
+            data: updatePayload,
             include: {
-                campusAmbassador: true, // Include the updated campusAmbassador details in the response
+                campusAmbassador: true, // Include the updated/created campusAmbassador details
             },
         });
 

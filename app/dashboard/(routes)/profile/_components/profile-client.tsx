@@ -21,7 +21,7 @@ interface Props {
     email: string;
     createdAt: Date;
     image: string;
-    campusAmbassador: [
+    campusAmbassador?: [
       {
         id: string;
         campusName: string;
@@ -29,7 +29,6 @@ interface Props {
         points: number;
       }
     ];
-
     notes: string[]; // Assuming notes are a list of strings
   };
 }
@@ -51,23 +50,22 @@ const ProfileClient = ({ user }: Props) => {
               </AvatarFallback>
             </Avatar>
             <Link href={`/dashboard/profile/edit/${user.id}`}>
-            <Hint
-              label="Edit Profile"
-              align="center"
-              side="left"
-              alignOffset={5}
-              sideOffset={5}
-            >
-              <Button
-                variant="outline"
-                size="icon"
-                className="absolute top-4 right-4 bg-background/50 backdrop-blur-sm transition-all duration-300 hover:bg-background/80"
+              <Hint
+                label="Edit Profile"
+                align="center"
+                side="left"
+                alignOffset={5}
+                sideOffset={5}
               >
-                <Pencil size={18} />
-              </Button>
-            </Hint>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="absolute top-4 right-4 bg-background/50 backdrop-blur-sm transition-all duration-300 hover:bg-background/80"
+                >
+                  <Pencil size={18} />
+                </Button>
+              </Hint>
             </Link>
-            
           </div>
           <div className="pt-20 px-6 pb-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-6">
@@ -92,62 +90,49 @@ const ProfileClient = ({ user }: Props) => {
             </div>
 
             {/* Conditionally render Campus Ambassador section */}
-            {user.campusAmbassador && user.campusAmbassador.length > 0 && (
-              <div className="bg-primary/5 rounded-lg p-4 space-y-4 transition-all duration-300 hover:bg-primary/10">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold flex items-center">
-                    <GraduationCap size={20} className="mr-2 text-primary" />
-                    Campus Ambassador
-                  </h3>
-                  <Badge
-                    variant="secondary"
-                    className="transition-all duration-300 hover:bg-secondary-foreground hover:text-secondary"
-                  >
-                    {user.campusAmbassador[0]?.campusName}
-                  </Badge>
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex items-center group">
-                    <Smartphone
-                      size={16}
-                      className="mr-2 text-indigo-400 group-hover:text-indigo-500 transition-colors duration-300"
-                    />
-                    <span className="text-sm group-hover:text-primary transition-colors duration-300">
-                      {user.campusAmbassador[0]?.mobileNumber}
-                    </span>
+            {Array.isArray(user.campusAmbassador) &&
+              user.campusAmbassador.length > 0 && (
+                <div className="bg-primary/5 rounded-lg p-4 space-y-4 transition-all duration-300 hover:bg-primary/10">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold flex items-center">
+                      <GraduationCap size={20} className="mr-2 text-primary" />
+                      Campus Ambassador
+                    </h3>
+                    <Badge
+                      variant="secondary"
+                      className="transition-all duration-300 hover:bg-secondary-foreground hover:text-secondary"
+                    >
+                      {user.campusAmbassador[0]?.campusName}
+                    </Badge>
                   </div>
-                  <div className="flex items-center group">
-                    <Award
-                      size={16}
-                      className="mr-2 text-yellow-400 group-hover:text-yellow-500 transition-colors duration-300"
-                    />
-                    <span className="text-sm group-hover:text-primary transition-colors duration-300">
-                      {user.campusAmbassador[0]?.points} Points
-                    </span>
+                  <div className="flex flex-wrap gap-4">
+                    <div className="flex items-center group">
+                      <Smartphone
+                        size={16}
+                        className="mr-2 text-indigo-400 group-hover:text-indigo-500 transition-colors duration-300"
+                      />
+                      <span className="text-sm group-hover:text-primary transition-colors duration-300">
+                        {user.campusAmbassador[0]?.mobileNumber}
+                      </span>
+                    </div>
+                    <div className="flex items-center group">
+                      <Award
+                        size={16}
+                        className="mr-2 text-yellow-400 group-hover:text-yellow-500 transition-colors duration-300"
+                      />
+                      <span className="text-sm group-hover:text-primary transition-colors duration-300">
+                        {user.campusAmbassador[0]?.points} Points
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </CardContent>
       </Card>
 
-
-      {/* Conditionally render Notes section */}
-      {user.notes && user.notes.length > 0 && (
-        <Card className="overflow-hidden bg-[#F3F4F6] border-[#E5E7EB] dark:bg-[#27272A] dark:border-[#3F3F46] shadow-lg transition-all duration-300 hover:shadow-xl">
-          <CardContent className="p-6">
-            <h3 className="text-2xl font-bold mb-4">Notes</h3>
-            <ul className="list-disc pl-5">
-              {user.notes.map((note, index) => (
-                <li key={index} className="text-muted-foreground">
-                  {note}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-      )}
+    
+  
     </div>
   );
 };
